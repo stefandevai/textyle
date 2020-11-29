@@ -23,10 +23,10 @@ yarn-debug.log*
 yarn-error.log*
 
 # Rust / WASM
-/canvas/target
-/canvas/**/*.rs.bk
-/canvas/Cargo.lock
-/canvas/bin/
-/canvas/pkg/
-/canvas/wasm-pack.log
+/src/canvas/target
+/src/canvas/**/*.rs.bk
+/src/canvas/Cargo.lock
+/src/canvas/bin/
+/src/canvas/pkg/
+/src/canvas/wasm-pack.log
 

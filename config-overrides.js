@@ -22,9 +22,9 @@ module.exports = override(
   config => {
     config.plugins = (config.plugins || []).concat([
       new WasmPackPlugin({
-        crateDirectory: path.resolve(__dirname, "./canvas"),
+        crateDirectory: path.resolve(__dirname, "./src/canvas"),
         extraArgs: "--no-typescript",
-        outDir: path.resolve(__dirname, "./src/canvasWasm")
+        outDir: path.resolve(__dirname, "./src/canvas-wasm")
       })
     ]);
 
