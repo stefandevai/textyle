@@ -37,19 +37,25 @@ export default class Batch2D {
     this.vertices = new Float32Array(totalFloats);
     this.indices = createIndices(indicesSize);
 
+    this.VAO = this.gl.createVertexArray();
     this.VBO = this.gl.createBuffer();
+    this.EBO = this.gl.createBuffer();
+
+    this.gl.bindVertexArray(this.VAO);
+
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.VBO);
     this.gl.bufferData(this.gl.ARRAY_BUFFER, this.vertices, this.gl.DYNAMIC_DRAW);
 
     // Position
-    this.gl.vertexAttribPointer(0, 2, this.gl.FLOAT, false, bytesPerVertex, 0);
-    this.gl.enableVertexAttribArray(0);
+    const locPosition = this.gl.getAttribLocation(this.shaderProgram.id, 'aPosition');
+    this.gl.vertexAttribPointer(locPosition, 2, this.gl.FLOAT, false, bytesPerVertex, 0);
+    this.gl.enableVertexAttribArray(locPosition);
 
     // Color
-    this.gl.vertexAttribPointer(1, 4, this.gl.FLOAT, false, bytesPerVertex, 2 * 4);
-    this.gl.enableVertexAttribArray(1);
+    const locColor = this.gl.getAttribLocation(this.shaderProgram.id, 'aColor');
+    this.gl.vertexAttribPointer(locColor, 4, this.gl.FLOAT, false, bytesPerVertex, 2 * 4);
+    this.gl.enableVertexAttribArray(locColor);
 
-    this.EBO = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.EBO);
     this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, this.indices, this.gl.STATIC_DRAW);
 
@@ -58,6 +64,10 @@ export default class Batch2D {
 
     // Used for rendering
     this.indexCount = 0;
+  }
+
+  begin = () => {
+    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.VBO);
   }
 
   emplace = (sprite) => {
@@ -110,9 +120,7 @@ export default class Batch2D {
       return;
     }
 
-    //this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.VBO);
-    //this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.EBO);
-
+    this.gl.bindVertexArray(this.VAO);
     this.gl.drawElements(this.gl.TRIANGLES, this.indexCount, this.gl.UNSIGNED_SHORT, 0);
     this.indexCount = 0;
   }

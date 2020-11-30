@@ -46,8 +46,6 @@ export default class TilesetManager extends Component {
   }
 
   render() {
-    let imageData = null;
-
     return (
       <>
         <h1>Tileset</h1>

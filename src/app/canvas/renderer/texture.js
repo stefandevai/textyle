@@ -7,7 +7,7 @@ export async function getImageBitmap(name) {
     return;
   }
 
-  return createImageBitmap(fileData, { premultiplyAlpha: 'none', colorSpaceConversion: 'none' });
+  return createImageBitmap(fileData);
 }
 
 export function createTexture(gl, name) {
@@ -19,6 +19,10 @@ export function createTexture(gl, name) {
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
 
   getImageBitmap(name).then(data => {
+    if (!data) {
+      return;
+    }
+
     gl.bindTexture(gl.TEXTURE_2D, id);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, data);
 
