@@ -1,6 +1,10 @@
 import ShaderProgram from './shader';
 import Batch2D from './batch2d';
 import { mat4 } from 'gl-matrix';
+import {
+  VERTEX_SHADER_SOURCE,
+  FRAGMENT_SHADER_SOURCE,
+} from '../../../store/constants';
 
 class Renderer {
   init = (gl) => {
@@ -9,22 +13,7 @@ class Renderer {
       return;
     }
 
-    const vertexSource = `attribute vec2 aVertexPosition;
-
-      uniform mat4 uModelViewMatrix;
-      uniform mat4 uProjectionMatrix;
-
-      void main() {
-        gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aVertexPosition, 0.0, 1.0);
-      }
-      `;
-
-    const fragmentSource = `void main() {
-        gl_FragColor = vec4(9.0, 0.3, 0.6, 1.0);
-      }
-      `;
-
-    this.shaderProgram = new ShaderProgram(this.gl, vertexSource, fragmentSource);
+    this.shaderProgram = new ShaderProgram(this.gl, VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE);
     this.shaderProgram.use();
 
     const projectionMatrix = mat4.create();
@@ -35,7 +24,7 @@ class Renderer {
     this.shaderProgram.setMat4('uProjectionMatrix', projectionMatrix);
     this.shaderProgram.setMat4('uModelViewMatrix', modelViewMatrix);
 
-    this.batch = new Batch2D(gl);
+    this.batch = new Batch2D(gl, this.shaderProgram);
   }
 
   setClearColor = (r, g, b, a) => {
@@ -43,13 +32,20 @@ class Renderer {
   }
 
   render = () => {
-    this.batch.emplace({ position: {x: 50.0, y: 50.0}, size: {w: 200.0, h: 200.0} });
-    this.batch.emplace({ position: {x: 350.0, y: 350.0}, size: {w: 100.0, h: 100.0} });
-    this.batch.emplace({ position: {x: 350.0, y: 100.0}, size: {w: 150.0, h: 150.0} });
+    const tileSize = 32;
+    const canvasWidth = this.gl.canvas.clientWidth;
+    const canvasHeight = this.gl.canvas.clientHeight;
+
+    for (let i = 0; i < canvasWidth; i += tileSize) {
+      for (let j = 0; j < canvasHeight; j += tileSize) {
+        this.batch.emplace({ position: {x: i, y: j}, size: {w: tileSize, h: tileSize} });
+      }
+    }
+
     this.batch.flush();
 
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
-    this.batch.render(this.shaderProgram);
+    this.batch.render();
     //window.requestAnimationFrame (this.render);
   }
 }

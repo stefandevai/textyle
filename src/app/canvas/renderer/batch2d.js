@@ -19,14 +19,17 @@ const createIndices = (indicesSize) => {
 }
 
 export default class Batch2D {
-  constructor(gl) {
+  constructor(gl, shaderProgram) {
     this.gl = gl;
+    this.shaderProgram = shaderProgram;
     this.create();
   }
 
   create = () => {
     const maxSprites  = 10000;
-    const floatsPerVertex = 2;
+    const floatsPerVertex = 6;
+    const bytesPerVertex = 4 * floatsPerVertex;
+    //const floatsPerVertex = 2;
     const floatsPerSprite = floatsPerVertex * 4;
     const totalFloats = maxSprites * floatsPerSprite;
     const indicesSize = 6 * maxSprites;
@@ -37,8 +40,14 @@ export default class Batch2D {
     this.VBO = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.VBO);
     this.gl.bufferData(this.gl.ARRAY_BUFFER, this.vertices, this.gl.DYNAMIC_DRAW);
-    this.gl.vertexAttribPointer(0, 2, this.gl.FLOAT, false, 0, 0);
+
+    // Position
+    this.gl.vertexAttribPointer(0, 2, this.gl.FLOAT, false, bytesPerVertex, 0);
     this.gl.enableVertexAttribArray(0);
+
+    // Color
+    this.gl.vertexAttribPointer(1, 4, this.gl.FLOAT, false, bytesPerVertex, 2 * 4);
+    this.gl.enableVertexAttribArray(1);
 
     this.EBO = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.EBO);
@@ -52,21 +61,41 @@ export default class Batch2D {
   }
 
   emplace = (sprite) => {
+    const r = Math.random();
+    const g = Math.random();
+    const b = Math.random();
+
     // Top left
     this.vertices[this.vertexIndex++] = sprite.position.x;
     this.vertices[this.vertexIndex++] = sprite.position.y;
+    this.vertices[this.vertexIndex++] = r;
+    this.vertices[this.vertexIndex++] = g;
+    this.vertices[this.vertexIndex++] = b;
+    this.vertices[this.vertexIndex++] = 1.0;
 
     // Top right
     this.vertices[this.vertexIndex++] = sprite.position.x + sprite.size.w;
     this.vertices[this.vertexIndex++] = sprite.position.y;
+    this.vertices[this.vertexIndex++] = r;
+    this.vertices[this.vertexIndex++] = g;
+    this.vertices[this.vertexIndex++] = b;
+    this.vertices[this.vertexIndex++] = 1.0;
 
     // Bottom right
     this.vertices[this.vertexIndex++] = sprite.position.x + sprite.size.w;
     this.vertices[this.vertexIndex++] = sprite.position.y + sprite.size.h;
+    this.vertices[this.vertexIndex++] = r;
+    this.vertices[this.vertexIndex++] = g;
+    this.vertices[this.vertexIndex++] = b;
+    this.vertices[this.vertexIndex++] = 1.0;
 
     // Bottom left
     this.vertices[this.vertexIndex++] = sprite.position.x;
     this.vertices[this.vertexIndex++] = sprite.position.y + sprite.size.h;
+    this.vertices[this.vertexIndex++] = r;
+    this.vertices[this.vertexIndex++] = g;
+    this.vertices[this.vertexIndex++] = b;
+    this.vertices[this.vertexIndex++] = 1.0;
 
     this.indexCount += 6;
   }
@@ -76,13 +105,13 @@ export default class Batch2D {
     this.vertexIndex = 0;
   }
 
-  render = (shader) => {
+  render = () => {
     if (this.indexCount === 0) {
       return;
     }
 
-    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.VBO);
-    this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.EBO);
+    //this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.VBO);
+    //this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.EBO);
 
     this.gl.drawElements(this.gl.TRIANGLES, this.indexCount, this.gl.UNSIGNED_SHORT, 0);
     this.indexCount = 0;

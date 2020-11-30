@@ -1,3 +1,16 @@
+function createShader(gl, source, type) {
+  const shader = gl.createShader(type);
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+
+  if ( !gl.getShaderParameter(shader, gl.COMPILE_STATUS) ) {
+    const info = gl.getShaderInfoLog(shader);
+    console.log('Could not compile shader: ' + info);
+  }
+
+  return shader;
+}
+
 class ShaderProgram {
   constructor(gl, vertexSource, fragmentSource) {
     this.gl = gl;
@@ -7,13 +20,8 @@ class ShaderProgram {
   }
 
   init = () => {
-    const vertexShader = this.gl.createShader(this.gl.VERTEX_SHADER);
-    this.gl.shaderSource(vertexShader, this.vertexSource);
-    this.gl.compileShader(vertexShader);
-
-    const fragmentShader = this.gl.createShader(this.gl.FRAGMENT_SHADER);
-    this.gl.shaderSource(fragmentShader, this.fragmentSource);
-    this.gl.compileShader(fragmentShader);
+    const vertexShader = createShader(this.gl, this.vertexSource, this.gl.VERTEX_SHADER);
+    const fragmentShader = createShader(this.gl, this.fragmentSource, this.gl.FRAGMENT_SHADER);
 
     this.id = this.gl.createProgram();
     this.gl.attachShader(this.id, vertexShader);
