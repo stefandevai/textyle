@@ -41,6 +41,10 @@ class ShaderProgram {
   setMat4 = (uniformName, value) => {
     this.gl.uniformMatrix4fv(this.gl.getUniformLocation(this.id, uniformName), false, value);
   }
+
+  setInt = (uniformName, value) => {
+    this.gl.uniform1i(this.gl.getUniformLocation(this.id, uniformName), false, value);
+  }
 }
 
 export default ShaderProgram;

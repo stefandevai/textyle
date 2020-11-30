@@ -21,7 +21,7 @@ export default class WebGLCanvas extends Component {
     this.canvasRef.current.height = this.wrapperRef.current.clientHeight;
 
     // Init renderer
-    MainRenderer.init(this.canvasRef.current.getContext('webgl'));
+    MainRenderer.init(this.canvasRef.current.getContext('webgl2'));
     MainRenderer.setClearColor(0.0, 0.0, 0.0, 1.0);
     MainRenderer.render();
   }
