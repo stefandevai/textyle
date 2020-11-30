@@ -15,7 +15,7 @@ export default class TilesetManager extends Component {
     try {
       // TODO: Save array of tilesets to the local storage
       const imageData = await toBase64(event.target.files[0]);
-      localStorage['tileset'] = imageData;
+      localStorage.setItem('tileset', imageData);
     } catch (err) {
       console.error(err);
       return;
@@ -31,7 +31,7 @@ export default class TilesetManager extends Component {
       <>
         <h1>Tileset</h1>
         <FileInput title='Add tileset' filename={this.state.tilesetName} onUpload={(e) => { this.onTilesetUpload(e); }}/>
-        { localStorage['tileset'] && <TilesetPreview src={ localStorage['tileset'] } alt='Tileset' /> }
+        { localStorage['tileset'] && <TilesetPreview src={ localStorage.getItem('tileset') } alt='Tileset' /> }
       </>
     );
   }
