@@ -18,7 +18,7 @@ export default class MapSettings extends Component {
   render() {
     return (
       <>
-        <h1>Map settings</h1>
+        <h1>Map</h1>
         <Slider title="Tile size" onChange={ (e) => this.onTileSizeChange(e) } value={ this.state.tileSize } />
       </>
     );
