@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import MapSettings from './map-settings';
-import TilesetManager from './tileset-manager';
+import MapSettings from 'ui/sidebar/MapSettings';
+import TilesetManager from 'ui/sidebar/TilesetManager';
 
 export default class ProjectSidebar extends Component {
   render() {

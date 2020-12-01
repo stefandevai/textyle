@@ -1,4 +1,4 @@
-export default function Slider(props) {
+export default function SliderInput(props) {
   return (
     <div>
       <h4>{props.title}</h4>

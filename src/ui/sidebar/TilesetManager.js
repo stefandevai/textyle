@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import FileInput from '../common/file-input';
-import TilesetPreview from './tileset-preview';
 import { get, set } from 'idb-keyval';
+import FileInput from 'ui/common/FileInput';
+import TilesetPreview from 'ui/sidebar/TilesetPreview';
 
 export default class TilesetManager extends Component {
   constructor(props) {

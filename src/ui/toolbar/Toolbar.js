@@ -1,4 +1,4 @@
-import Tool from './tool';
+import Tool from 'ui/toolbar/Tool';
 
 function Toolbar() {
   return (

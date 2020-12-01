@@ -1,2 +1,1 @@
-src/canvas-wasm/*.js
-src/canvas/pkg/*.js
+src/grid/pkg/*.js

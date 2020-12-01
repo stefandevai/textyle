@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './App.css';
-import WebGLCanvas from './canvas';
-import Toolbar from './toolbar';
-import ProjectSidebar from './project-sidebar';
+import WebGLCanvas from 'ui/WebGLCanvas';
+import Toolbar from 'ui/toolbar/Toolbar';
+import ProjectSidebar from 'ui/sidebar/ProjectSidebar';
+import 'ui/App.css';
 
 class App extends Component {
   render() {

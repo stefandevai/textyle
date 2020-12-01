@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Slider from '../common/slider';
+import Slider from 'ui/common/SliderInput';
 
 export default class MapSettings extends Component {
   constructor(props) {

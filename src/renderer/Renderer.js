@@ -1,13 +1,13 @@
-import ShaderProgram from './shader';
-import Batch2D from './batch2d';
 import { mat4 } from 'gl-matrix';
-import { createTexture } from './texture';
+import ShaderProgram from 'renderer/Shader';
+import Batch2D from 'renderer/Batch2D';
+import { createTexture } from 'renderer/Texture';
 import {
   BATCH_VERTEX_SHADER_SOURCE,
   BATCH_FRAGMENT_SHADER_SOURCE,
   TEST_VERTEX_SHADER_SOURCE,
   TEST_FRAGMENT_SHADER_SOURCE,
-} from '../../../store/constants';
+} from 'renderer/constants';
 
 //const base64ToBytes = (data) => {
   //const raw = window.atob(data);
@@ -103,7 +103,7 @@ class Renderer {
 
     this.gl.bindVertexArray(this.testVAO);
     this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
-    //window.requestAnimationFrame (this.render);
+    //window.requestAnimationFrame(this.render);
   }
 }
 

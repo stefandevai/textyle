@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import MainRenderer from './renderer';
+import MainRenderer from 'renderer/Renderer';
 import {
   CANVAS_ID,
-} from '../../store/constants';
+} from 'ui/constants';
 
 export default class WebGLCanvas extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ export default class WebGLCanvas extends Component {
     // Init renderer
     MainRenderer.init(this.canvasRef.current.getContext('webgl2'));
     MainRenderer.setClearColor(0.0, 0.0, 0.0, 1.0);
-    MainRenderer.render();
+    window.requestAnimationFrame(MainRenderer.render);
   }
 
   handleWindowResize() {

@@ -22,11 +22,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Rust / WASM
-/src/canvas/target
-/src/canvas/**/*.rs.bk
-/src/canvas/Cargo.lock
-/src/canvas/bin/
-/src/canvas/pkg/
-/src/canvas/wasm-pack.log
+# rust / wasm
+/src/grid/target
+/src/grid/**/*.rs.bk
+/src/grid/Cargo.lock
+/src/grid/bin/
+/src/grid/pkg/
+/src/grid/wasm-pack.log
 
