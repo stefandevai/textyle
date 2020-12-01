@@ -1,3 +1,5 @@
+import TextureManager from 'renderer/TextureManager';
+
 const createIndices = (indicesSize) => {
   let offset = 0;
   let indices = new Uint16Array(indicesSize);
@@ -22,6 +24,7 @@ export default class Batch2D {
   constructor(gl, shaderProgram) {
     this.gl = gl;
     this.shaderProgram = shaderProgram;
+    this.textureManager = new TextureManager();
     this.create();
   }
 
@@ -63,7 +66,7 @@ export default class Batch2D {
     this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.EBO);
     this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, this.indices, this.gl.STATIC_DRAW);
 
-    // Used for emplacing sprites
+    // Used for emplacing tiles
     this.vertexIndex = 0;
 
     // Used for rendering
@@ -74,54 +77,66 @@ export default class Batch2D {
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.VBO);
   }
 
-  emplace = (sprite) => {
+  emplace = (tile) => {
     let r = 0.0;
     let g = 0.0;
     let b = 0.0;
     let a = 0.0;
 
-    if (sprite.color) {
-      r = sprite.color.r;
-      g = sprite.color.g;
-      b = sprite.color.b;
-      a = sprite.color.a;
+    if (tile.color) {
+      r = tile.color.r;
+      g = tile.color.g;
+      b = tile.color.b;
+      a = tile.color.a;
+    }
+
+    let uv = [0.0, 0.0, 0.0, 0.0];
+
+    if (this.textureManager.has(tile.texture)) {
+      const texture = this.textureManager.get(tile.texture);
+      uv = texture.getFrameUV(tile.frame, tile.size);
+    }
+    else {
+      this.textureManager.add(this.gl, tile.texture);
+      const texture = this.textureManager.get(tile.texture);
+      uv = texture.getFrameUV(tile.frame, tile.size);
     }
 
     // Top left
-    this.vertices[this.vertexIndex++] = sprite.position.x;
-    this.vertices[this.vertexIndex++] = sprite.position.y;
-    this.vertices[this.vertexIndex++] = 0.0;
-    this.vertices[this.vertexIndex++] = 1.0;
+    this.vertices[this.vertexIndex++] = tile.position[0];
+    this.vertices[this.vertexIndex++] = tile.position[1];
+    this.vertices[this.vertexIndex++] = uv[0][0];
+    this.vertices[this.vertexIndex++] = uv[0][1];
     this.vertices[this.vertexIndex++] = r;
     this.vertices[this.vertexIndex++] = g;
     this.vertices[this.vertexIndex++] = b;
     this.vertices[this.vertexIndex++] = a;
 
     // Top right
-    this.vertices[this.vertexIndex++] = sprite.position.x + sprite.size.w;
-    this.vertices[this.vertexIndex++] = sprite.position.y;
-    this.vertices[this.vertexIndex++] = 1.0;
-    this.vertices[this.vertexIndex++] = 1.0;
+    this.vertices[this.vertexIndex++] = tile.position[0] + tile.size[0];
+    this.vertices[this.vertexIndex++] = tile.position[1];
+    this.vertices[this.vertexIndex++] = uv[1][0];
+    this.vertices[this.vertexIndex++] = uv[1][1];
     this.vertices[this.vertexIndex++] = r;
     this.vertices[this.vertexIndex++] = g;
     this.vertices[this.vertexIndex++] = b;
     this.vertices[this.vertexIndex++] = a;
 
     // Bottom right
-    this.vertices[this.vertexIndex++] = sprite.position.x + sprite.size.w;
-    this.vertices[this.vertexIndex++] = sprite.position.y + sprite.size.h;
-    this.vertices[this.vertexIndex++] = 1.0;
-    this.vertices[this.vertexIndex++] = 0.0;
+    this.vertices[this.vertexIndex++] = tile.position[0] + tile.size[0];
+    this.vertices[this.vertexIndex++] = tile.position[1] + tile.size[1];
+    this.vertices[this.vertexIndex++] = uv[2][0];
+    this.vertices[this.vertexIndex++] = uv[2][1];
     this.vertices[this.vertexIndex++] = r;
     this.vertices[this.vertexIndex++] = g;
     this.vertices[this.vertexIndex++] = b;
     this.vertices[this.vertexIndex++] = a;
 
     // Bottom left
-    this.vertices[this.vertexIndex++] = sprite.position.x;
-    this.vertices[this.vertexIndex++] = sprite.position.y + sprite.size.h;
-    this.vertices[this.vertexIndex++] = 0.0;
-    this.vertices[this.vertexIndex++] = 0.0;
+    this.vertices[this.vertexIndex++] = tile.position[0];
+    this.vertices[this.vertexIndex++] = tile.position[1] + tile.size[1];
+    this.vertices[this.vertexIndex++] = uv[3][0];
+    this.vertices[this.vertexIndex++] = uv[3][1];
     this.vertices[this.vertexIndex++] = r;
     this.vertices[this.vertexIndex++] = g;
     this.vertices[this.vertexIndex++] = b;

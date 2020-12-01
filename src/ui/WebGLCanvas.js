@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import MainRenderer from 'renderer/Renderer';
+import Renderer from 'renderer/Renderer';
 import {
   CANVAS_ID,
 } from 'ui/constants';
 
 const WebGLCanvas = () => {
+  const renderer = new Renderer();
   const canvasRef = React.useRef();
 
   useEffect(() => {
@@ -13,17 +14,17 @@ const WebGLCanvas = () => {
     canvasRef.current.height = canvasRef.current.clientHeight;
 
     // Initialize renderer
-    if (!MainRenderer.hasInitialized) {
-      MainRenderer.init(canvasRef.current.getContext('webgl2'));
-      MainRenderer.setClearColor(0.0, 0.0, 0.0, 1.0);
-      window.requestAnimationFrame(MainRenderer.render);
+    if (!renderer.hasInitialized) {
+      renderer.init(canvasRef.current.getContext('webgl2'));
+      renderer.setClearColor(0.0, 0.0, 0.0, 1.0);
+      window.requestAnimationFrame(renderer.render);
     }
 
     // Update canvas if window is resized
     window.addEventListener('resize', () => {
       canvasRef.current.width = canvasRef.current.clientWidth;
       canvasRef.current.height = canvasRef.current.clientHeight;
-      MainRenderer.updateViewport(canvasRef.current.width, canvasRef.current.height);
+      renderer.updateViewport(canvasRef.current.width, canvasRef.current.height);
     });
   });
 

@@ -11,10 +11,14 @@ class Renderer {
   hasInitialized = false
 
   init = (gl) => {
+    console.log('DEBUG: CONSTRUCTING RENDERER');
     this.gl = gl;
     if (!this.gl) {
       return;
     }
+
+    // TODO: Allow changing tileSize
+    this.tileSize = 32;
 
     // TEMP
     this.texture = new Texture(this.gl, 'tileset');
@@ -52,15 +56,17 @@ class Renderer {
 
     this.shaderProgram.use();
 
-    const tileSize = 32;
     const canvasWidth = this.gl.canvas.width;
     const canvasHeight = this.gl.canvas.height;
 
     this.batch.begin();
 
-    for (let i = 0; i < canvasWidth; i += tileSize) {
-      for (let j = 0; j < canvasHeight; j += tileSize) {
-        this.batch.emplace({ position: {x: i, y: j}, size: {w: tileSize, h: tileSize} });
+    for (let i = 0; i < canvasWidth; i += this.tileSize) {
+      for (let j = 0; j < canvasHeight; j += this.tileSize) {
+        this.batch.emplace({ position: [i, j],
+                             size: [this.tileSize, this.tileSize],
+                             frame: 1,
+                             texture: 'tileset'});
       }
     }
 
@@ -76,6 +82,4 @@ class Renderer {
   }
 }
 
-const MainRenderer = new Renderer();
-
-export default MainRenderer;
+export default Renderer;

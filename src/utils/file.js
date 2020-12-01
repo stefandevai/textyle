@@ -1,7 +1,3 @@
-export const getFileName = (fullpath) => {
-  return fullpath.split('\\').pop().split('/').pop();
-}
-
 export const fileToBase64 = (file) => {
   if (!file) {
     return null;
@@ -14,6 +10,11 @@ export const fileToBase64 = (file) => {
     reader.readAsDataURL(file);
   });
 }
+
+//export const getFileName = (fullpath) => {
+  //return fullpath.split('\\').pop().split('/').pop();
+//}
+
 
 //const base64ToFile = (data) => {
   //const raw = window.atob(data);
