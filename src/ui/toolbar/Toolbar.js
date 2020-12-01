@@ -1,6 +1,6 @@
 import Tool from 'ui/toolbar/Tool';
 
-function Toolbar() {
+const Toolbar = () => {
   return (
     <nav>
       <ul style={{ margin: '0' }}>

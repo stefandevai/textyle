@@ -1,27 +1,15 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import Slider from 'ui/common/SliderInput';
 
-export default class MapSettings extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tileSize: 32,
-    };
-  }
+const MapSettings = (props) => {
+  const [tileSize, setTileSize] = useState(32);
 
-  onTileSizeChange(event) {
-    this.setState({
-      tileSize: event.target.value
-    });
-  }
+  return (
+    <div>
+      <h1>Map</h1>
+      <Slider title="Tile size" onChange={e => setTileSize(e.target.value)} value={tileSize} />
+    </div>
+  );
+}
 
-  render() {
-    return (
-      <>
-        <h1>Map</h1>
-        <Slider title="Tile size" onChange={ (e) => this.onTileSizeChange(e) } value={ this.state.tileSize } />
-      </>
-    );
-  }
-};
-
+export default MapSettings;

@@ -24,6 +24,8 @@ import {
 //}
 
 class Renderer {
+  hasInitialized = false
+
   init = (gl) => {
     this.gl = gl;
     if (!this.gl) {
@@ -70,6 +72,7 @@ class Renderer {
     this.shaderProgram.setMat4('uModelViewMatrix', modelViewMatrix);
 
     this.batch = new Batch2D(this.gl, this.shaderProgram);
+    this.hasInitialized = true;
   }
 
   setClearColor = (r, g, b, a) => {

@@ -1,4 +1,4 @@
-export default function FileInput(props) {
+const FileInput = (props) => {
   return (
     <div>
       <h4>{props.title}</h4>
@@ -12,4 +12,6 @@ export default function FileInput(props) {
     </div>
   );
 };
+
+export default FileInput;
 

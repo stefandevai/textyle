@@ -1,4 +1,4 @@
-function Tool(props) {
+const Tool = (props) => {
   return (
     <li>{props.name}</li>
   );

@@ -1,77 +1,43 @@
-import React, { Component } from 'react';
+import { useState, useEffect } from 'react';
 import { get, set } from 'idb-keyval';
 import FileInput from 'ui/common/FileInput';
 import TilesetPreview from 'ui/sidebar/TilesetPreview';
+import { fileToBase64, getFileName } from 'utils/file';
 
-export default class TilesetManager extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tilesetName: '',
-      imageData: null,
-    };
+const onTilesetUpload = async (event, setName) => {
+  try {
+    // TODO: Save array of tilesets to the local storage
+    set('tileset', event.target.files[0]);
+  } catch (err) {
+    console.error(err);
+    return;
   }
 
-  componentDidMount() {
-    get('tileset').then(async value => {
-      if (!value) {
-        return;
-      }
+  setName(getFileName(event.target.value));
+}
 
+const TilesetManager = () => {
+  const [name, setName] = useState('');
+  const [image, setImage] = useState(null)
+
+  useEffect(() => {
+    get('tileset').then(async value => {
       try {
-        const data = await toBase64(value);
-        this.setState({
-          imageData: data,
-        });
+        const data = await fileToBase64(value);
+        setImage(data);
       } catch (err) {
         console.error(err);
       }
     });
-  }
+  }, [name]);
 
-  async onTilesetUpload(event) {
-    // Get image data and convert it to base64
-    try {
-      // TODO: Save array of tilesets to the local storage
-      set('tileset', event.target.files[0]);
-    } catch (err) {
-      console.error(err);
-      return;
-    }
-
-    this.setState({
-      tilesetName: getFileName(event.target.value)
-    });
-
-  }
-
-  render() {
-    return (
-      <>
-        <h1>Tileset</h1>
-        <FileInput title='Add tileset' filename={this.state.tilesetName} onUpload={(e) => { this.onTilesetUpload(e); }}/>
-        { this.state.imageData && <TilesetPreview src={ this.state.imageData } alt='Tileset' /> }
-      </>
-    );
-  }
-};
-
-const getFileName = (fullpath) => {
-  return fullpath.split('\\').pop().split('/').pop();
+  return (
+    <div>
+      <h1>Tileset</h1>
+      <FileInput title='Add tileset' filename={name} onUpload={e => onTilesetUpload(e, setName) }/>
+      {image && <TilesetPreview src={image} alt='Tileset' />}
+    </div>
+  );
 }
 
-const toBase64 = (file) => {
-  if (!file) {
-    return;
-  }
-  //console.log(typeof(file));
-  //console.log(file);
-
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-    reader.readAsDataURL(file);
-  });
-}
-
+export default TilesetManager;
