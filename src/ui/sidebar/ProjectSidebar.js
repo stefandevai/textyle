@@ -3,10 +3,12 @@ import TilesetManager from 'ui/sidebar/TilesetManager';
 
 const ProjectSidebar = (props) => {
   return (
-    <div style={{ width: props.width }}>
-      <MapSettings />
-      <TilesetManager />
-    </div>
+    <aside style={{ width: props.width }} className='column is-one-quarter'>
+      <div className='content is-small'>
+        <MapSettings />
+        <TilesetManager />
+      </div>
+    </aside>
   );
 };
 

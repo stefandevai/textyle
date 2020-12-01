@@ -32,8 +32,8 @@ const TilesetManager = () => {
   }, [name]);
 
   return (
-    <div>
-      <h1>Tileset</h1>
+    <div className='is-small'>
+      <h3>Tileset</h3>
       <FileInput title='Add tileset' filename={name} onUpload={e => onTilesetUpload(e, setName) }/>
       {image && <TilesetPreview src={image} alt='Tileset' />}
     </div>

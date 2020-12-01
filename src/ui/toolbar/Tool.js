@@ -1,6 +1,6 @@
 const Tool = (props) => {
   return (
-    <li>{props.name}</li>
+    <span>{props.name}</span>
   );
 }
 

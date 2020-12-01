@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from 'ui/App';
-import 'index.css';
+import 'index.sass';
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,7 +1,7 @@
 export default function SliderInput(props) {
   return (
     <div>
-      <h4>{props.title}</h4>
+      <p><strong>{props.title}</strong></p>
       <span>{props.value}px</span>
       <input
         type='range'

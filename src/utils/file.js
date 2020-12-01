@@ -15,3 +15,15 @@ export const fileToBase64 = (file) => {
   });
 }
 
+//const base64ToFile = (data) => {
+  //const raw = window.atob(data);
+  //const rawLength = raw.length;
+  //const bytes = new Uint8Array(rawLength);
+
+  //for (let i = 0; i < rawLength; i++) {
+    //bytes[i] = raw.charCodeAt(i);
+  //}
+
+  //return bytes;
+//}
+
