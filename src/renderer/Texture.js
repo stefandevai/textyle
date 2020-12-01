@@ -1,6 +1,6 @@
 import { get } from 'idb-keyval';
 
-export async function getImageBitmap(name) {
+async function getImageBitmap(name) {
   const fileData = await get(name);
   if (!fileData) {
     console.error(`It was not possible to get ${name} from IDB`);
@@ -10,28 +10,39 @@ export async function getImageBitmap(name) {
   return createImageBitmap(fileData);
 }
 
-export function createTexture(gl, name) {
-  const id = gl.createTexture();
+class Texture {
+  constructor(gl, name) {
+    this.name = name;
+    this.create(gl);
+  }
 
-  gl.bindTexture(gl.TEXTURE_2D, id);
+  create = (gl) => {
+    this.id = gl.createTexture();
 
-  const pixel = new Uint8Array([0, 0, 0, 0]);
-  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
+    gl.bindTexture(gl.TEXTURE_2D, this.id);
 
-  getImageBitmap(name).then(data => {
-    if (!data) {
-      return;
-    }
+    const pixel = new Uint8Array([0, 0, 0, 0]);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
 
-    gl.bindTexture(gl.TEXTURE_2D, id);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, data);
+    getImageBitmap(this.name).then(data => {
+      if (!data) {
+        return;
+      }
 
-    gl.texParameteri (gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
-    gl.texParameteri (gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
-    gl.texParameteri (gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-    gl.texParameteri (gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-  });
+      gl.bindTexture(gl.TEXTURE_2D, this.id);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, data);
 
+      gl.texParameteri (gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+      gl.texParameteri (gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+      gl.texParameteri (gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+      gl.texParameteri (gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    });
+  }
 
-  return id;
+  bind = (gl) => {
+    gl.bindTexture(gl.TEXTURE_2D, this.id);
+  }
 }
+
+export default Texture;
+

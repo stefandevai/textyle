@@ -30,3 +30,5 @@ yarn-error.log*
 /src/grid/pkg/
 /src/grid/wasm-pack.log
 
+# other
+src/scratch.js

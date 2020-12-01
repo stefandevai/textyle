@@ -1,12 +1,10 @@
 import { mat4 } from 'gl-matrix';
 import ShaderProgram from 'renderer/Shader';
 import Batch2D from 'renderer/Batch2D';
-//import { createTexture } from 'renderer/Texture';
+import Texture from 'renderer/Texture';
 import {
   BATCH_VERTEX_SHADER_SOURCE,
   BATCH_FRAGMENT_SHADER_SOURCE,
-  //TEST_VERTEX_SHADER_SOURCE,
-  //TEST_FRAGMENT_SHADER_SOURCE,
 } from 'renderer/constants';
 
 class Renderer {
@@ -18,33 +16,9 @@ class Renderer {
       return;
     }
 
-    //// TEMP
-    //this.texture = createTexture(this.gl, 'tileset');
-    //this.testShaderProgram = new ShaderProgram(this.gl, TEST_VERTEX_SHADER_SOURCE, TEST_FRAGMENT_SHADER_SOURCE);
-    ////this.testShaderProgram.use();
-
-    //this.verts = new Float32Array([
-      //// pos     // texcoords
-      //0.5,  0.5, 1.0, 1.0, // top-right
-      //0.5, -0.5, 1.0, 0.0, // bottom-right
-     //-0.5,  0.5, 0.0, 1.0, // top-left
-
-      //0.5, -0.5, 1.0, 0.0, // bottom-right
-     //-0.5, -0.5, 0.0, 0.0, // bottom-left
-     //-0.5,  0.5, 0.0, 1.0, // top-left
-    //]);
-    //this.testVAO = this.gl.createVertexArray();
-    //this.testVBO = this.gl.createBuffer();
-    //this.gl.bindVertexArray(this.testVAO);
-    //this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.testVBO);
-    //this.gl.bufferData(this.gl.ARRAY_BUFFER, this.verts, this.gl.STATIC_DRAW);
-    //const locPosition = this.gl.getAttribLocation(this.testShaderProgram.id, 'aPosition');
-    //this.gl.vertexAttribPointer(locPosition, 2, this.gl.FLOAT, false, 4 * 4, 0); // pos
-    //this.gl.enableVertexAttribArray(locPosition);
-    //const locTexcoord = this.gl.getAttribLocation(this.testShaderProgram.id, 'aTextureCoord');
-    //this.gl.vertexAttribPointer(locTexcoord, 2, this.gl.FLOAT, false, 4 * 4, 2 * 4); // texcoords
-    //this.gl.enableVertexAttribArray(locTexcoord);
-    //// TEMP
+    // TEMP
+    this.texture = new Texture(this.gl, 'tileset');
+    // TEMP
 
     this.shaderProgram = new ShaderProgram(this.gl, BATCH_VERTEX_SHADER_SOURCE, BATCH_FRAGMENT_SHADER_SOURCE);
     this.shaderProgram.use();
@@ -91,16 +65,14 @@ class Renderer {
     }
 
     this.batch.flush();
+
+    this.gl.activeTexture(this.gl.TEXTURE0);
+    this.texture.bind(this.gl);
+    this.shaderProgram.setInt('uSampler', 0);
+
     this.batch.render();
 
-    //this.testShaderProgram.use();
-    //this.gl.activeTexture(this.gl.TEXTURE0);
-    //this.gl.bindTexture(this.gl.TEXTURE_2D, this.texture);
-    //this.testShaderProgram.setInt('uSampler', 0);
-
-    //this.gl.bindVertexArray(this.testVAO);
-    //this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
-    //window.requestAnimationFrame(this.render);
+    window.requestAnimationFrame(this.render);
   }
 }
 

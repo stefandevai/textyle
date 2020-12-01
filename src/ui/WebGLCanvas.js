@@ -28,7 +28,7 @@ const WebGLCanvas = () => {
   });
 
   return (
-    <section class="section" style={{ width: '100%', height: '100%' }}>
+    <section className="section" style={{ width: '100%', height: '100%' }}>
       <canvas id={ CANVAS_ID } ref={ canvasRef } style={{ width: '100%', height: '100%'  }} className='column' />
     </section>
   );

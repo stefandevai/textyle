@@ -27,9 +27,8 @@ export default class Batch2D {
 
   create = () => {
     const maxSprites  = 10000;
-    const floatsPerVertex = 6;
+    const floatsPerVertex = 8;
     const bytesPerVertex = 4 * floatsPerVertex;
-    //const floatsPerVertex = 2;
     const floatsPerSprite = floatsPerVertex * 4;
     const totalFloats = maxSprites * floatsPerSprite;
     const indicesSize = 6 * maxSprites;
@@ -51,9 +50,14 @@ export default class Batch2D {
     this.gl.vertexAttribPointer(locPosition, 2, this.gl.FLOAT, false, bytesPerVertex, 0);
     this.gl.enableVertexAttribArray(locPosition);
 
+    // TextureCoord
+    const locTextureCoord = this.gl.getAttribLocation(this.shaderProgram.id, 'aTextureCoord');
+    this.gl.vertexAttribPointer(locTextureCoord, 2, this.gl.FLOAT, false, bytesPerVertex, 2 * 4);
+    this.gl.enableVertexAttribArray(locTextureCoord);
+
     // Color
     const locColor = this.gl.getAttribLocation(this.shaderProgram.id, 'aColor');
-    this.gl.vertexAttribPointer(locColor, 4, this.gl.FLOAT, false, bytesPerVertex, 2 * 4);
+    this.gl.vertexAttribPointer(locColor, 4, this.gl.FLOAT, false, bytesPerVertex, 4 * 4);
     this.gl.enableVertexAttribArray(locColor);
 
     this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.EBO);
@@ -71,41 +75,57 @@ export default class Batch2D {
   }
 
   emplace = (sprite) => {
-    const r = Math.random();
-    const g = Math.random();
-    const b = Math.random();
+    let r = 0.0;
+    let g = 0.0;
+    let b = 0.0;
+    let a = 0.0;
+
+    if (sprite.color) {
+      r = sprite.color.r;
+      g = sprite.color.g;
+      b = sprite.color.b;
+      a = sprite.color.a;
+    }
 
     // Top left
     this.vertices[this.vertexIndex++] = sprite.position.x;
     this.vertices[this.vertexIndex++] = sprite.position.y;
+    this.vertices[this.vertexIndex++] = 0.0;
+    this.vertices[this.vertexIndex++] = 1.0;
     this.vertices[this.vertexIndex++] = r;
     this.vertices[this.vertexIndex++] = g;
     this.vertices[this.vertexIndex++] = b;
-    this.vertices[this.vertexIndex++] = 1.0;
+    this.vertices[this.vertexIndex++] = a;
 
     // Top right
     this.vertices[this.vertexIndex++] = sprite.position.x + sprite.size.w;
     this.vertices[this.vertexIndex++] = sprite.position.y;
+    this.vertices[this.vertexIndex++] = 1.0;
+    this.vertices[this.vertexIndex++] = 1.0;
     this.vertices[this.vertexIndex++] = r;
     this.vertices[this.vertexIndex++] = g;
     this.vertices[this.vertexIndex++] = b;
-    this.vertices[this.vertexIndex++] = 1.0;
+    this.vertices[this.vertexIndex++] = a;
 
     // Bottom right
     this.vertices[this.vertexIndex++] = sprite.position.x + sprite.size.w;
     this.vertices[this.vertexIndex++] = sprite.position.y + sprite.size.h;
+    this.vertices[this.vertexIndex++] = 1.0;
+    this.vertices[this.vertexIndex++] = 0.0;
     this.vertices[this.vertexIndex++] = r;
     this.vertices[this.vertexIndex++] = g;
     this.vertices[this.vertexIndex++] = b;
-    this.vertices[this.vertexIndex++] = 1.0;
+    this.vertices[this.vertexIndex++] = a;
 
     // Bottom left
     this.vertices[this.vertexIndex++] = sprite.position.x;
     this.vertices[this.vertexIndex++] = sprite.position.y + sprite.size.h;
+    this.vertices[this.vertexIndex++] = 0.0;
+    this.vertices[this.vertexIndex++] = 0.0;
     this.vertices[this.vertexIndex++] = r;
     this.vertices[this.vertexIndex++] = g;
     this.vertices[this.vertexIndex++] = b;
-    this.vertices[this.vertexIndex++] = 1.0;
+    this.vertices[this.vertexIndex++] = a;
 
     this.indexCount += 6;
   }
