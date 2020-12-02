@@ -60,7 +60,7 @@ class Renderer {
   render = () => {
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
     this.renderGrid();
-    window.requestAnimationFrame(this.render);
+    //window.requestAnimationFrame(this.render);
   }
 
   renderGrid = () => {
