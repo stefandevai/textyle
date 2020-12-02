@@ -30,7 +30,7 @@ const WebGLCanvas = () => {
 
   return (
     <section className="section" style={{ width: '100%', height: '100%' }}>
-      <canvas id={ CANVAS_ID } ref={ canvasRef } style={{ width: '100%', height: '100%'  }} className='column' />
+      <canvas id={ CANVAS_ID } ref={ canvasRef } style={{ width: '100%', height: '100%', padding: 0  }} className='column' />
     </section>
   );
 }

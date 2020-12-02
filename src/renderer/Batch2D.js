@@ -160,3 +160,4 @@ export default class Batch2D {
     this.indexCount = 0;
   }
 }
+

@@ -61,9 +61,9 @@ class Texture {
 
     const frameWidth  = (frameSize[0] * 1.0) / this.width;
     const frameHeight = (frameSize[1] * 1.0) / this.height;
-    const hFrames = Math.floor(this.width / frameSize[0]); // 8
-    const vFrames = Math.floor(this.height / frameSize[1]); // 8
-    const maxFrames = hFrames * vFrames; // 64
+    const hFrames = Math.floor(this.width / frameSize[0]);
+    const vFrames = Math.floor(this.height / frameSize[1]);
+    const maxFrames = hFrames * vFrames;
 
     const frameX = Math.floor(frame % hFrames);
     const frameY = Math.floor((frame % maxFrames) / hFrames);

@@ -7,11 +7,17 @@ import {
   BATCH_FRAGMENT_SHADER_SOURCE,
 } from 'renderer/constants';
 
+let Grid = {}
+
 class Renderer {
   hasInitialized = false
 
   init = (gl) => {
     console.log('DEBUG: CONSTRUCTING RENDERER');
+    this.wasm = {}
+    this.wasmHasLoaded = false;
+    this.loadWasm();
+
     this.gl = gl;
     if (!this.gl) {
       return;
@@ -53,20 +59,35 @@ class Renderer {
 
   render = () => {
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+    this.renderGrid();
+    window.requestAnimationFrame(this.render);
+  }
+
+  renderGrid = () => {
+    // Return early if the wasm module hasn't loaded yet
+    if (!this.grid) {
+      return;
+    }
 
     this.shaderProgram.use();
 
+    // TODO: Get offset and zoom from camera
+    // to get the actual tiles to render from rust
     const canvasWidth = this.gl.canvas.width;
     const canvasHeight = this.gl.canvas.height;
 
     this.batch.begin();
 
-    for (let i = 0; i < canvasWidth; i += this.tileSize) {
-      for (let j = 0; j < canvasHeight; j += this.tileSize) {
-        this.batch.emplace({ position: [i, j],
-                             size: [this.tileSize, this.tileSize],
-                             frame: 1,
-                             texture: 'tileset'});
+    for (let i = 0, y = 0; y < canvasHeight; i++, y += this.tileSize) {
+      for (let j = 0, x = 0; x < canvasWidth; j++, x += this.tileSize) {
+        const value = this.grid.get_value(i, j);
+
+        if (value !== -1) {
+          this.batch.emplace({ position: [x, y],
+                               size: [this.tileSize, this.tileSize],
+                               frame: value,
+                               texture: 'tileset'});
+        }
       }
     }
 
@@ -77,8 +98,20 @@ class Renderer {
     this.shaderProgram.setInt('uSampler', 0);
 
     this.batch.render();
+  }
 
-    window.requestAnimationFrame(this.render);
+  loadWasm = async () => {
+    try {
+      const { memory } = await import('grid/pkg/canvas_bg');
+      this.memory = memory;
+
+      const { Grid } = await import('grid/pkg');
+      this.grid = Grid.new(this.gl.canvas.width / this.tileSize, this.gl.canvas.height / this.tileSize);
+      this.grid.set_value(0, 0, 28);
+      this.grid.set_value(1, 1, 28);
+    } catch (err) {
+      console.error(`[x] Error loading grid: ${err.message}`);
+    }
   }
 }
 
