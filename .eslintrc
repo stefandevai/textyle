@@ -1,6 +1,11 @@
 {
+  "plugins": [
+    "react-hooks"
+  ],
   "rules": {
     "jsx-a11y/anchor-is-valid": "off",
-    "jsx-a11y/anchor-has-content": "off"
+    "jsx-a11y/anchor-has-content": "off",
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
   }
 }

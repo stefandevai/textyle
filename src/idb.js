@@ -1,12 +1,17 @@
-import { set, get, Store } from 'idb-keyval';
+import { set, get, keys, Store } from 'idb-keyval';
 
 const textureStore = new Store('textures-store', 'textures');
 
-export const getTextureBlob = async (name) => {
+// Gets all texture names available
+export const getTextureFiles = async () => {
+  return (await keys(textureStore));
+};
+
+export const getTextureFile = async (name) => {
   return await get(name, textureStore);
 };
 
-export const setTextureBlob = async (name, fileBlob) => {
-  await set(name, fileBlob, textureStore);
+export const setTextureFile = async (name, file) => {
+  await set(name, file, textureStore);
 };
 

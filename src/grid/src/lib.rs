@@ -51,8 +51,8 @@ impl Grid {
         self.height
     }
 
-    pub fn set_value(&mut self, row: u32, column: u32, value: i32) {
-        let idx = self.get_index(row, column);
+    pub fn set_value(&mut self, x: u32, y: u32, value: i32) {
+        let idx = self.get_index(y, x);
         self.tiles[idx] = Tile{frame: value};
     }
 

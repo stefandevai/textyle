@@ -1,14 +1,13 @@
-const FileInput = (props) => {
+const FileInput = ({ title, onUpload }) => {
   return (
     <div>
-      <p><strong>{props.title}</strong></p>
-      <span>{props.filename || ''}</span>
+      <p><strong>{title}</strong></p>
       <input
         type='file'
         min='1'
         max='100'
         value=''
-        onChange={props.onUpload} />
+        onChange={onUpload} />
     </div>
   );
 };

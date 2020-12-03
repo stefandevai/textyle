@@ -1,7 +1,7 @@
-import { getTextureBlob } from 'idb';
+import { getTextureFile } from 'idb';
 
 async function getImageBitmap(name) {
-  const fileData = await getTextureBlob(name);
+  const fileData = await getTextureFile(name);
   if (!fileData) {
     console.error(`It was not possible to get ${name} from IDB`);
     return;
