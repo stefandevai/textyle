@@ -8,9 +8,9 @@ import {
   BUCKET_TOOL,
 } from 'ui/toolbar/tools';
 import {
-  CANVAS_ID,
+  TILEMAP_CANVAS_ID,
+  EDITOR_CANVAS_ID,
 } from 'ui/constants';
-
 
 // TODO: Provide a method to change tile size per layer
 const tileSize = [32, 32];
@@ -59,8 +59,8 @@ const WebGLCanvas = ({ selectedTile, selectedTool }) => {
 
   return (
     <section className="section column" style={{ width: '100%', height: '100%', position: 'relative' }}>
-      <AbsoluteCanvas id='editing-canvas' style={{ width: '100%', height: '100%', zIndex: '1' }} onMouseUp={handleTool} ref={editingCanvasRef} />
-      <AbsoluteCanvas id={CANVAS_ID} style={{ width: '100%', height: '100%', zIndex: '0' }} ref={tilesCanvasRef} />
+      <AbsoluteCanvas id={EDITOR_CANVAS_ID} style={{ width: '100%', height: '100%', zIndex: '1' }} onMouseUp={handleTool} ref={editingCanvasRef} />
+      <AbsoluteCanvas id={TILEMAP_CANVAS_ID} style={{ width: '100%', height: '100%', zIndex: '0' }} ref={tilesCanvasRef} />
     </section>
   );
 }

@@ -4,12 +4,18 @@ import { getTextureFile } from 'idb';
 import { selectTile } from 'redux/actions';
 import { getTilePositionOnClick } from 'utils/tile';
 import AbsoluteCanvas from 'ui/common/AbsoluteCanvas';
+import {
+  GRID_COLOR,
+  GRID_CANVAS_ID,
+  TILESET_CANVAS_ID,
+  SELECTED_TILE_COLOR_OVERLAY,
+} from 'ui/constants';
 
 const tileSize = [32, 32];
 
 const drawGridLines = (canvas, tileDimensions) => {
   const context = canvas.getContext('2d');
-  context.strokeStyle = '#dddddd';
+  context.strokeStyle = GRID_COLOR;
   context.lineWidth = 1;
 
   // Draw horizontal lines
@@ -75,7 +81,7 @@ const TilesetPreview = ({ selectedTileset, selectTile }) => {
     const canvas = tilegridCanvasRef.current;
     const context = canvas.getContext('2d');
     // Draw square on selected tile
-    context.fillStyle = "#FF0000";
+    context.fillStyle = SELECTED_TILE_COLOR_OVERLAY;
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.fillRect(selectedTile[0] * tileSize[0] + 1,
                      selectedTile[1] * tileSize[1] + 1,
@@ -91,8 +97,8 @@ const TilesetPreview = ({ selectedTileset, selectTile }) => {
 
   return (
     <div style={{ position: 'relative' }} >
-      {selectedTileset && <AbsoluteCanvas id='tilegrid-canvas' style={{border: '1px solid rgba(0,0,0,0)', zIndex: '1'}} onMouseUp={onSelectTile} ref={tilegridCanvasRef}/>}
-      {selectedTileset && <AbsoluteCanvas id='tileset-canvas' style={{border: '1px solid #ddd', zIndex: '0'}} ref={tilesetCanvasRef}/>}
+      {selectedTileset && <AbsoluteCanvas id={GRID_CANVAS_ID} style={{border: '1px solid rgba(0,0,0,0)', zIndex: '1'}} onMouseUp={onSelectTile} ref={tilegridCanvasRef}/>}
+      {selectedTileset && <AbsoluteCanvas id={TILESET_CANVAS_ID} style={{border: `1px solid ${GRID_COLOR}`, zIndex: '0'}} ref={tilesetCanvasRef}/>}
     </div>
   );
 }

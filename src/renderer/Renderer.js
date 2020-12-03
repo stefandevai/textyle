@@ -3,6 +3,9 @@ import ShaderProgram from 'renderer/Shader';
 import Batch2D from 'renderer/Batch2D';
 import Texture from 'renderer/Texture';
 import {
+  UNIFORM_PROJECTION,
+  UNIFORM_MODEL_VIEW,
+  UNIFORM_SAMPLER,
   BATCH_VERTEX_SHADER_SOURCE,
   BATCH_FRAGMENT_SHADER_SOURCE,
 } from 'renderer/constants';
@@ -38,8 +41,8 @@ class Renderer {
     const modelViewMatrix = mat4.create();
     mat4.translate(modelViewMatrix, modelViewMatrix, [0.0, 0.0, -50.0]);
 
-    this.shaderProgram.setMat4('uProjectionMatrix', projectionMatrix);
-    this.shaderProgram.setMat4('uModelViewMatrix', modelViewMatrix);
+    this.shaderProgram.setMat4(UNIFORM_PROJECTION, projectionMatrix);
+    this.shaderProgram.setMat4(UNIFORM_MODEL_VIEW, modelViewMatrix);
 
     this.batch = new Batch2D(this.gl, this.shaderProgram);
     this.hasInitialized = true;
@@ -54,7 +57,7 @@ class Renderer {
     const projectionMatrix = mat4.create();
     mat4.ortho(projectionMatrix, 0, width, height, 0, 0.1, 100.0);
     this.shaderProgram.use();
-    this.shaderProgram.setMat4('uProjectionMatrix', projectionMatrix);
+    this.shaderProgram.setMat4(UNIFORM_PROJECTION, projectionMatrix);
   }
 
   render = () => {
@@ -95,7 +98,7 @@ class Renderer {
 
     this.gl.activeTexture(this.gl.TEXTURE0);
     this.texture.bind(this.gl);
-    this.shaderProgram.setInt('uSampler', 0);
+    this.shaderProgram.setInt(UNIFORM_SAMPLER, 0);
 
     this.batch.render();
   }

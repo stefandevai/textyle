@@ -1,50 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { addTileset, addTilesets, selectTileset } from 'redux/actions';
+import { addTileset, addTilesets } from 'redux/actions';
 import { setTextureFile, getTextureFiles } from 'idb';
 import FileInput from 'ui/common/FileInput';
 import TilesetPreview from 'ui/sidebar/TilesetPreview';
+import TilesetSelector from 'ui/sidebar/TilesetSelector';
 
-const TilesetSelector = ({ selectedTileset, tilesetNames, selectTileset }) => {
-  // Get last tileset used from localStorage
-  useEffect(() => {
-    const lastSelectedTileset = localStorage.getItem('lastSelectedTileset');
-
-    // TODO: Check if tileset exists
-    if (lastSelectedTileset) {
-      selectTileset(lastSelectedTileset);
-    }
-  }, [selectTileset]);
-
-  const onOptionSelected = e => {
-    const name = e.target.value;
-    localStorage.setItem('lastSelectedTileset', name);
-    selectTileset(name);
-  }
-
-  const options = [];
-
-  for (const [index, value] of tilesetNames.entries()) {
-    options.push(<option value={value} key={index}>{value}</option>);
-  }
-
-  return (
-    tilesetNames.length > 0 &&
-    <select value={selectedTileset} onChange={onOptionSelected}>
-      {options}
-    </select>
-  );
-}
-
-const mapStateToPropsSelector = state => {
-  const { selectedTileset, tilesetNames } = state.tileset || {};
-  return { selectedTileset, tilesetNames };
-}
-
-const ConnectedTilesetSelector = connect(
-  mapStateToPropsSelector,
-  { selectTileset }
-)(TilesetSelector);
+import {
+  ADD_TILESET_TITLE,
+} from 'ui/constants';
 
 const TilesetManager = ({ addTileset, addTilesets }) => {
   // Get available tilesets
@@ -75,8 +39,8 @@ const TilesetManager = ({ addTileset, addTilesets }) => {
   return (
     <div className='is-small'>
       <h3>Tileset</h3>
-      <ConnectedTilesetSelector />
-      <FileInput title='Add tileset' onUpload={e => onTilesetUpload(e) }/>
+      <TilesetSelector />
+      <FileInput title={ADD_TILESET_TITLE} onUpload={e => onTilesetUpload(e) }/>
       <TilesetPreview />
     </div>
   );
@@ -86,4 +50,3 @@ export default connect(
   null,
   { addTileset, addTilesets }
 )(TilesetManager);
-

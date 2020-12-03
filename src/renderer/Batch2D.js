@@ -1,4 +1,9 @@
 import TextureManager from 'renderer/TextureManager';
+import {
+  ATTRIB_POSITION,
+  ATTRIB_TEXTURE_COORD,
+  ATTRIB_COLOR,
+} from 'renderer/constants';
 
 const createIndices = (indicesSize) => {
   let offset = 0;
@@ -49,17 +54,17 @@ export default class Batch2D {
     this.gl.bufferData(this.gl.ARRAY_BUFFER, this.vertices, this.gl.DYNAMIC_DRAW);
 
     // Position
-    const locPosition = this.gl.getAttribLocation(this.shaderProgram.id, 'aPosition');
+    const locPosition = this.gl.getAttribLocation(this.shaderProgram.id, ATTRIB_POSITION);
     this.gl.vertexAttribPointer(locPosition, 2, this.gl.FLOAT, false, bytesPerVertex, 0);
     this.gl.enableVertexAttribArray(locPosition);
 
     // TextureCoord
-    const locTextureCoord = this.gl.getAttribLocation(this.shaderProgram.id, 'aTextureCoord');
+    const locTextureCoord = this.gl.getAttribLocation(this.shaderProgram.id, ATTRIB_TEXTURE_COORD);
     this.gl.vertexAttribPointer(locTextureCoord, 2, this.gl.FLOAT, false, bytesPerVertex, 2 * 4);
     this.gl.enableVertexAttribArray(locTextureCoord);
 
     // Color
-    const locColor = this.gl.getAttribLocation(this.shaderProgram.id, 'aColor');
+    const locColor = this.gl.getAttribLocation(this.shaderProgram.id, ATTRIB_COLOR);
     this.gl.vertexAttribPointer(locColor, 4, this.gl.FLOAT, false, bytesPerVertex, 4 * 4);
     this.gl.enableVertexAttribArray(locColor);
 
@@ -160,4 +165,3 @@ export default class Batch2D {
     this.indexCount = 0;
   }
 }
-

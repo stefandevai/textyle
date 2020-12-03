@@ -5,7 +5,7 @@ function createShader(gl, source, type) {
 
   if ( !gl.getShaderParameter(shader, gl.COMPILE_STATUS) ) {
     const info = gl.getShaderInfoLog(shader);
-    console.log('Could not compile shader: ' + info);
+    console.error('Could not compile shader: ' + info);
   }
 
   return shader;
@@ -29,7 +29,7 @@ class ShaderProgram {
     this.gl.linkProgram(this.id);
 
     if (!this.gl.getProgramParameter(this.id, this.gl.LINK_STATUS)) {
-      console.log('Unable to initialize the shader program: ' + this.gl.getProgramInfoLog(this.id));
+      console.error('Unable to initialize the shader program: ' + this.gl.getProgramInfoLog(this.id));
       return null;
     }
   }

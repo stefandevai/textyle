@@ -13,4 +13,3 @@ const FileInput = ({ title, onUpload }) => {
 };
 
 export default FileInput;
-
