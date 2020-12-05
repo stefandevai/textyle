@@ -1,3 +1,5 @@
+import { connect } from 'react-redux';
+import { selectTool } from 'redux/actions';
 import Icon from '@mdi/react';
 import {
   mdiPencil,
@@ -6,26 +8,42 @@ import {
   mdiCursorDefaultOutline,
   mdiCursorMove,
 } from '@mdi/js';
+import {
+  DEFAULT_TOOL,
+  PLACEMENT_TOOL,
+  BUCKET_TOOL,
+  MOVE_TOOL,
+} from 'ui/toolbar/tools'
 
-const Tool = ({ icon }) => {
+const Tool = ({ icon, tool, selectedTool, selectTool }) => {
+  const iconClasses = tool === selectedTool
+    ? 'text-indigo-400 hover:text-indigo-500 cursor-pointer'
+    : 'hover:text-indigo-500 cursor-pointer';
+
   return (
     <button className='px-4 py-2 cursor-default'>
-      <div className='hover:text-indigo-400 cursor-pointer'>
+      <div className={iconClasses} onMouseUp={e => selectTool(tool)}>
         <Icon path={icon} size={0.75} />
       </div>
     </button>
   );
 }
 
+const mapStateToProps = state => {
+  const { selectedTool } = state.canvas || {};
+  return { selectedTool };
+}
+
+const ToolC = connect(mapStateToProps, { selectTool })(Tool);
+
 const Toolbar = () => {
   return (
     <nav className='flex flex-row items-stretch bg-black'>
       <div className='flex flex-row justify-start items-center flex-grow'>
-        <Tool icon={mdiCursorDefaultOutline} />
-        <Tool icon={mdiPencil} />
-        <Tool icon={mdiPail} />
-        <Tool icon={mdiCursorMove} />
-        <Tool icon={mdiSelect} />
+        <ToolC icon={mdiCursorDefaultOutline} tool={DEFAULT_TOOL} />
+        <ToolC icon={mdiPencil} tool={PLACEMENT_TOOL} />
+        <ToolC icon={mdiPail} tool={BUCKET_TOOL} />
+        <ToolC icon={mdiCursorMove} tool={MOVE_TOOL} />
       </div>
     </nav>
   );

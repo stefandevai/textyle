@@ -3,7 +3,7 @@ import {
   ADD_TILESETS,
   SELECT_TILESET,
   SELECT_TILE,
-  CANVAS_CLICKED,
+  SELECT_TOOL,
 } from 'redux/actionTypes';
 
 export const addTileset = name => ({
@@ -24,5 +24,10 @@ export const selectTileset = name => ({
 export const selectTile = value => ({
   type: SELECT_TILE,
   payload: { value },
+});
+
+export const selectTool = tool => ({
+  type: SELECT_TOOL,
+  payload: { tool },
 });
 

@@ -1,12 +1,15 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
+import { useEventListener } from 'ui/hooks';
 import RendererInstance from 'renderer/Renderer';
 import { getTilePositionOnClick } from 'utils/tile';
 import Toolbar from 'ui/toolbar/Toolbar';
 import AbsoluteCanvas from 'ui/common/AbsoluteCanvas';
 import {
+  DEFAULT_TOOL,
   PLACEMENT_TOOL,
   BUCKET_TOOL,
+  MOVE_TOOL,
 } from 'ui/toolbar/tools';
 import {
   TILEMAP_CANVAS_ID,
@@ -17,6 +20,7 @@ import {
 const tileSize = [32, 32];
 
 const WebGLCanvas = ({ selectedTile, selectedTool }) => {
+  const [usingTool, setUsingTool] = useState(false);
   const tilesCanvasRef = useRef();
   const editingCanvasRef = useRef();
 
@@ -31,26 +35,21 @@ const WebGLCanvas = ({ selectedTile, selectedTool }) => {
     editingCanvasRef.current.width = editingCanvasRef.current.clientWidth;
     editingCanvasRef.current.height = editingCanvasRef.current.clientHeight;
 
+    if (RendererInstance.hasInitialized) {
+      return;
+    }
+
     // Initialize renderer
     RendererInstance.init(tilesCanvasRef.current.getContext('webgl2'));
     RendererInstance.setClearColor(0.0, 0.0, 0.0, 1.0);
     window.requestAnimationFrame(RendererInstance.render);
   }, []);
 
-  const handleTool = e => {
+  const handleOneTimeTools = e => {
     const position = getTilePositionOnClick(e, tileSize);
 
     switch (selectedTool) {
-      case PLACEMENT_TOOL: {
-        if (selectedTile && selectedTile !== -1) {
-          console.log(position);
-          RendererInstance.grid.set_value(...position, selectedTile);
-        }
-        break;
-      }
-
       case BUCKET_TOOL: {
-
         break;
       }
 
@@ -59,12 +58,61 @@ const WebGLCanvas = ({ selectedTile, selectedTool }) => {
     }
   }
 
+  const handleContinuousTools = e => {
+    const position = getTilePositionOnClick(e, tileSize);
+
+    switch (selectedTool) {
+      case DEFAULT_TOOL: {
+        break;
+      }
+
+      case PLACEMENT_TOOL: {
+        if (selectedTile && selectedTile !== -1) {
+          RendererInstance.grid.set_value(...position, selectedTile);
+        }
+        break;
+      }
+
+      case MOVE_TOOL: {
+        break;
+      }
+
+      default:
+        break;
+    }
+  }
+
+  const handleMouseDown = e => {
+    setUsingTool(true);
+    handleOneTimeTools(e);
+    handleContinuousTools(e);
+  }
+
+  const handleMouseMove = e => {
+    if (!usingTool) {
+      return;
+    }
+    handleContinuousTools(e);
+  }
+
+  // Update state on mouseup event if the mouse is outside the canvas area
+  useEventListener('mouseup', () => setUsingTool(false), document);
+
   return (
     <div className='col-span-3 flex flex-col'>
       <Toolbar />
       <section className='relative flex-1 bg-gray-600'>
-        <AbsoluteCanvas id={EDITOR_CANVAS_ID} style={{ width: '100%', height: '100%', zIndex: '1' }} onMouseUp={handleTool} ref={editingCanvasRef} />
-        <AbsoluteCanvas id={TILEMAP_CANVAS_ID} style={{ width: '100%', height: '100%', zIndex: '0' }} ref={tilesCanvasRef} />
+        <AbsoluteCanvas
+          id={EDITOR_CANVAS_ID}
+          style={{ width: '100%', height: '100%', zIndex: '1' }}
+          onMouseDown={e => handleMouseDown(e)}
+          onMouseMove={e => handleMouseMove(e)}
+          ref={editingCanvasRef} />
+
+        <AbsoluteCanvas
+          id={TILEMAP_CANVAS_ID}
+          style={{ width: '100%', height: '100%', zIndex: '0' }}
+          ref={tilesCanvasRef} />
       </section>
     </div>
   );

@@ -1,23 +1,22 @@
 import {
-  CANVAS_CLICKED,
+  SELECT_TOOL,
 } from 'redux/actionTypes';
 
 import {
-  PLACEMENT_TOOL
+  DEFAULT_TOOL
 } from 'ui/toolbar/tools';
 
 const initialState = {
-  selectedTool: PLACEMENT_TOOL,
-  positionClicked: [-1, -1],
+  selectedTool: DEFAULT_TOOL,
 }
 
 export default function(state = initialState, action) {
   switch(action.type) {
-    case CANVAS_CLICKED:
-      const { position } = action.payload;
+    case SELECT_TOOL:
+      const { tool } = action.payload;
       return {
         ...state,
-        positionClicked: position,
+        selectedTool: tool,
       };
 
     default:
