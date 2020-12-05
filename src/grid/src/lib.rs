@@ -4,11 +4,11 @@ extern crate web_sys;
 
 use wasm_bindgen::prelude::*;
 
-macro_rules! log {
-    ( $( $t:tt )* ) => {
-        web_sys::console::log_1(&format!( $( $t )* ).into());
-    }
-}
+//macro_rules! log {
+    //( $( $t:tt )* ) => {
+        //web_sys::console::log_1(&format!( $( $t )* ).into());
+    //}
+//}
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Tile {
@@ -34,7 +34,7 @@ impl Grid {
         utils::set_panic_hook();
 
         let tiles = vec![Tile{frame: 1};
-                         (width * height + 1) as usize];
+                         (width * height) as usize];
 
         Grid {
             width: width,
@@ -53,6 +53,11 @@ impl Grid {
 
     pub fn set_value(&mut self, x: u32, y: u32, value: i32) {
         let idx = self.get_index(y, x);
+        // TODO: better handling of out of bounds
+        if (idx as u32) > self.width * self.height {
+            return;
+        }
+
         self.tiles[idx] = Tile{frame: value};
     }
 
@@ -60,7 +65,7 @@ impl Grid {
         let idx = self.get_index(row, column);
 
         // TODO: better handling of out of bounds
-        if (idx as u32) > self.width * self.height {
+        if (idx as u32) >= self.width * self.height {
             return -1;
         }
 

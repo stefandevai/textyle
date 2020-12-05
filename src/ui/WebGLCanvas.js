@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import RendererInstance from 'renderer/Renderer';
 import { getTilePositionOnClick } from 'utils/tile';
+import Toolbar from 'ui/toolbar/Toolbar';
 import AbsoluteCanvas from 'ui/common/AbsoluteCanvas';
 import {
   PLACEMENT_TOOL,
@@ -42,6 +43,7 @@ const WebGLCanvas = ({ selectedTile, selectedTool }) => {
     switch (selectedTool) {
       case PLACEMENT_TOOL: {
         if (selectedTile && selectedTile !== -1) {
+          console.log(position);
           RendererInstance.grid.set_value(...position, selectedTile);
         }
         break;
@@ -58,10 +60,13 @@ const WebGLCanvas = ({ selectedTile, selectedTool }) => {
   }
 
   return (
-    <section className="section column" style={{ width: '100%', height: '100%', position: 'relative' }}>
-      <AbsoluteCanvas id={EDITOR_CANVAS_ID} style={{ width: '100%', height: '100%', zIndex: '1' }} onMouseUp={handleTool} ref={editingCanvasRef} />
-      <AbsoluteCanvas id={TILEMAP_CANVAS_ID} style={{ width: '100%', height: '100%', zIndex: '0' }} ref={tilesCanvasRef} />
-    </section>
+    <div className='col-span-3 flex flex-col'>
+      <Toolbar />
+      <section className='relative flex-1 bg-gray-600'>
+        <AbsoluteCanvas id={EDITOR_CANVAS_ID} style={{ width: '100%', height: '100%', zIndex: '1' }} onMouseUp={handleTool} ref={editingCanvasRef} />
+        <AbsoluteCanvas id={TILEMAP_CANVAS_ID} style={{ width: '100%', height: '100%', zIndex: '0' }} ref={tilesCanvasRef} />
+      </section>
+    </div>
   );
 }
 

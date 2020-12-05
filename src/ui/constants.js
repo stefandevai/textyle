@@ -6,5 +6,5 @@ export const LOCAL_STORAGE_LAST_SELECTED_TILESET = 'lastSelectedTileset';
 
 export const ADD_TILESET_TITLE = 'Add Tileset';
 
-export const  GRID_COLOR = '#dddddd';
-export const SELECTED_TILE_COLOR_OVERLAY = '#ff0000';
+export const GRID_COLOR = '#dddddd';
+export const SELECTED_TILE_COLOR_OVERLAY = 'rgba(79, 70, 229, 0.4)';

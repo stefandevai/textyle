@@ -1,5 +1,5 @@
 const path = require("path");
-const { override } = require("customize-cra");
+const { override, addPostcssPlugins } = require("customize-cra");
 
 const WasmPackPlugin = require("@wasm-tool/wasm-pack-plugin");
 
@@ -29,5 +29,10 @@ module.exports = override(
     ]);
 
     return config;
-  }
+  },
+
+  addPostcssPlugins([
+    require('tailwindcss'),
+    require('autoprefixer'),
+  ]),
 );

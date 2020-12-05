@@ -109,9 +109,10 @@ class Renderer {
       this.memory = memory;
 
       const { Grid } = await import('grid/pkg');
-      this.grid = Grid.new(this.gl.canvas.width / this.tileSize, this.gl.canvas.height / this.tileSize);
-      this.grid.set_value(0, 0, 28);
-      this.grid.set_value(1, 1, 28);
+      console.log(Math.floor(this.gl.canvas.width / this.tileSize));
+      console.log(Math.floor(this.gl.canvas.height / this.tileSize));
+      console.log('');
+      this.grid = Grid.new(Math.floor(this.gl.canvas.width / this.tileSize) + 1, Math.floor(this.gl.canvas.height / this.tileSize) + 1);
     } catch (err) {
       console.error(`[x] Error loading grid: ${err.message}`);
     }

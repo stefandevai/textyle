@@ -1,15 +1,15 @@
 import WebGLCanvas from 'ui/WebGLCanvas';
-import Toolbar from 'ui/toolbar/Toolbar';
 import ProjectSidebar from 'ui/sidebar/ProjectSidebar';
-import 'ui/App.sass';
+import { HashRouter } from "react-router-dom";
 
 const App = () => {
   return (
-    <div className='app'>
-      <Toolbar />
-      <main style={{ width: '100%', height: '100%', margin: 0 }} className='columns'>
+    <div className='h-screen w-screen flex flex-col text-gray-50 bg-gray-900'>
+      <main className='flex-1 grid grid-cols-4'>
+        <HashRouter>
+          <ProjectSidebar />
+        </HashRouter>
         <WebGLCanvas />
-        <ProjectSidebar width='300px' />
       </main>
     </div>
   );

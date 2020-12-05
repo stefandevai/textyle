@@ -4,10 +4,10 @@ A high performant web-based tilemap editor.
 # Stack
 - React (front end)
 - Rust (WASM)
-- Bulma (CSS)
+- Tailwind (CSS)
 
 # Structure
-- Rust handles OpenGL canvas with SDL, it exposes an API for editing the tilemap
+- JS handles WebGL and Rust handles tile data, it exposes an API for editing the tilemap
   - add_tile(x, y, z)
   - remove_tile(x, y, z)
   - export()
@@ -15,13 +15,11 @@ A high performant web-based tilemap editor.
   - delete_layer("layer 2")
   - select_layer("layer 1")
 - React consumes the WASM API, handles the interface and user input
-- How to translate mouse events to rust?
-- How to sync tile positions in React and in Rust?
 
 # Goals
 - Multi layer support
 - Multiple tilesets
 - JSON export / import
-- Data layers
+- Data/entity layers
 - Non tileset images
 - Brushes (automap, randomized tiles)

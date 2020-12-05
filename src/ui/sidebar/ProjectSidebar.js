@@ -1,12 +1,36 @@
-import MapSettings from 'ui/sidebar/MapSettings';
+import TabSelector from 'ui/sidebar/TabSelector';
 import TilesetManager from 'ui/sidebar/TilesetManager';
+import Map from 'ui/sidebar/Map';
+import Settings from 'ui/sidebar/Settings';
+import { Switch, Route } from "react-router-dom";
 
-const ProjectSidebar = (props) => {
+const ProjectSidebar = () => {
   return (
-    <aside style={{ width: props.width }} className='column is-one-quarter'>
-      <div className='content is-small'>
-        <MapSettings />
-        <TilesetManager />
+    <aside className='flex flex-row bg-gray-900'>
+      <TabSelector />
+      <div className='mx-2 my-6'>
+        <Switch>
+          <Route path='/tiles'>
+            <TilesetManager />
+          </Route>
+
+          <Route path='/map'>
+            <Map />
+          </Route>
+
+          <Route path='/import'>
+          </Route>
+
+          <Route path='/save'>
+          </Route>
+
+          <Route path='/settings'>
+            <Settings />
+          </Route>
+
+          <Route path='/help'>
+          </Route>
+        </Switch>
       </div>
     </aside>
   );
