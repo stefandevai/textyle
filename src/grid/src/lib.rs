@@ -23,11 +23,11 @@ pub struct Grid {
 }
 
 impl Grid {
-    fn get_index(&self, x: u32, y: u32) -> usize {
-        (y * self.width + x) as usize
+    fn get_index(&self, x: i32, y: i32) -> usize {
+        (y * (self.width as i32) + x) as usize
     }
 
-    pub fn local_fill(&mut self, x: u32, y: u32, value: i32, filled_value: i32) {
+    pub fn local_fill(&mut self, x: i32, y: i32, value: i32, filled_value: i32) {
         let mut my = y;
         let mut mx = x;
 
@@ -36,11 +36,9 @@ impl Grid {
             let oy = my;
 
             while my != 0 && self.get(mx, my - 1) == filled_value {
-                log!("1");
                 my -= 1;
             }
             while mx != 0 && self.get(mx - 1, my) == filled_value {
-                log!("2");
                 mx -= 1;
             }
             if mx == ox && my == oy {
@@ -50,7 +48,7 @@ impl Grid {
         self.local_fill_core(mx, my, value, filled_value);
     }
 
-    pub fn local_fill_core(&mut self, x: u32, y: u32, value: i32, filled_value: i32) {
+    pub fn local_fill_core(&mut self, x: i32, y: i32, value: i32, filled_value: i32) {
         let mut last_row_length = 0;
         let mut my = y;
         let mut mx = x;
@@ -61,43 +59,33 @@ impl Grid {
             let mut sx = mx;
 
             if last_row_length != 0 && self.get(mx, my) != filled_value {
-                log!("13");
                 loop {
                     last_row_length -= 1;
                     if last_row_length == 0 {
                         return;
                     }
-                    log!("14");
 
                     mx += 1;
                     if self.get(mx, my) == filled_value {
                         break;
                     }
-                    log!("15");
                 }
                 sx = mx;
             }
             else {
-                log!("11");
                 loop {
                     if mx == 0 || self.get(mx - 1, my) != filled_value {
                         break;
                     }
-                    log!("12");
 
                     mx -= 1;
                     self.set(mx, my, value);
 
                     if my != 0 && self.get(mx, my - 1) == filled_value {
-                        log!("3");
                         self.local_fill(mx, my - 1, value, filled_value);
-                        log!("4");
                     }
 
-                    log!("5");
-                    log!("{}", row_length);
                     row_length -= 1;
-                    log!("16");
                     last_row_length -= 1;
                 }
 
@@ -105,10 +93,9 @@ impl Grid {
 
 
             loop {
-                if sx >= self.width || self.get(sx, my) != filled_value {
+                if sx >= self.width as i32 || self.get(sx, my) != filled_value {
                     break;
                 }
-                log!("10");
 
                 self.set(sx, my, value);
 
@@ -117,7 +104,6 @@ impl Grid {
             }
 
             if row_length < last_row_length {
-                log!("9");
                 let end = mx + last_row_length;
 
                 loop {
@@ -132,7 +118,6 @@ impl Grid {
                 }
             }
             else if row_length > last_row_length && my != 0 {
-                log!("8");
                 let mut ux = mx + last_row_length;
                 loop {
                     ux += 1;
@@ -146,13 +131,11 @@ impl Grid {
                 }
             }
 
-            log!("7");
             last_row_length = row_length;
             my += 1;
-            if last_row_length == 0 && my >= self.height {
+            if last_row_length == 0 && my >= self.height as i32 {
                 break;
             }
-            log!("6");
         }
     }
 }
@@ -180,17 +163,17 @@ impl Grid {
         self.height
     }
 
-    pub fn set(&mut self, x: u32, y: u32, value: i32) {
+    pub fn set(&mut self, x: i32, y: i32, value: i32) {
         let idx = self.get_index(x, y);
         // TODO: better handling of out of bounds
-        if (idx as u32) > self.width * self.height {
+        if (idx as u32) >= self.width * self.height {
             return;
         }
 
         self.tiles[idx] = Tile{frame: value};
     }
 
-    pub fn get(&self, x: u32, y: u32) -> i32 {
+    pub fn get(&self, x: i32, y: i32) -> i32 {
         let idx = self.get_index(x, y);
 
         // TODO: better handling of out of bounds
@@ -201,7 +184,7 @@ impl Grid {
         self.tiles[idx].frame
     }
 
-    pub fn fill(&mut self, x: u32, y: u32, value: i32) {
+    pub fn fill(&mut self, x: i32, y: i32, value: i32) {
         let current_value = self.get(x, y);
         if current_value != value {
             self.local_fill(x, y, value, current_value);
