@@ -1,8 +1,11 @@
 import TextureManager from 'renderer/TextureManager';
+import TileManagerInstance from 'renderer/TileManager';
 import {
   ATTRIB_POSITION,
   ATTRIB_TEXTURE_COORD,
+  ATTRIB_TEXTURE_IDX,
   ATTRIB_COLOR,
+  UNIFORM_SAMPLERS,
 } from 'renderer/constants';
 
 const createIndices = (indicesSize) => {
@@ -29,13 +32,14 @@ export default class Batch2D {
   constructor(gl, shaderProgram) {
     this.gl = gl;
     this.shaderProgram = shaderProgram;
+    this.textures = [];
     this.textureManager = new TextureManager();
     this.create();
   }
 
   create = () => {
     const maxSprites  = 10000;
-    const floatsPerVertex = 8;
+    const floatsPerVertex = 9;
     const bytesPerVertex = 4 * floatsPerVertex;
     const floatsPerSprite = floatsPerVertex * 4;
     const totalFloats = maxSprites * floatsPerSprite;
@@ -63,9 +67,14 @@ export default class Batch2D {
     this.gl.vertexAttribPointer(locTextureCoord, 2, this.gl.FLOAT, false, bytesPerVertex, 2 * 4);
     this.gl.enableVertexAttribArray(locTextureCoord);
 
+    // TextureIdx
+    const locTextureIdx = this.gl.getAttribLocation(this.shaderProgram.id, ATTRIB_TEXTURE_IDX);
+    this.gl.vertexAttribPointer(locTextureIdx, 1, this.gl.FLOAT, false, bytesPerVertex, 4 * 4);
+    this.gl.enableVertexAttribArray(locTextureIdx);
+
     // Color
     const locColor = this.gl.getAttribLocation(this.shaderProgram.id, ATTRIB_COLOR);
-    this.gl.vertexAttribPointer(locColor, 4, this.gl.FLOAT, false, bytesPerVertex, 4 * 4);
+    this.gl.vertexAttribPointer(locColor, 4, this.gl.FLOAT, false, bytesPerVertex, 5 * 4);
     this.gl.enableVertexAttribArray(locColor);
 
     this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.EBO);
@@ -82,66 +91,74 @@ export default class Batch2D {
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.VBO);
   }
 
-  emplace = (tile) => {
+  emplace = (tileValue, position, color) => {
+    const tileData = TileManagerInstance.get(tileValue);
+    if (!tileData) {
+      console.error(`Could not get tile data for tile ${tileData}`);
+      return;
+    }
+
     let r = 0.0;
     let g = 0.0;
     let b = 0.0;
     let a = 0.0;
 
-    if (tile.color) {
-      r = tile.color.r;
-      g = tile.color.g;
-      b = tile.color.b;
-      a = tile.color.a;
+    if (color) {
+      r = color.r;
+      g = color.g;
+      b = color.b;
+      a = color.a;
     }
 
-    let uv = [0.0, 0.0, 0.0, 0.0];
+    let textureIdx = 0.0;
 
-    if (this.textureManager.has(tile.texture)) {
-      const texture = this.textureManager.get(tile.texture);
-      uv = texture.getFrameUV(tile.frame, tile.size);
+    if (this.textureManager.has(tileData.texture)) {
+      textureIdx = this.textureManager.getIndex(tileData.texture);
     }
     else {
-      this.textureManager.add(this.gl, tile.texture);
-      const texture = this.textureManager.get(tile.texture);
-      uv = texture.getFrameUV(tile.frame, tile.size);
+      this.textureManager.add(this.gl, tileData.texture);
+      textureIdx = this.textureManager.getIndex(tileData.texture);
     }
 
     // Top left
-    this.vertices[this.vertexIndex++] = tile.position[0];
-    this.vertices[this.vertexIndex++] = tile.position[1];
-    this.vertices[this.vertexIndex++] = uv[0][0];
-    this.vertices[this.vertexIndex++] = uv[0][1];
+    this.vertices[this.vertexIndex++] = position[0];
+    this.vertices[this.vertexIndex++] = position[1];
+    this.vertices[this.vertexIndex++] = tileData.uv[0][0];
+    this.vertices[this.vertexIndex++] = tileData.uv[0][1];
+    this.vertices[this.vertexIndex++] = textureIdx;
     this.vertices[this.vertexIndex++] = r;
     this.vertices[this.vertexIndex++] = g;
     this.vertices[this.vertexIndex++] = b;
     this.vertices[this.vertexIndex++] = a;
 
     // Top right
-    this.vertices[this.vertexIndex++] = tile.position[0] + tile.size[0];
-    this.vertices[this.vertexIndex++] = tile.position[1];
-    this.vertices[this.vertexIndex++] = uv[1][0];
-    this.vertices[this.vertexIndex++] = uv[1][1];
+    this.vertices[this.vertexIndex++] = position[0] + tileData.size[0];
+    this.vertices[this.vertexIndex++] = position[1];
+    this.vertices[this.vertexIndex++] = tileData.uv[1][0];
+    this.vertices[this.vertexIndex++] = tileData.uv[1][1];
+    this.vertices[this.vertexIndex++] = textureIdx;
     this.vertices[this.vertexIndex++] = r;
     this.vertices[this.vertexIndex++] = g;
     this.vertices[this.vertexIndex++] = b;
     this.vertices[this.vertexIndex++] = a;
 
     // Bottom right
-    this.vertices[this.vertexIndex++] = tile.position[0] + tile.size[0];
-    this.vertices[this.vertexIndex++] = tile.position[1] + tile.size[1];
-    this.vertices[this.vertexIndex++] = uv[2][0];
-    this.vertices[this.vertexIndex++] = uv[2][1];
+    this.vertices[this.vertexIndex++] = position[0] + tileData.size[0];
+    this.vertices[this.vertexIndex++] = position[1] + tileData.size[1];
+    this.vertices[this.vertexIndex++] = tileData.uv[2][0];
+    this.vertices[this.vertexIndex++] = tileData.uv[2][1];
+    this.vertices[this.vertexIndex++] = textureIdx;
     this.vertices[this.vertexIndex++] = r;
     this.vertices[this.vertexIndex++] = g;
     this.vertices[this.vertexIndex++] = b;
     this.vertices[this.vertexIndex++] = a;
 
     // Bottom left
-    this.vertices[this.vertexIndex++] = tile.position[0];
-    this.vertices[this.vertexIndex++] = tile.position[1] + tile.size[1];
-    this.vertices[this.vertexIndex++] = uv[3][0];
-    this.vertices[this.vertexIndex++] = uv[3][1];
+    this.vertices[this.vertexIndex++] = position[0];
+    this.vertices[this.vertexIndex++] = position[1] + tileData.size[1];
+    this.vertices[this.vertexIndex++] = tileData.uv[3][0];
+    this.vertices[this.vertexIndex++] = tileData.uv[3][1];
+    this.vertices[this.vertexIndex++] = textureIdx;
     this.vertices[this.vertexIndex++] = r;
     this.vertices[this.vertexIndex++] = g;
     this.vertices[this.vertexIndex++] = b;
@@ -155,10 +172,20 @@ export default class Batch2D {
     this.vertexIndex = 0;
   }
 
-  render = () => {
+  render = (shader) => {
     if (this.indexCount === 0) {
       return;
     }
+
+    let idx = 0;
+    this.textureManager.map.forEach(texture => {
+      this.gl.activeTexture(this.gl.TEXTURE0 + idx);
+      texture.bind(this.gl);
+      this.shaderProgram.setInt(`${UNIFORM_SAMPLERS}[${idx}]`, idx);
+      ++idx;
+    });
+
+    this.gl.activeTexture(this.gl.TEXTURE0);
 
     this.gl.bindVertexArray(this.VAO);
     this.gl.drawElements(this.gl.TRIANGLES, this.indexCount, this.gl.UNSIGNED_SHORT, 0);

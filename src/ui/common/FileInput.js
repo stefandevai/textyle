@@ -1,7 +1,7 @@
 const FileInput = ({ title, onUpload }) => {
   return (
     <div>
-      <p><strong>{title}</strong></p>
+      <p>{title}</p>
       <input
         type='file'
         min='1'

@@ -43,7 +43,7 @@ class ShaderProgram {
   }
 
   setInt = (uniformName, value) => {
-    this.gl.uniform1i(this.gl.getUniformLocation(this.id, uniformName), false, value);
+    this.gl.uniform1i(this.gl.getUniformLocation(this.id, uniformName), value);
   }
 }
 

@@ -30,7 +30,10 @@ const TilesetSelector = ({ selectedTileset, tilesetNames, selectTileset }) => {
 
   return (
     tilesetNames.length > 0 &&
-    <select value={selectedTileset} onChange={onOptionSelected}>
+    <select
+      className='text-gray-900'
+      value={selectedTileset}
+      onChange={onOptionSelected}>
       {options}
     </select>
   );

@@ -1,14 +1,5 @@
-import { getTextureFile } from 'idb';
-
-async function getImageBitmap(name) {
-  const fileData = await getTextureFile(name);
-  if (!fileData) {
-    console.error(`It was not possible to get ${name} from IDB`);
-    return;
-  }
-
-  return createImageBitmap(fileData);
-}
+import { getImageBitmap } from 'utils/file';
+import { getTileUV } from 'utils/tile';
 
 class Texture {
   constructor(gl, name) {
@@ -16,7 +7,7 @@ class Texture {
     this.create(gl);
   }
 
-  create = (gl) => {
+  create = gl => {
     this.id = gl.createTexture();
 
     gl.bindTexture(gl.TEXTURE_2D, this.id);
@@ -48,37 +39,38 @@ class Texture {
     gl.bindTexture(gl.TEXTURE_2D, this.id);
   }
 
-  getFrameUV = (frame, frameSize) => {
-    // If the texture has not been initialized yet
-    if (this.width == 1 && this.height == 1) {
-      return [
-        [0.0, 0.0],
-        [0.0, 0.0],
-        [0.0, 0.0],
-        [0.0, 0.0],
-      ];
-    }
+  getUV = (frame, frameSize) => {
+    return getTileUV(frame, frameSize, [this.width, this.height]);
+    //// If the texture has not been initialized yet
+    //if (this.width == 1 && this.height == 1) {
+      //return [
+        //[0.0, 0.0],
+        //[0.0, 0.0],
+        //[0.0, 0.0],
+        //[0.0, 0.0],
+      //];
+    //}
 
-    const frameWidth  = (frameSize[0] * 1.0) / this.width;
-    const frameHeight = (frameSize[1] * 1.0) / this.height;
-    const hFrames = Math.floor(this.width / frameSize[0]);
-    const vFrames = Math.floor(this.height / frameSize[1]);
-    const maxFrames = hFrames * vFrames;
+    //const frameWidth  = (frameSize[0] * 1.0) / this.width;
+    //const frameHeight = (frameSize[1] * 1.0) / this.height;
+    //const hFrames = Math.floor(this.width / frameSize[0]);
+    //const vFrames = Math.floor(this.height / frameSize[1]);
+    //const maxFrames = hFrames * vFrames;
 
-    const frameX = Math.floor(frame % hFrames);
-    const frameY = Math.floor((frame % maxFrames) / hFrames);
-    // Multiply the x coord of the frame in the texture atlas by the normalized value of the width one frame.
-    const topLeftX = frameX * (this.width / hFrames) * 1.0 / this.width;
-    // Multiply the y coord of the frame in the tile map by the normalized value of the height one frame.
-    // Invert the value as the y axis is upwards for OpenGL
-    const topLeftY = frameY * (this.height / vFrames) / this.height;
+    //const frameX = Math.floor(frame % hFrames);
+    //const frameY = Math.floor((frame % maxFrames) / hFrames);
+    //// Multiply the x coord of the frame in the texture atlas by the normalized value of the width one frame.
+    //const topLeftX = frameX * (this.width / hFrames) * 1.0 / this.width;
+    //// Multiply the y coord of the frame in the tile map by the normalized value of the height one frame.
+    //// Invert the value as the y axis is upwards for OpenGL
+    //const topLeftY = frameY * (this.height / vFrames) / this.height;
 
-    return [
-      [topLeftX, topLeftY],
-      [topLeftX + frameWidth, topLeftY],
-      [topLeftX + frameWidth, topLeftY + frameHeight],
-      [topLeftX, topLeftY + frameHeight],
-    ];
+    //return [
+      //[topLeftX, topLeftY],
+      //[topLeftX + frameWidth, topLeftY],
+      //[topLeftX + frameWidth, topLeftY + frameHeight],
+      //[topLeftX, topLeftY + frameHeight],
+    //];
   }
 }
 

@@ -1,4 +1,6 @@
-export const fileToBase64 = (file) => {
+import { getTextureData } from 'idb';
+
+export const fileToBase64 = file => {
   if (!file) {
     return null;
   }
@@ -9,6 +11,17 @@ export const fileToBase64 = (file) => {
     reader.onerror = error => reject(error);
     reader.readAsDataURL(file);
   });
+}
+
+export const getImageBitmap = async name => {
+  const fileData = await getTextureData(name);
+  if (!fileData) {
+    console.error(`It was not possible to get ${name} from IDB`);
+    return;
+  }
+
+
+  return createImageBitmap(fileData.file);
 }
 
 //export const getFileName = (fullpath) => {

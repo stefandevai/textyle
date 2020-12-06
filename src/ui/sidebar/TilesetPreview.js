@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import { getTextureFile } from 'idb';
+import { getTextureData } from 'idb';
 import { selectTile } from 'redux/actions';
 import { getTilePositionOnClick } from 'utils/tile';
 import AbsoluteCanvas from 'ui/common/AbsoluteCanvas';
@@ -37,6 +37,7 @@ const drawGridLines = (canvas, tileDimensions) => {
 
 const TilesetPreview = ({ selectedTileset, selectTile }) => {
   const [selectedTile, setSelectedTile] = useState([-1, -1]);
+  const [tilesetIndex, setTilesetIndex] = useState(0);
   const tilegridCanvasRef = useRef(null);
   const tilesetCanvasRef = useRef(null);
 
@@ -50,7 +51,7 @@ const TilesetPreview = ({ selectedTileset, selectTile }) => {
     const tilegridCanvas = tilegridCanvasRef.current;
 
     // Add image to canvas
-    getTextureFile(selectedTileset).then(file => {
+    getTextureData(selectedTileset).then(data => {
       const reader = new FileReader();
 
       reader.onload = e => {
@@ -65,10 +66,11 @@ const TilesetPreview = ({ selectedTileset, selectTile }) => {
           const tilesetContext = tilesetCanvas.getContext('2d');
           tilesetContext.drawImage(image, 0, 0);
           drawGridLines(tilesetCanvas, tileSize);
+          setTilesetIndex(data.tilesetIndex);
         }
         image.src = e.target.result;
       }
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(data.file);
     });
   }, [selectedTileset]);
 
@@ -91,7 +93,8 @@ const TilesetPreview = ({ selectedTileset, selectTile }) => {
 
   const onSelectTile = e => {
     const tilePos = getTilePositionOnClick(e, tileSize);
-    selectTile(tilePos[1] * Math.floor(e.target.width / tileSize[0]) + tilePos[0]);
+    const tileIndex = tilesetIndex + tilePos[1] * Math.floor(e.target.width / tileSize[0]) + tilePos[0]
+    selectTile(tileIndex);
     setSelectedTile(tilePos);
   }
 

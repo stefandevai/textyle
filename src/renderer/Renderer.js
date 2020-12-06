@@ -5,7 +5,6 @@ import Texture from 'renderer/Texture';
 import {
   UNIFORM_PROJECTION,
   UNIFORM_MODEL_VIEW,
-  UNIFORM_SAMPLER,
   BATCH_VERTEX_SHADER_SOURCE,
   BATCH_FRAGMENT_SHADER_SOURCE,
 } from 'renderer/constants';
@@ -28,10 +27,6 @@ class Renderer {
 
     // TODO: Allow changing tileSize
     this.tileSize = 32;
-
-    // TEMP
-    this.texture = new Texture(this.gl, 'tileset');
-    // TEMP
 
     this.shaderProgram = new ShaderProgram(this.gl, BATCH_VERTEX_SHADER_SOURCE, BATCH_FRAGMENT_SHADER_SOURCE);
     this.shaderProgram.use();
@@ -86,21 +81,13 @@ class Renderer {
         const value = this.grid.get_value(i, j);
 
         if (value !== -1) {
-          this.batch.emplace({ position: [x, y],
-                               size: [this.tileSize, this.tileSize],
-                               frame: value,
-                               texture: 'tileset'});
+          this.batch.emplace(value, [x, y]);
         }
       }
     }
 
     this.batch.flush();
-
-    this.gl.activeTexture(this.gl.TEXTURE0);
-    this.texture.bind(this.gl);
-    this.shaderProgram.setInt(UNIFORM_SAMPLER, 0);
-
-    this.batch.render();
+    this.batch.render(this.shaderProgram);
   }
 
   loadWasm = async () => {

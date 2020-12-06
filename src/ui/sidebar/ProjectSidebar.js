@@ -8,7 +8,7 @@ const ProjectSidebar = () => {
   return (
     <aside className='flex flex-row bg-gray-900'>
       <TabSelector />
-      <div className='mx-2 my-6'>
+      <div className='flex-1'>
         <Switch>
           <Route path='/tiles'>
             <TilesetManager />

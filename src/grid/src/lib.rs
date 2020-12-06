@@ -33,7 +33,7 @@ impl Grid {
     pub fn new(width: u32, height: u32) -> Grid {
         utils::set_panic_hook();
 
-        let tiles = vec![Tile{frame: 1};
+        let tiles = vec![Tile{frame: -1};
                          (width * height) as usize];
 
         Grid {

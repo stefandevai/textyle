@@ -1,47 +1,62 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { addTileset, addTilesets } from 'redux/actions';
-import { setTextureFile, getTextureFiles } from 'idb';
+import { setTextureData, getTextureNames, hasTexture } from 'idb';
+import TileManagerInstance from 'renderer/TileManager';
 import FileInput from 'ui/common/FileInput';
 import TilesetPreview from 'ui/sidebar/TilesetPreview';
 import TilesetSelector from 'ui/sidebar/TilesetSelector';
-
+import CollapseSection from 'ui/common/CollapseTab';
 import {
   ADD_TILESET_TITLE,
+  LOCAL_STORAGE_LAST_SELECTED_TILESET,
 } from 'ui/constants';
 
 const TilesetManager = ({ addTileset, addTilesets }) => {
   // Get available tilesets
   useEffect(() => {
-    getTextureFiles().then(textures => {
+    getTextureNames().then(async textures => {
       addTilesets(textures);
+
+      // Create tiles from textures
+      // Respects order of creation
+      textures.reverse().map(async texture => await TileManagerInstance.addTilesFromTileset(texture, [32, 32]));
     });
   }, [addTilesets]);
 
   const onTilesetUpload = async (event) => {
-    if (event.target.files.length < 0) {
+    if (event.target.files.length <= 0) {
       return;
     }
 
-    const name = event.target.files[0].name;
+    // TODO: If the texture already exists, choose a new name
+    let name = event.target.files[0].name;
 
     try {
       const fileBlob = event.target.files[0];
-      await setTextureFile(name, fileBlob);
+      if (!fileBlob) {
+        return;
+      }
+
+      await setTextureData(name, { file: fileBlob, tilesetIndex: TileManagerInstance.length });
     } catch (err) {
       console.error(err);
       return;
     }
 
+    // Create tiles from the texture
+    TileManagerInstance.addTilesFromTileset(name, [32, 32]);
+    localStorage.setItem(LOCAL_STORAGE_LAST_SELECTED_TILESET, name);
     addTileset(name);
   }
 
   return (
-    <div className='is-small'>
-      <h3>Tileset</h3>
-      <TilesetSelector />
-      <FileInput title={ADD_TILESET_TITLE} onUpload={e => onTilesetUpload(e) }/>
-      <TilesetPreview />
+    <div>
+      <CollapseSection title='Tileset'>
+        <TilesetSelector />
+        <FileInput title={ADD_TILESET_TITLE} onUpload={e => onTilesetUpload(e) }/>
+        <TilesetPreview />
+      </CollapseSection>
     </div>
   );
 }
