@@ -27,7 +27,15 @@ impl Grid {
         (y * (self.width as i32) + x) as usize
     }
 
-    pub fn local_fill(&mut self, x: i32, y: i32, value: i32, filled_value: i32) {
+    fn can_fill(&self, x: i32, y: i32, value_to_fill: i32) -> bool {
+        x >= 0 &&
+        y >= 0 &&
+        x <= self.width as i32 &&
+        y <= self.height as i32 &&
+        self.get(x, y) == value_to_fill
+    }
+
+    fn local_fill(&mut self, x: i32, y: i32, value: i32, value_to_fill: i32) {
         let mut my = y;
         let mut mx = x;
 
@@ -35,20 +43,22 @@ impl Grid {
             let ox = mx;
             let oy = my;
 
-            while my != 0 && self.get(mx, my - 1) == filled_value {
+            //while my != 0 && self.get(mx, my - 1) == value_to_fill {
+            while my != 0 && self.can_fill(mx, my - 1, value_to_fill) {
                 my -= 1;
             }
-            while mx != 0 && self.get(mx - 1, my) == filled_value {
+            //while mx != 0 && self.get(mx - 1, my) == value_to_fill {
+            while mx != 0 && self.can_fill(mx - 1, my, value_to_fill) {
                 mx -= 1;
             }
             if mx == ox && my == oy {
                 break;
             }
         }
-        self.local_fill_core(mx, my, value, filled_value);
+        self.local_fill_core(mx, my, value, value_to_fill);
     }
 
-    pub fn local_fill_core(&mut self, x: i32, y: i32, value: i32, filled_value: i32) {
+    fn local_fill_core(&mut self, x: i32, y: i32, value: i32, value_to_fill: i32) {
         let mut last_row_length = 0;
         let mut my = y;
         let mut mx = x;
@@ -58,7 +68,8 @@ impl Grid {
             let mut row_length = 0;
             let mut sx = mx;
 
-            if last_row_length != 0 && self.get(mx, my) != filled_value {
+            //if last_row_length != 0 && self.get(mx, my) != value_to_fill {
+            if last_row_length != 0 && !self.can_fill(mx, my, value_to_fill) {
                 loop {
                     last_row_length -= 1;
                     if last_row_length == 0 {
@@ -66,7 +77,8 @@ impl Grid {
                     }
 
                     mx += 1;
-                    if self.get(mx, my) == filled_value {
+                    //if self.get(mx, my) == value_to_fill {
+                    if self.can_fill(mx, my, value_to_fill) {
                         break;
                     }
                 }
@@ -74,15 +86,17 @@ impl Grid {
             }
             else {
                 loop {
-                    if mx == 0 || self.get(mx - 1, my) != filled_value {
+                    //if mx == 0 || self.get(mx - 1, my) != value_to_fill {
+                    if mx == 0 || !self.can_fill(mx - 1, my, value_to_fill) {
                         break;
                     }
 
                     mx -= 1;
                     self.set(mx, my, value);
 
-                    if my != 0 && self.get(mx, my - 1) == filled_value {
-                        self.local_fill(mx, my - 1, value, filled_value);
+                    //if my != 0 && self.get(mx, my - 1) == value_to_fill {
+                    if my != 0 && self.can_fill(mx, my - 1, value_to_fill) {
+                        self.local_fill(mx, my - 1, value, value_to_fill);
                     }
 
                     row_length -= 1;
@@ -93,7 +107,8 @@ impl Grid {
 
 
             loop {
-                if sx >= self.width as i32 || self.get(sx, my) != filled_value {
+                //if sx >= self.width as i32 || self.get(sx, my) != value_to_fill {
+                if sx >= self.width as i32 || !self.can_fill(sx, my, value_to_fill) {
                     break;
                 }
 
@@ -112,8 +127,9 @@ impl Grid {
                         break;
                     }
 
-                    if self.get(sx, my) == filled_value {
-                        self.local_fill_core(sx, my, value, filled_value);
+                    //if self.get(sx, my) == value_to_fill {
+                    if self.can_fill(sx, my, value_to_fill) {
+                        self.local_fill_core(sx, my, value, value_to_fill);
                     }
                 }
             }
@@ -125,8 +141,9 @@ impl Grid {
                         break;
                     }
 
-                    if self.get(ux, my - 1) == filled_value {
-                        self.local_fill(ux, my - 1, value, filled_value);
+                    //if self.get(ux, my - 1) == value_to_fill {
+                    if self.can_fill(ux, my - 1, value_to_fill) {
+                        self.local_fill(ux, my - 1, value, value_to_fill);
                     }
                 }
             }
