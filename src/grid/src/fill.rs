@@ -57,30 +57,20 @@ impl Grid {
         sx = mx;
       }
       else {
-        loop {
-          if mx == 0 || !self.can_fill(mx - 1, my, value_to_fill) {
-            break;
-          }
-
+        while mx != 0 && self.can_fill(mx - 1, my, value_to_fill) {
           mx -= 1;
           self.set(mx, my, value);
 
-          if my != 0 && self.can_fill(mx, my - 1, value_to_fill) {
+          if my > 0 && self.can_fill(mx, my - 1, value_to_fill) {
             self.local_fill(mx, my - 1, value, value_to_fill);
           }
 
-          row_length -= 1;
-          last_row_length -= 1;
+          row_length += 1;
+          last_row_length += 1;
         }
-
       }
 
-
-      loop {
-        if sx >= self.width() as i32 || !self.can_fill(sx, my, value_to_fill) {
-          break;
-        }
-
+      while sx < self.width() as i32 && self.can_fill(sx, my, value_to_fill) {
         self.set(sx, my, value);
 
         row_length += 1;
@@ -89,29 +79,25 @@ impl Grid {
 
       if row_length < last_row_length {
         let end = mx + last_row_length;
+        sx += 1;
 
-        loop {
-          sx += 1;
-          if sx >= end {
-            break;
-          }
-
+        while sx < end {
           if self.can_fill(sx, my, value_to_fill) {
             self.local_fill_core(sx, my, value, value_to_fill);
           }
+
+          sx += 1;
         }
       }
       else if row_length > last_row_length && my != 0 {
         let mut ux = mx + last_row_length;
-        loop {
-          ux += 1;
-          if ux >= sx {
-            break;
-          }
-
+        ux += 1;
+        while ux < sx {
           if self.can_fill(ux, my - 1, value_to_fill) {
             self.local_fill(ux, my - 1, value, value_to_fill);
           }
+
+          ux += 1;
         }
       }
 
@@ -127,9 +113,9 @@ impl Grid {
 #[wasm_bindgen]
 impl Grid {
   pub fn fill(&mut self, x: i32, y: i32, value: i32) {
-    let current_value = self.get(x, y);
-    if current_value != value {
-      self.local_fill(x, y, value, current_value);
+    let value_to_fill = self.get(x, y);
+    if value_to_fill != value {
+      self.local_fill(x, y, value, value_to_fill);
     }
   }
 }

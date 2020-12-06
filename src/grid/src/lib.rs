@@ -5,6 +5,10 @@ mod utils;
 use wasm_bindgen::prelude::*;
 use std::fmt;
 
+#[cfg(feature = "wee_alloc")]
+#[global_allocator]
+static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Tile {
   value: i32,

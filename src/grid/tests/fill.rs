@@ -224,3 +224,70 @@ fn test_fill_irregular4() {
 
   assert_eq!(&grid.get_all_tiles(), &expected_grid.get_all_tiles());
 }
+
+// ...
+// .*.
+// ...
+// **.
+// to
+// ***
+// ***
+// ***
+// ***
+#[wasm_bindgen_test]
+fn test_fill_irregular5() {
+  let mut grid = Grid::new(3, 4);
+  grid.set_tiles(&[(1, 1),
+                   (0, 3), (1, 3)],
+                   2);
+
+  grid.fill(2, 3, 2);
+
+  let mut expected_grid = Grid::new(3, 4);
+  //expected_grid.set_tiles(&[(0, 0), (1, 0), (2, 0),
+                            //(0, 1), (1, 1), (2, 1),
+                            //(0, 2), (1, 2), (2, 2),
+                            //(0, 3), (1, 3)],
+                            //2);
+  expected_grid.set_tiles(&[(0, 0), (1, 0), (2, 0),
+                            (0, 1), (1, 1), (2, 1),
+                            (0, 2), (1, 2), (2, 2),
+                            (0, 3), (1, 3), (2, 3)],
+                            2);
+
+  assert_eq!(&grid.get_all_tiles(), &expected_grid.get_all_tiles());
+}
+
+// **.*
+// ....
+// ****
+// .***
+// to
+// ****
+// ****
+// ****
+// .***
+#[wasm_bindgen_test]
+fn test_fill_irregular6() {
+  let mut grid = Grid::new(4, 4);
+  grid.set_tiles(&[(0, 0), (1, 0), (3, 0),
+                   (0, 2), (1, 2), (2, 2), (3, 2),
+                   (1, 3), (2, 3), (3, 3)],
+                   2);
+
+  grid.fill(2, 1, 2);
+
+  let mut expected_grid = Grid::new(4, 4);
+  //expected_grid.set_tiles(&[(0, 0), (1, 0), (2, 0), (3, 0),
+                            //(0, 1), (1, 1), (2, 1), (3, 1),
+                            //(0, 2), (1, 2), (2, 2), (3, 2),
+                            //(0, 3), (1, 3), (2, 3), (3, 3)],
+                            //2);
+  expected_grid.set_tiles(&[(0, 0), (1, 0), (2, 0), (3, 0),
+                            (0, 1), (1, 1), (2, 1), (3, 1),
+                            (0, 2), (1, 2), (2, 2), (3, 2),
+                            (1, 3), (2, 3), (3, 3)],
+                            2);
+
+  assert_eq!(&grid.get_all_tiles(), &expected_grid.get_all_tiles());
+}
