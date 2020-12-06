@@ -11,7 +11,7 @@ import {
 import {
   DEFAULT_TOOL,
   PLACEMENT_TOOL,
-  BUCKET_TOOL,
+  FILL_TOOL,
   MOVE_TOOL,
 } from 'ui/toolbar/tools'
 
@@ -42,7 +42,7 @@ const Toolbar = () => {
       <div className='flex flex-row justify-start items-center flex-grow'>
         <ToolC icon={mdiCursorDefaultOutline} tool={DEFAULT_TOOL} />
         <ToolC icon={mdiPencil} tool={PLACEMENT_TOOL} />
-        <ToolC icon={mdiPail} tool={BUCKET_TOOL} />
+        <ToolC icon={mdiPail} tool={FILL_TOOL} />
         <ToolC icon={mdiCursorMove} tool={MOVE_TOOL} />
       </div>
     </nav>

@@ -78,7 +78,7 @@ class Renderer {
 
     for (let i = 0, y = 0; y < canvasHeight; i++, y += this.tileSize) {
       for (let j = 0, x = 0; x < canvasWidth; j++, x += this.tileSize) {
-        const value = this.grid.get_value(i, j);
+        const value = this.grid.get(j, i);
 
         if (value !== -1) {
           this.batch.emplace(value, [x, y]);

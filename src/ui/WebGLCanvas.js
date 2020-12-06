@@ -8,7 +8,7 @@ import AbsoluteCanvas from 'ui/common/AbsoluteCanvas';
 import {
   DEFAULT_TOOL,
   PLACEMENT_TOOL,
-  BUCKET_TOOL,
+  FILL_TOOL,
   MOVE_TOOL,
 } from 'ui/toolbar/tools';
 import {
@@ -49,7 +49,8 @@ const WebGLCanvas = ({ selectedTile, selectedTool }) => {
     const position = getTilePositionOnClick(e, tileSize);
 
     switch (selectedTool) {
-      case BUCKET_TOOL: {
+      case FILL_TOOL: {
+        RendererInstance.grid.fill(...position, selectedTile);
         break;
       }
 
@@ -68,7 +69,7 @@ const WebGLCanvas = ({ selectedTile, selectedTool }) => {
 
       case PLACEMENT_TOOL: {
         if (selectedTile && selectedTile !== -1) {
-          RendererInstance.grid.set_value(...position, selectedTile);
+          RendererInstance.grid.set(...position, selectedTile);
         }
         break;
       }
@@ -84,7 +85,6 @@ const WebGLCanvas = ({ selectedTile, selectedTool }) => {
 
   const handleMouseDown = e => {
     setUsingTool(true);
-    handleOneTimeTools(e);
     handleContinuousTools(e);
   }
 
@@ -95,8 +95,17 @@ const WebGLCanvas = ({ selectedTile, selectedTool }) => {
     handleContinuousTools(e);
   }
 
+  const handleMouseUp = e => {
+    setUsingTool(true);
+    handleOneTimeTools(e);
+  }
+
   // Update state on mouseup event if the mouse is outside the canvas area
-  useEventListener('mouseup', () => setUsingTool(false), document);
+  useEventListener('mouseup', () => {
+    if (usingTool) {
+      setUsingTool(false)
+    }
+  }, document);
 
   return (
     <div className='col-span-3 flex flex-col'>
@@ -107,6 +116,7 @@ const WebGLCanvas = ({ selectedTile, selectedTool }) => {
           style={{ width: '100%', height: '100%', zIndex: '1' }}
           onMouseDown={e => handleMouseDown(e)}
           onMouseMove={e => handleMouseMove(e)}
+          onMouseUp={e => handleMouseUp(e)}
           ref={editingCanvasRef} />
 
         <AbsoluteCanvas
