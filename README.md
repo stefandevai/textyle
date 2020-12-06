@@ -17,9 +17,9 @@ A high performant web-based tilemap editor.
 - React consumes the WASM API, handles the interface and user input
 
 # Goals
-- Multi layer support
-- Multiple tilesets
-- JSON export / import
-- Data/entity layers
-- Non tileset images
-- Brushes (automap, randomized tiles)
+- [ ] Multi layer support
+- [x] Multiple tilesets
+- [ ] JSON export / import
+- [ ] Data/entity layers
+- [ ] Non tileset images
+- [ ] Brushes (automap, randomized tiles)
