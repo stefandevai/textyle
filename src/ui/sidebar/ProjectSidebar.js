@@ -3,6 +3,7 @@ import TilesetManager from 'ui/sidebar/TilesetManager';
 import Map from 'ui/sidebar/Map';
 import Settings from 'ui/sidebar/Settings';
 import { Switch, Route } from "react-router-dom";
+import * as tabs from './tabs';
 
 const ProjectSidebar = () => {
   return (
@@ -10,25 +11,25 @@ const ProjectSidebar = () => {
       <TabSelector />
       <div className='flex-1'>
         <Switch>
-          <Route path='/tiles'>
+          <Route path={`/${tabs.TAB_TILES}`}>
             <TilesetManager />
           </Route>
 
-          <Route path='/map'>
+          <Route path={`/${tabs.TAB_MAP}`}>
             <Map />
           </Route>
 
-          <Route path='/import'>
+          <Route path={`/${tabs.TAB_IMPORT}`}>
           </Route>
 
-          <Route path='/save'>
+          <Route path={`/${tabs.TAB_SAVE}`}>
           </Route>
 
-          <Route path='/settings'>
+          <Route path={`/${tabs.TAB_SETTINGS}`}>
             <Settings />
           </Route>
 
-          <Route path='/help'>
+          <Route path={`/${tabs.TAB_HELP}`}>
           </Route>
         </Switch>
       </div>

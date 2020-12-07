@@ -20,7 +20,10 @@ const TilesetManager = ({ addTileset, addTilesets }) => {
 
       // Create tiles from textures
       // Respects order of creation
-      textures.reverse().map(async texture => await TileManagerInstance.addTilesFromTileset(texture, [32, 32]));
+      // TODO: replace hardcoded 32 x 32 tile size with a user defined one
+      for (const texture of textures.reverse()) {
+        await TileManagerInstance.addTilesFromTileset(texture, [32, 32]);
+      }
     });
   }, [addTilesets]);
 

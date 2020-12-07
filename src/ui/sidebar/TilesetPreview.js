@@ -98,12 +98,14 @@ const TilesetPreview = ({ selectedTileset, selectTile }) => {
     setSelectedTile(tilePos);
   }
 
-  return (
-    <div style={{ position: 'relative' }} >
-      {selectedTileset && <AbsoluteCanvas id={GRID_CANVAS_ID} style={{border: '1px solid rgba(0,0,0,0)', zIndex: '1'}} onMouseUp={onSelectTile} ref={tilegridCanvasRef}/>}
-      {selectedTileset && <AbsoluteCanvas id={TILESET_CANVAS_ID} style={{border: `1px solid ${GRID_COLOR}`, zIndex: '0'}} ref={tilesetCanvasRef}/>}
-    </div>
-  );
+  const tilesetPreview = selectedTileset === ''
+    ? <div />
+    : (<div style={{ position: 'relative' }} >
+        <AbsoluteCanvas id={GRID_CANVAS_ID} style={{border: '1px solid rgba(0,0,0,0)', zIndex: '1'}} onMouseUp={onSelectTile} ref={tilegridCanvasRef}/>
+        <AbsoluteCanvas id={TILESET_CANVAS_ID} style={{border: `1px solid ${GRID_COLOR}`, zIndex: '0'}} ref={tilesetCanvasRef}/>
+      </div>);
+
+  return tilesetPreview;
 }
 
 const mapStateToProps = state => {
