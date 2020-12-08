@@ -10,16 +10,11 @@ use std::fmt;
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct Tile {
-  value: i32,
-}
-
 #[wasm_bindgen]
 pub struct Grid {
   width: u32,
   height: u32,
-  tiles: Vec<Tile>,
+  tiles: Vec<i32>,
 }
 
 // Write grid in csv format
@@ -31,9 +26,9 @@ impl fmt::Display for Grid {
     for line in self.tiles.as_slice().chunks(self.width as usize) {
       for &tile in line {
         if idx == total_tiles {
-          write!(f, "{}", tile.value)?;
+          write!(f, "{}", tile)?;
         } else {
-          write!(f, "{},", tile.value)?;
+          write!(f, "{},", tile)?;
         }
 
         idx += 1;

@@ -1,4 +1,4 @@
-use super::{Grid, Tile, utils};
+use super::{Grid, utils};
 use wasm_bindgen::prelude::*;
 
 extern crate web_sys;
@@ -14,14 +14,14 @@ impl Grid {
     (y * (self.width as i32) + x) as usize
   }
 
-  pub fn get_all_tiles(&self) -> &[Tile] {
+  pub fn get_all_tiles(&self) -> &[i32] {
     &self.tiles
   }
 
   pub fn set_tiles(&mut self, tiles: &[(i32, i32)], value: i32) {
     for (x, y) in tiles.iter().cloned() {
       let idx = self.get_index(x, y);
-      self.tiles[idx] = Tile{value};
+      self.tiles[idx] = value;
     }
   }
 
@@ -32,8 +32,7 @@ impl Grid {
   pub fn new(width: u32, height: u32) -> Grid {
     utils::set_panic_hook();
 
-    let tiles = vec![Tile{value: -1};
-             (width * height) as usize];
+    let tiles = vec![-1; (width * height) as usize];
 
     Grid {
       width: width,
@@ -57,7 +56,7 @@ impl Grid {
       return;
     }
 
-    self.tiles[idx] = Tile{value};
+    self.tiles[idx] = value;
   }
 
   pub fn get(&self, x: i32, y: i32) -> i32 {
@@ -68,6 +67,6 @@ impl Grid {
       return -1;
     }
 
-    self.tiles[idx].value
+    self.tiles[idx]
   }
 }
