@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { useEventListener } from 'ui/hooks';
 import RendererInstance from 'renderer/Renderer';
+import GridInstance from 'grid/src';
 import { getTilePositionOnClick } from 'utils/tile';
 import Toolbar from 'ui/toolbar/Toolbar';
 import AbsoluteCanvas from 'ui/common/AbsoluteCanvas';
@@ -29,20 +30,22 @@ const WebGLCanvas = ({ selectedTile, selectedTool }) => {
       return;
     }
 
-    // Update canvases size
+    // Update canvases sizes
     tilesCanvasRef.current.width = tilesCanvasRef.current.clientWidth;
     tilesCanvasRef.current.height = tilesCanvasRef.current.clientHeight;
     editingCanvasRef.current.width = editingCanvasRef.current.clientWidth;
     editingCanvasRef.current.height = editingCanvasRef.current.clientHeight;
 
-    if (RendererInstance.hasInitialized) {
-      return;
+    if (!GridInstance.hasInitialized) {
+      GridInstance.init(Math.floor(tilesCanvasRef.current.width / tileSize[0]) + 1,
+                        Math.floor(tilesCanvasRef.current.height / tileSize[1]) + 1);
     }
 
-    // Initialize renderer
-    RendererInstance.init(tilesCanvasRef.current.getContext('webgl2'));
-    RendererInstance.setClearColor(0.0, 0.0, 0.0, 1.0);
-    window.requestAnimationFrame(RendererInstance.render);
+    if (!RendererInstance.hasInitialized) {
+      RendererInstance.init(tilesCanvasRef.current.getContext('webgl2'));
+      RendererInstance.setClearColor(0.0, 0.0, 0.0, 1.0);
+      window.requestAnimationFrame(RendererInstance.render);
+    }
   }, []);
 
   const handleOneTimeTools = e => {
@@ -50,7 +53,7 @@ const WebGLCanvas = ({ selectedTile, selectedTool }) => {
 
     switch (selectedTool) {
       case FILL_TOOL: {
-        RendererInstance.grid.fill(...position, selectedTile);
+        GridInstance.fill(...position, selectedTile);
         break;
       }
 
@@ -69,7 +72,7 @@ const WebGLCanvas = ({ selectedTile, selectedTool }) => {
 
       case PLACEMENT_TOOL: {
         if (selectedTile && selectedTile !== -1) {
-          RendererInstance.grid.set(...position, selectedTile);
+          GridInstance.set(...position, selectedTile);
         }
         break;
       }

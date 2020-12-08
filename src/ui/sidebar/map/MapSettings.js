@@ -5,7 +5,7 @@ const MapSettings = (props) => {
   const [tileSize, setTileSize] = useState(32);
 
   return (
-    <div className='is-small'>
+    <div>
       <h3>Map</h3>
       <Slider title="Tile size" onChange={e => setTileSize(e.target.value)} value={tileSize} />
     </div>

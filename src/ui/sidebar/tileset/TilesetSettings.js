@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { addTileset, addTilesets } from 'redux/actions';
 import { setTextureData, getTextureNames, hasTexture } from 'idb';
 import TileManagerInstance from 'renderer/TileManager';
-import FileInput from 'ui/common/FileInput';
-import TilesetPreview from 'ui/sidebar/TilesetPreview';
-import TilesetSelector from 'ui/sidebar/TilesetSelector';
+import TilesetPreview from 'ui/sidebar/tileset/TilesetPreview';
+import TilesetSelector from 'ui/sidebar/tileset/TilesetSelector';
 import CollapseSection from 'ui/common/CollapseTab';
+import FileInput from 'ui/common/FileInput';
 import {
   ADD_TILESET_TITLE,
   LOCAL_STORAGE_LAST_SELECTED_TILESET,

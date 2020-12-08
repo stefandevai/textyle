@@ -1,35 +1,41 @@
 import TabSelector from 'ui/sidebar/TabSelector';
-import TilesetManager from 'ui/sidebar/TilesetManager';
-import Map from 'ui/sidebar/Map';
-import Settings from 'ui/sidebar/Settings';
+import TilesetSettings from 'ui/sidebar/tileset/TilesetSettings';
+import MapSettings from 'ui/sidebar/map/MapSettings';
+import ImportSettings from 'ui/sidebar/import/ImportSettings';
+import ExportSettings from 'ui/sidebar/export/ExportSettings';
+import ProjectSettings from 'ui/sidebar/project/ProjectSettings';
+import Help from 'ui/sidebar/Help';
 import { Switch, Route } from "react-router-dom";
 import * as tabs from './tabs';
 
-const ProjectSidebar = () => {
+const Sidebar = () => {
   return (
     <aside className='flex flex-row bg-gray-900'>
       <TabSelector />
       <div className='flex-1'>
         <Switch>
           <Route path={`/${tabs.TAB_TILES}`}>
-            <TilesetManager />
+            <TilesetSettings />
           </Route>
 
           <Route path={`/${tabs.TAB_MAP}`}>
-            <Map />
+            <MapSettings />
           </Route>
 
           <Route path={`/${tabs.TAB_IMPORT}`}>
+            <ImportSettings />
           </Route>
 
           <Route path={`/${tabs.TAB_SAVE}`}>
+            <ExportSettings />
           </Route>
 
           <Route path={`/${tabs.TAB_SETTINGS}`}>
-            <Settings />
+            <ProjectSettings />
           </Route>
 
           <Route path={`/${tabs.TAB_HELP}`}>
+            <Help />
           </Route>
         </Switch>
       </div>
@@ -37,4 +43,4 @@ const ProjectSidebar = () => {
   );
 };
 
-export default ProjectSidebar;
+export default Sidebar;

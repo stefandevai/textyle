@@ -1,4 +1,5 @@
 import { mat4 } from 'gl-matrix';
+import GridInstance from 'grid/src';
 import ShaderProgram from 'renderer/Shader';
 import Batch2D from 'renderer/Batch2D';
 import Texture from 'renderer/Texture';
@@ -9,24 +10,19 @@ import {
   BATCH_FRAGMENT_SHADER_SOURCE,
 } from 'renderer/constants';
 
-let Grid = {}
+// TODO: Provide a method to change tile size per layer
+const tileSize = [32, 32];
 
 class Renderer {
   hasInitialized = false
 
   init = (gl) => {
     console.log('DEBUG: CONSTRUCTING RENDERER');
-    this.wasm = {}
-    this.wasmHasLoaded = false;
-    this.loadWasm();
 
     this.gl = gl;
     if (!this.gl) {
       return;
     }
-
-    // TODO: Allow changing tileSize
-    this.tileSize = 32;
 
     this.shaderProgram = new ShaderProgram(this.gl, BATCH_VERTEX_SHADER_SOURCE, BATCH_FRAGMENT_SHADER_SOURCE);
     this.shaderProgram.use();
@@ -63,7 +59,7 @@ class Renderer {
 
   renderGrid = () => {
     // Return early if the wasm module hasn't loaded yet
-    if (!this.grid) {
+    if (!GridInstance.hasLoaded) {
       return;
     }
 
@@ -76,9 +72,9 @@ class Renderer {
 
     this.batch.begin();
 
-    for (let i = 0, y = 0; y < canvasHeight; i++, y += this.tileSize) {
-      for (let j = 0, x = 0; x < canvasWidth; j++, x += this.tileSize) {
-        const value = this.grid.get(j, i);
+    for (let i = 0, y = 0; y < canvasHeight; i++, y += tileSize[1]) {
+      for (let j = 0, x = 0; x < canvasWidth; j++, x += tileSize[0]) {
+        const value = GridInstance.get(j, i);
 
         if (value !== -1) {
           this.batch.emplace(value, [x, y]);
@@ -88,18 +84,6 @@ class Renderer {
 
     this.batch.flush();
     this.batch.render(this.shaderProgram);
-  }
-
-  loadWasm = async () => {
-    try {
-      const { memory } = await import('grid/pkg/canvas_bg');
-      this.memory = memory;
-
-      const { Grid } = await import('grid/pkg');
-      this.grid = Grid.new(Math.floor(this.gl.canvas.width / this.tileSize) + 1, Math.floor(this.gl.canvas.height / this.tileSize) + 1);
-    } catch (err) {
-      console.error(`[x] Error loading grid: ${err.message}`);
-    }
   }
 }
 
