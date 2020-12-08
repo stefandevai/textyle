@@ -22,9 +22,9 @@ module.exports = override(
   config => {
     config.plugins = (config.plugins || []).concat([
       new WasmPackPlugin({
-        crateDirectory: path.resolve(__dirname, "./src/grid"),
+        crateDirectory: path.resolve(__dirname, "./src/tilemap"),
         extraArgs: "--no-typescript",
-        outDir: path.resolve(__dirname, "./src/grid/pkg")
+        outDir: path.resolve(__dirname, "./src/tilemap/pkg")
       })
     ]);
 

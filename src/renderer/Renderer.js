@@ -1,5 +1,5 @@
 import { mat4 } from 'gl-matrix';
-import GridInstance from 'grid/src';
+import GridInstance from 'tilemap';
 import ShaderProgram from 'renderer/Shader';
 import Batch2D from 'renderer/Batch2D';
 import Texture from 'renderer/Texture';

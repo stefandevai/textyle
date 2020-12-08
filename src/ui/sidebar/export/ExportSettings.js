@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import * as formats from 'ui/sidebar/export/formats';
-import GridInstance from 'grid/src';
+import GridInstance from 'tilemap';
 
 const FormatSelector = ({ format, onOptionSelected }) => {
   const formatsArray = [

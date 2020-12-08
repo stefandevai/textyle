@@ -1,9 +1,9 @@
-use super::Grid;
+use super::Tilegrid;
 use wasm_bindgen::prelude::*;
 
 // Adam Milazzo's Flood Fill algorithm port from C#
 // Originally found here: <http://www.adammil.net/blog/v126_A_More_Efficient_Flood_Fill.html>
-impl Grid {
+impl Tilegrid {
   fn can_fill(&self, x: i32, y: i32, value_to_fill: i32) -> bool {
     x >= 0 &&
     y >= 0 &&
@@ -111,7 +111,7 @@ impl Grid {
 }
 
 #[wasm_bindgen]
-impl Grid {
+impl Tilegrid {
   pub fn fill(&mut self, x: i32, y: i32, value: i32) {
     let value_to_fill = self.get(x, y);
     if value_to_fill != value {

@@ -11,14 +11,19 @@ use std::fmt;
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 #[wasm_bindgen]
-pub struct Grid {
+pub struct Tilegrid {
   width: u32,
   height: u32,
   tiles: Vec<i32>,
 }
 
+#[wasm_bindgen]
+pub struct Tilemap {
+  grids: Vec<Tilegrid>,
+}
+
 // Write grid in csv format
-impl fmt::Display for Grid {
+impl fmt::Display for Tilegrid {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     let mut idx = 0;
     let total_tiles = self.width * self.height - 1;
@@ -34,6 +39,16 @@ impl fmt::Display for Grid {
         idx += 1;
       }
       write!(f, "\n")?;
+    }
+
+    Ok(())
+  }
+}
+
+impl fmt::Display for Tilemap {
+  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    for grid in &self.grids {
+      write!(f, "{}\n\n", grid)?;
     }
 
     Ok(())

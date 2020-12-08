@@ -23,12 +23,12 @@ yarn-debug.log*
 yarn-error.log*
 
 # rust / wasm
-/src/grid/target
-/src/grid/**/*.rs.bk
-/src/grid/Cargo.lock
-/src/grid/bin/
-/src/grid/pkg/
-/src/grid/wasm-pack.log
+/src/tilemap/target
+/src/tilemap/**/*.rs.bk
+/src/tilemap/Cargo.lock
+/src/tilemap/bin/
+/src/tilemap/pkg/
+/src/tilemap/wasm-pack.log
 
 # other
 src/scratch.js

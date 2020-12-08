@@ -1,4 +1,4 @@
-use super::{Grid, utils};
+use super::{Tilegrid, utils};
 use wasm_bindgen::prelude::*;
 
 extern crate web_sys;
@@ -9,7 +9,7 @@ extern crate web_sys;
   //}
 //}
 
-impl Grid {
+impl Tilegrid {
   fn get_index(&self, x: i32, y: i32) -> usize {
     (y * (self.width as i32) + x) as usize
   }
@@ -28,13 +28,13 @@ impl Grid {
 }
 
 #[wasm_bindgen]
-impl Grid {
-  pub fn new(width: u32, height: u32) -> Grid {
+impl Tilegrid {
+  pub fn new(width: u32, height: u32) -> Tilegrid {
     utils::set_panic_hook();
 
     let tiles = vec![-1; (width * height) as usize];
 
-    Grid {
+    Tilegrid {
       width: width,
       height: height,
       tiles: tiles,

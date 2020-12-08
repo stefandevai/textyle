@@ -1,5 +1,4 @@
 // JavaScript wrapper class
-
 class Grid {
   constructor() {
     console.log('DEBUG: CONSTRUCTING GRID');
@@ -8,9 +7,9 @@ class Grid {
 
   init = async (width, height) => {
     try {
-      this.wasm = await import('grid/pkg');
-      const { memory } = await import('grid/pkg/canvas_bg');
-      this.grid = this.wasm.Grid.new(width, height);
+      this.wasm = await import('./pkg');
+      const { memory } = await import('./pkg/canvas_bg');
+      this.grid = this.wasm.Tilegrid.new(width, height);
       this.memory = memory;
       this.hasLoaded = true;
     } catch (err) {

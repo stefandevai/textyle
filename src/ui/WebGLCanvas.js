@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { useEventListener } from 'ui/hooks';
 import RendererInstance from 'renderer/Renderer';
-import GridInstance from 'grid/src';
+import GridInstance from 'tilemap';
 import { getTilePositionOnClick } from 'utils/tile';
 import Toolbar from 'ui/toolbar/Toolbar';
 import AbsoluteCanvas from 'ui/common/AbsoluteCanvas';
