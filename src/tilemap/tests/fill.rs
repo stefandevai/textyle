@@ -1,7 +1,7 @@
 #![cfg(target_arch = "wasm32")]
 
 extern crate tilemap;
-use tilemap::Tilegrid;
+use tilemap::layer::Layer;
 
 extern crate wasm_bindgen_test;
 use wasm_bindgen_test::*;
@@ -15,10 +15,10 @@ wasm_bindgen_test_configure!(run_in_browser);
 // **
 #[wasm_bindgen_test]
 fn test_fill_empty_grid() {
-  let mut grid = Tilegrid::new(2, 2);
+  let mut grid = Layer::new(2, 2);
   grid.fill(0, 0, 2);
 
-  let mut expected_grid = Tilegrid::new(2, 2);
+  let mut expected_grid = Layer::new(2, 2);
   expected_grid.set_tiles(&[(0, 0), (0, 1), (1, 0), (1, 1)], 2);
 
   assert_eq!(&grid.get_all_tiles(), &expected_grid.get_all_tiles());
@@ -37,7 +37,7 @@ fn test_fill_empty_grid() {
 // *****
 #[wasm_bindgen_test]
 fn test_fill_square() {
-  let mut grid = Tilegrid::new(5, 5);
+  let mut grid = Layer::new(5, 5);
   grid.set_tiles(&[(0, 0), (1, 0), (2, 0), (3, 0), (4, 0),
                    (0, 1), (4, 1),
                    (0, 2), (4, 2),
@@ -47,7 +47,7 @@ fn test_fill_square() {
 
   grid.fill(2, 2, 2);
 
-  let mut expected_grid = Tilegrid::new(5, 5);
+  let mut expected_grid = Layer::new(5, 5);
   expected_grid.set_tiles(&[(0, 0), (1, 0), (2, 0), (3, 0), (4, 0),
                             (0, 1), (1, 1), (2, 1), (3, 1), (4, 1),
                             (0, 2), (1, 2), (2, 2), (3, 2), (4, 2),
@@ -71,7 +71,7 @@ fn test_fill_square() {
 // *****
 #[wasm_bindgen_test]
 fn test_fill_square_outline() {
-  let mut grid = Tilegrid::new(5, 5);
+  let mut grid = Layer::new(5, 5);
   grid.set_tiles(&[(1, 1), (2, 1), (3, 1),
                    (1, 2), (2, 2), (3, 2),
                    (1, 3), (2, 3), (3, 3)],
@@ -79,7 +79,7 @@ fn test_fill_square_outline() {
 
   grid.fill(4, 4, 2);
 
-  let mut expected_grid = Tilegrid::new(5, 5);
+  let mut expected_grid = Layer::new(5, 5);
   expected_grid.set_tiles(&[(0, 0), (1, 0), (2, 0), (3, 0), (4, 0),
                             (0, 1), (1, 1), (2, 1), (3, 1), (4, 1),
                             (0, 2), (1, 2), (2, 2), (3, 2), (4, 2),
@@ -103,7 +103,7 @@ fn test_fill_square_outline() {
 // *****
 #[wasm_bindgen_test]
 fn test_fill_irregular1() {
-  let mut grid = Tilegrid::new(5, 5);
+  let mut grid = Layer::new(5, 5);
   grid.set_tiles(&[(0, 0), (1, 0), (2, 0), (3, 0), (4, 0),
                    (0, 1), (1, 1), (4, 1),
                    (0, 2), (4, 2),
@@ -113,7 +113,7 @@ fn test_fill_irregular1() {
 
   grid.fill(3, 2, 2);
 
-  let mut expected_grid = Tilegrid::new(5, 5);
+  let mut expected_grid = Layer::new(5, 5);
   expected_grid.set_tiles(&[(0, 0), (1, 0), (2, 0), (3, 0), (4, 0),
                             (0, 1), (1, 1), (2, 1), (3, 1), (4, 1),
                             (0, 2), (1, 2), (2, 2), (3, 2), (4, 2),
@@ -137,7 +137,7 @@ fn test_fill_irregular1() {
 // *****
 #[wasm_bindgen_test]
 fn test_fill_irregular2() {
-  let mut grid = Tilegrid::new(5, 5);
+  let mut grid = Layer::new(5, 5);
   grid.set_tiles(&[(0, 0), (1, 0), (2, 0), (3, 0), (4, 0),
                    (0, 1), (4, 1),
                    (0, 2), (4, 2),
@@ -147,7 +147,7 @@ fn test_fill_irregular2() {
 
   grid.fill(1, 1, 2);
 
-  let mut expected_grid = Tilegrid::new(5, 5);
+  let mut expected_grid = Layer::new(5, 5);
   expected_grid.set_tiles(&[(0, 0), (1, 0), (2, 0), (3, 0), (4, 0),
                             (0, 1), (1, 1), (2, 1), (3, 1), (4, 1),
                             (0, 2), (1, 2), (2, 2), (3, 2), (4, 2),
@@ -171,7 +171,7 @@ fn test_fill_irregular2() {
 // *****
 #[wasm_bindgen_test]
 fn test_fill_irregular3() {
-  let mut grid = Tilegrid::new(5, 5);
+  let mut grid = Layer::new(5, 5);
   grid.set_tiles(&[(1, 0),
                    (0, 1), (1, 1), (2, 1), (3, 1),
                    (1, 2), (2, 2), (3, 2),
@@ -180,7 +180,7 @@ fn test_fill_irregular3() {
 
   grid.fill(4, 4, 2);
 
-  let mut expected_grid = Tilegrid::new(5, 5);
+  let mut expected_grid = Layer::new(5, 5);
   expected_grid.set_tiles(&[(1, 0), (2, 0), (3, 0), (4, 0),
                             (0, 1), (1, 1), (2, 1), (3, 1), (4, 1),
                             (0, 2), (1, 2), (2, 2), (3, 2), (4, 2),
@@ -204,7 +204,7 @@ fn test_fill_irregular3() {
 // *****
 #[wasm_bindgen_test]
 fn test_fill_irregular4() {
-  let mut grid = Tilegrid::new(5, 5);
+  let mut grid = Layer::new(5, 5);
   grid.set_tiles(&[(0, 0), (1, 0), (2, 0), (4, 0),
                    (0, 1), (4, 1),
                    (0, 2), (2, 2), (3, 2), (4, 2),
@@ -214,7 +214,7 @@ fn test_fill_irregular4() {
 
   grid.fill(2, 4, 2);
 
-  let mut expected_grid = Tilegrid::new(5, 5);
+  let mut expected_grid = Layer::new(5, 5);
   expected_grid.set_tiles(&[(0, 0), (1, 0), (2, 0), (3, 0), (4, 0),
                             (0, 1), (1, 1), (2, 1), (3, 1), (4, 1),
                             (0, 2), (1, 2), (2, 2), (3, 2), (4, 2),
@@ -236,14 +236,14 @@ fn test_fill_irregular4() {
 // ***
 #[wasm_bindgen_test]
 fn test_fill_irregular5() {
-  let mut grid = Tilegrid::new(3, 4);
+  let mut grid = Layer::new(3, 4);
   grid.set_tiles(&[(1, 1),
                    (0, 3), (1, 3)],
                    2);
 
   grid.fill(2, 3, 2);
 
-  let mut expected_grid = Tilegrid::new(3, 4);
+  let mut expected_grid = Layer::new(3, 4);
   //expected_grid.set_tiles(&[(0, 0), (1, 0), (2, 0),
                             //(0, 1), (1, 1), (2, 1),
                             //(0, 2), (1, 2), (2, 2),
@@ -269,7 +269,7 @@ fn test_fill_irregular5() {
 // .***
 #[wasm_bindgen_test]
 fn test_fill_irregular6() {
-  let mut grid = Tilegrid::new(4, 4);
+  let mut grid = Layer::new(4, 4);
   grid.set_tiles(&[(0, 0), (1, 0), (3, 0),
                    (0, 2), (1, 2), (2, 2), (3, 2),
                    (1, 3), (2, 3), (3, 3)],
@@ -277,7 +277,7 @@ fn test_fill_irregular6() {
 
   grid.fill(2, 1, 2);
 
-  let mut expected_grid = Tilegrid::new(4, 4);
+  let mut expected_grid = Layer::new(4, 4);
   //expected_grid.set_tiles(&[(0, 0), (1, 0), (2, 0), (3, 0),
                             //(0, 1), (1, 1), (2, 1), (3, 1),
                             //(0, 2), (1, 2), (2, 2), (3, 2),

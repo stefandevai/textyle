@@ -1,7 +1,7 @@
 #![cfg(target_arch = "wasm32")]
 
 extern crate tilemap;
-use tilemap::Tilegrid;
+use tilemap::layer::Layer;
 
 extern crate wasm_bindgen_test;
 use wasm_bindgen_test::*;
@@ -10,7 +10,7 @@ wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
 fn test_create() {
-  let grid = Tilegrid::new(3, 4);
+  let grid = Layer::new(3, 4);
 
   assert_eq!(grid.width(), 3);
   assert_eq!(grid.height(), 4);
@@ -18,10 +18,10 @@ fn test_create() {
 
 #[wasm_bindgen_test]
 fn test_set() {
-  let mut grid = Tilegrid::new(3, 3);
+  let mut grid = Layer::new(3, 3);
   grid.set(2, 1, 2);
 
-  let mut expected_grid = Tilegrid::new(3, 3);
+  let mut expected_grid = Layer::new(3, 3);
   expected_grid.set_tiles(&[(2, 1)], 2);
 
   assert_eq!(&grid.get_all_tiles(), &expected_grid.get_all_tiles());
@@ -39,7 +39,7 @@ fn test_set() {
 
 #[wasm_bindgen_test]
 fn test_get() {
-  let mut grid = Tilegrid::new(3, 3);
+  let mut grid = Layer::new(3, 3);
   grid.set_tiles(&[(2, 1), (1, 1)], 2);
   grid.set_tiles(&[(0, 0), (1, 2)], 8);
   assert_eq!(grid.get(2, 2), -1);

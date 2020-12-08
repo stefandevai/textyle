@@ -1,6 +1,6 @@
-use crate::Tilegrid;
+use crate::layer::Layer;
 
-pub fn dump(_grid: &Tilegrid) -> String {
+pub fn dump(_grid: &Layer) -> String {
   "".to_string()
 }
 

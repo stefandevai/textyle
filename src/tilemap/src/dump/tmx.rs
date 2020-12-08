@@ -1,9 +1,8 @@
+use crate::layer::Layer;
+use xmlwriter::{XmlWriter, Options};
 extern crate xmlwriter;
 
-use crate::Tilegrid;
-use xmlwriter::{XmlWriter, Options};
-
-pub fn dump(grid: &Tilegrid) -> String {
+pub fn dump(grid: &Layer) -> String {
   let mut writer = XmlWriter::new(Options::default());
   writer.start_element("map");
   writer.write_attribute("version", "1.4");

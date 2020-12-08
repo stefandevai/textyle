@@ -1,6 +1,6 @@
-use crate::Tilegrid;
+use crate::layer::Layer;
 
-pub fn dump(grid: &Tilegrid) -> String {
+pub fn dump(grid: &Layer) -> String {
   format!("{}", grid)
 }
 

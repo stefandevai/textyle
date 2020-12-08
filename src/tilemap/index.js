@@ -9,7 +9,7 @@ class Grid {
     try {
       this.wasm = await import('./pkg');
       const { memory } = await import('./pkg/canvas_bg');
-      this.grid = this.wasm.Tilegrid.new(width, height);
+      this.grid = this.wasm.Layer.new(width, height);
       this.memory = memory;
       this.hasLoaded = true;
     } catch (err) {

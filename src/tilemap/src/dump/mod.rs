@@ -2,11 +2,11 @@ pub mod tmx;
 pub mod json;
 pub mod csv;
 
-use crate::Tilegrid;
+use crate::layer::Layer;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
-impl Tilegrid {
+impl Layer {
   pub fn dump(&self, format: &str) -> String {
     match format {
       "json" => json::dump(self),
