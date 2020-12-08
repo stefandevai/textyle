@@ -50,3 +50,54 @@ it('should create an action and select a tool', () => {
 
   expect(actions.selectTool(tool)).toEqual(expectedAction);
 });
+
+it('should create an action and add a layer', () => {
+  const name = 'Layer 1';
+  const expectedAction = {
+    type: types.ADD_LAYER,
+    payload: { name },
+  }
+
+  expect(actions.addLayer(name)).toEqual(expectedAction);
+});
+
+it('should create an action and delete a layer', () => {
+  const name = 'Layer 1';
+  const expectedAction = {
+    type: types.DELETE_LAYER,
+    payload: { name },
+  }
+
+  expect(actions.deleteLayer(name)).toEqual(expectedAction);
+});
+
+it('should create an action and select a layer', () => {
+  const name = 'Layer 1';
+  const expectedAction = {
+    type: types.SELECT_LAYER,
+    payload: { name },
+  }
+
+  expect(actions.selectLayer(name)).toEqual(expectedAction);
+});
+
+it('should create an action and move a layer', () => {
+  const name = 'Layer 1';
+  const to = 2;
+  const expectedAction = {
+    type: types.MOVE_LAYER,
+    payload: { name, to },
+  }
+
+  expect(actions.moveLayer(name, to)).toEqual(expectedAction);
+});
+
+it('should create an action and toggle the layer\'s visibility', () => {
+  const name = 'Layer 1';
+  const expectedAction = {
+    type: types.TOGGLE_LAYER_VISIBILITY,
+    payload: { name },
+  }
+
+  expect(actions.toggleLayerVisibility(name)).toEqual(expectedAction);
+});

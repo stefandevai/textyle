@@ -4,6 +4,11 @@ import {
   SELECT_TILESET,
   SELECT_TILE,
   SELECT_TOOL,
+  ADD_LAYER,
+  DELETE_LAYER,
+  SELECT_LAYER,
+  MOVE_LAYER,
+  TOGGLE_LAYER_VISIBILITY,
 } from 'redux/actionTypes';
 
 export const addTileset = name => ({
@@ -31,3 +36,27 @@ export const selectTool = tool => ({
   payload: { tool },
 });
 
+export const addLayer = name => ({
+  type: ADD_LAYER,
+  payload: { name },
+});
+
+export const deleteLayer = name => ({
+  type: DELETE_LAYER,
+  payload: { name },
+});
+
+export const selectLayer = name => ({
+  type: SELECT_LAYER,
+  payload: { name },
+});
+
+export const moveLayer = (name, to) => ({
+  type: MOVE_LAYER,
+  payload: { name, to },
+});
+
+export const toggleLayerVisibility = name => ({
+  type: TOGGLE_LAYER_VISIBILITY,
+  payload: { name },
+});

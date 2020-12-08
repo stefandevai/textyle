@@ -11,6 +11,8 @@ extern crate web_sys;
 
 #[wasm_bindgen]
 pub struct Layer {
+  name: String,
+  order: u32,
   width: u32,
   height: u32,
   tiles: Vec<i32>,
@@ -22,6 +24,8 @@ impl Layer {
     let tiles = vec![-1; (width * height) as usize];
 
     Layer {
+      name: "".to_string(),
+      order: 0,
       width: width,
       height: height,
       tiles: tiles,
@@ -36,6 +40,25 @@ impl Layer {
     self.height
   }
 
+  pub fn get(&self, x: i32, y: i32) -> i32 {
+    let idx = self.get_index(x, y);
+
+    // TODO: better handling of out of bounds
+    if (idx as u32) >= self.width * self.height {
+      return -1;
+    }
+
+    self.tiles[idx]
+  }
+
+  pub fn get_name(&self) -> String {
+    self.name.to_string()
+  }
+
+  pub fn get_order(&self) -> u32 {
+    self.order
+  }
+
   pub fn set(&mut self, x: i32, y: i32, value: i32) {
     let idx = self.get_index(x, y);
     // TODO: better handling of out of bounds
@@ -46,15 +69,12 @@ impl Layer {
     self.tiles[idx] = value;
   }
 
-  pub fn get(&self, x: i32, y: i32) -> i32 {
-    let idx = self.get_index(x, y);
+  pub fn set_name(&mut self, name: &str) {
+    self.name = name.to_string();
+  }
 
-    // TODO: better handling of out of bounds
-    if (idx as u32) >= self.width * self.height {
-      return -1;
-    }
-
-    self.tiles[idx]
+  pub fn set_order(&mut self, order: u32) {
+    self.order = order;
   }
 }
 

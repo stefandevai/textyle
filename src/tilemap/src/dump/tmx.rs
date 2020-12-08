@@ -4,6 +4,7 @@ extern crate xmlwriter;
 
 pub fn dump(grid: &Layer) -> String {
   let mut writer = XmlWriter::new(Options::default());
+  writer.write_declaration();
   writer.start_element("map");
   writer.write_attribute("version", "1.4");
   writer.write_attribute("tiledversion", "1.4.3");

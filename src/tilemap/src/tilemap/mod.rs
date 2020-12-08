@@ -5,13 +5,14 @@ use std::fmt;
 
 #[wasm_bindgen]
 pub struct Tilemap {
-  grids: Vec<Layer>,
+  name: String,
+  layers: Vec<Layer>,
 }
 
 impl fmt::Display for Tilemap {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-    for grid in &self.grids {
-      write!(f, "{}\n\n", grid)?;
+    for layer in &self.layers {
+      write!(f, "{}\n\n", layer)?;
     }
 
     Ok(())
@@ -24,8 +25,23 @@ impl Tilemap {
     utils::set_panic_hook();
 
     Tilemap {
-      grids: Vec::new(),
+      name: "".to_string(),
+      layers: Vec::new(),
     }
   }
 
+  pub fn set_name(&mut self, name: &str) {
+    self.name = name.to_string();
+  }
+
+  pub fn add_layer(&mut self, width: u32, height: u32, name: &str) {
+    let mut layer = Layer::new(width, height);
+    layer.set_name(name);
+    layer.set_order((self.layers.len() - 1) as u32);
+    self.layers.push(layer);
+  }
+
+  pub fn reorder_layers(&mut self) {
+    self.layers.sort_unstable_by_key(|l| l.get_order());
+  }
 }

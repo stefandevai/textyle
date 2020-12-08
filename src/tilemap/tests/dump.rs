@@ -14,7 +14,7 @@ fn test_dump_tmx() {
 
   let data = grid.dump("tmx");
 
-  assert_eq!(data, "<map version=\"1.4\" tiledversion=\"1.4.3\" orientation=\"orthogonal\" renderorder=\"right-down\" width=\"2\" height=\"2\" tilewidth=\"32\" tileheight=\"32\" infinite=\"0\" nextlayerid=\"2\" nextobjectid=\"1\">\n    <layer id=\"1\" name=\"Tile Layer 1\" width=\"2\" height=\"2\">\n        <data encoding=\"csv\">\n            -1,-1,\n-1,-1\n\n        </data>\n    </layer>\n</map>\n");
+  assert_eq!(data, "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<map version=\"1.4\" tiledversion=\"1.4.3\" orientation=\"orthogonal\" renderorder=\"right-down\" width=\"2\" height=\"2\" tilewidth=\"32\" tileheight=\"32\" infinite=\"0\" nextlayerid=\"2\" nextobjectid=\"1\">\n    <layer id=\"1\" name=\"Tile Layer 1\" width=\"2\" height=\"2\">\n        <data encoding=\"csv\">\n            -1,-1,\n-1,-1\n\n        </data>\n    </layer>\n</map>\n");
 }
 
 #[wasm_bindgen_test]

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { addTileset, addTilesets } from 'redux/actions';
 import { setTextureData, getTextureNames, hasTexture } from 'idb';
+import Layers from 'ui/sidebar/tileset/Layers';
 import TileManagerInstance from 'renderer/TileManager';
 import TilesetPreview from 'ui/sidebar/tileset/TilesetPreview';
 import TilesetSelector from 'ui/sidebar/tileset/TilesetSelector';
@@ -55,6 +56,9 @@ const TilesetManager = ({ addTileset, addTilesets }) => {
 
   return (
     <div>
+      <CollapseSection title='Layers'>
+        <Layers />
+      </CollapseSection>
       <CollapseSection title='Tileset'>
         <TilesetSelector />
         <FileInput title={ADD_TILESET_TITLE} onUpload={e => onTilesetUpload(e) }/>
