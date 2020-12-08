@@ -8,7 +8,7 @@ import {
   mdiContentSave,
   mdiUpload,
   mdiHelpCircleOutline,
-  mdiCog
+  mdiCog,
 } from '@mdi/js';
 import {
   TAB_TILES,

@@ -10,12 +10,19 @@ const initialState = {
   selected: '',
   ids: [],
   layers: {},
+  lastAddedId: 0,
 }
 
 export default function(state = initialState, action) {
   switch(action.type) {
     case ADD_LAYER: {
-      const { name } = action.payload;
+      let { name } = action.payload;
+
+      // If name is not provided, add a default one
+      if (!name) {
+        name = `Layer ${state.lastAddedId + 1}`;
+      }
+
       return {
         ...state,
         ids: [...state.ids, name],
@@ -26,6 +33,7 @@ export default function(state = initialState, action) {
           }
         },
         selected: name,
+        lastAddedId: state.lastAddedId + 1,
       };
     }
 
