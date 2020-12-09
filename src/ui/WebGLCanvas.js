@@ -43,7 +43,7 @@ const WebGLCanvas = ({ selectedTile, selectedTool }) => {
 
     if (!RendererInstance.hasInitialized) {
       RendererInstance.init(tilesCanvasRef.current.getContext('webgl2'));
-      RendererInstance.setClearColor(0.0, 0.0, 0.0, 1.0);
+      RendererInstance.setClearColor(55.0 / 255.0, 65.0 / 255.0, 81.0 / 255.0, 1.0);
       window.requestAnimationFrame(RendererInstance.render);
     }
   }, []);

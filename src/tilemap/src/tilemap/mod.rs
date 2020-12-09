@@ -1,17 +1,18 @@
 use crate::layer::Layer;
 use super::utils;
 use wasm_bindgen::prelude::*;
+use std::collections::HashMap;
 use std::fmt;
 
 #[wasm_bindgen]
 pub struct Tilemap {
-  name: String,
-  layers: Vec<Layer>,
+  layers: HashMap<u32, Layer>,
+  next_id: u32,
 }
 
 impl fmt::Display for Tilemap {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-    for layer in &self.layers {
+    for (_, layer) in self.layers.iter() {
       write!(f, "{}\n\n", layer)?;
     }
 
@@ -21,27 +22,45 @@ impl fmt::Display for Tilemap {
 
 #[wasm_bindgen]
 impl Tilemap {
+  // Creates a new tilemap
   pub fn new() -> Tilemap {
     utils::set_panic_hook();
 
     Tilemap {
-      name: "".to_string(),
-      layers: Vec::new(),
+      layers: HashMap::new(),
+      next_id: 0,
     }
   }
 
-  pub fn set_name(&mut self, name: &str) {
-    self.name = name.to_string();
+  // Adds a new layer and return it's index in the own HashMap
+  pub fn add_layer(&mut self, width: u32, height: u32) -> u32 {
+    let layer = Layer::new(width, height);
+    let last_id = self.next_id;
+
+    self.layers.insert(self.next_id, layer);
+    self.next_id += 1;
+
+    last_id
   }
 
-  pub fn add_layer(&mut self, width: u32, height: u32, name: &str) {
-    let mut layer = Layer::new(width, height);
-    layer.set_name(name);
-    layer.set_order((self.layers.len() - 1) as u32);
-    self.layers.push(layer);
+  pub fn set(&mut self, x: i32, y: i32, value: i32, layer_id: u32) {
+    match self.layers.get_mut(&layer_id) {
+      Some(layer) => layer.set(x, y, value),
+      None => println!("Layer with id {} not found", layer_id),
+    };
   }
 
-  pub fn reorder_layers(&mut self) {
-    self.layers.sort_unstable_by_key(|l| l.get_order());
+  pub fn get(&self, x: i32, y: i32, layer_id: u32) -> i32 {
+    match self.layers.get(&layer_id) {
+      Some(layer) => layer.get(x, y),
+      None => -1,
+    }
+  }
+
+  pub fn fill(&mut self, x: i32, y: i32, value: i32, layer_id: u32) {
+    match self.layers.get_mut(&layer_id) {
+      Some(layer) => layer.fill(x, y, value),
+      None => println!("Layer with id {} not found", layer_id),
+    }
   }
 }

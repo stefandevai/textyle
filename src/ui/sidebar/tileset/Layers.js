@@ -29,7 +29,7 @@ const LayerItemBase = ({ layer, selected, selectLayer, toggleLayerVisibility, in
 
   return (
     <Draggable key={layer.name} draggableId={layer.name} index={index}>
-      {(provided) => {
+      {(provided, snapshop) => {
         const style = {
           cursor: 'default',
           ...provided.draggableProps.style,
@@ -83,7 +83,7 @@ const Layers = props => {
     <DragDropContext onDragEnd={handleLayerDragEnd} onBeforeDragStart={handleLayerBeforeDragStart}>
       <Droppable droppableId='layers'>
         {(provided) => (
-          <ul {...provided.droppableProps} ref={provided.innerRef} className='cursor-pointer'>
+          <ul {...provided.droppableProps} ref={provided.innerRef}>
             {layerComponents}
             {provided.placeholder}
           </ul>
