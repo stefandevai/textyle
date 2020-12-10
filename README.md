@@ -1,4 +1,4 @@
-# Stella Editor
+# Aestyle
 Web-based modern tilemap editor.
 
 # Stack

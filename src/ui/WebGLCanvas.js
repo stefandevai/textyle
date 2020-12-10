@@ -125,15 +125,15 @@ const WebGLCanvas = ({ selectedTile, selectedTool, selectedLayer, layers, addLay
       return;
     }
 
-    let zoom = 1.0;
+    //let zoom = 1.0;
 
-    if (e.deltaY < -0.1) {
-      zoom = 0.98;
-    } else if (e.deltaY > 0.1) {
-      zoom = 1.02;
-    }
+    //if (e.deltaY < -0.1) {
+      //zoom = 0.98;
+    //} else if (e.deltaY > 0.1) {
+      //zoom = 1.02;
+    //}
 
-    RendererInstance.camera.applyZoom(zoom);
+    RendererInstance.camera.applyZoom(e.deltaY);
   }
 
   // Update state on mouseup event if the mouse is outside the canvas area

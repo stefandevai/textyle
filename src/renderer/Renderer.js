@@ -29,7 +29,6 @@ class Renderer {
 
     this.camera = new Camera(this.gl.canvas.width, this.gl.canvas.height);
     //this.camera.setPosition(100, 100);
-    //this.camera.setZoom(0.3);
 
     this.shaderProgram.setMat4(UNIFORM_MVP, this.camera.getMvp());
 
