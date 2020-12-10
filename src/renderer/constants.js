@@ -1,5 +1,5 @@
 export const UNIFORM_PROJECTION = 'uProjectionMatrix';
-export const UNIFORM_MODEL_VIEW = 'uModelViewMatrix';
+export const UNIFORM_MVP = 'uMVP';
 export const UNIFORM_SAMPLERS = 'uSamplers';
 
 export const ATTRIB_POSITION = 'aPosition';
@@ -18,11 +18,10 @@ export const BATCH_VERTEX_SHADER_SOURCE = `#version 300 es
       out float vTextureIdx;
       out vec4 vColor;
 
-      uniform mat4 ${UNIFORM_MODEL_VIEW};
-      uniform mat4 ${UNIFORM_PROJECTION};
+      uniform mat4 ${UNIFORM_MVP};
 
       void main() {
-        gl_Position = ${UNIFORM_PROJECTION} * ${UNIFORM_MODEL_VIEW} * vec4(aPosition, 0.0, 1.0);
+        gl_Position = ${UNIFORM_MVP} * vec4(aPosition, 0.0, 1.0);
         vTextureCoord = ${ATTRIB_TEXTURE_COORD};
         vTextureIdx = ${ATTRIB_TEXTURE_IDX};
         vColor = ${ATTRIB_COLOR};

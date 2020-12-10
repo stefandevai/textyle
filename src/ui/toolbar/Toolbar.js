@@ -26,9 +26,13 @@ const Tool = ({ icon, tool, selectedTool, selectTool }) => {
     ? 'text-indigo-400 hover:text-indigo-500'
     : 'hover:text-indigo-500 cursor-pointer';
 
+  const handleOnClick = () => {
+    selectTool(tool);
+  }
+
   return (
     <button className='px-4 py-2 cursor-default' role='button' data-testid={tool === selectedTool ? 'selected-tool' : ''}>
-      <div className={iconClasses} onClick={e => selectTool(tool)} data-tip data-for={tool} data-testid={tool}>
+      <div className={iconClasses} onClick={handleOnClick} data-tip data-for={tool} data-testid={tool}>
         <Icon path={icon} size={0.75} />
       </div>
       <ReactTooltip id={tool} place='bottom' effect='solid' delayShow={TOOLTIP_DELAY}>

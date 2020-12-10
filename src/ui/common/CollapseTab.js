@@ -13,9 +13,8 @@ const CollapseSection = ({ title, children }) => {
 
   return (
     <div>
-      <div
-        className='flex items-center border-b border-gray-50 cursor-pointer'
-        onDoubleClick={e => setOpen(!open)}>
+      <div className='flex items-center border-b border-gray-50 cursor-pointer'
+           onDoubleClick={e => setOpen(!open)}>
 
         <Icon path={icon} size={1} />
 

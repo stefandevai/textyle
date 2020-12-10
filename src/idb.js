@@ -4,7 +4,13 @@ const textureStore = new Store('textures-store', 'textures');
 
 // Gets all texture names available
 export const getTextureNames = async () => {
-  return (await keys(textureStore));
+  try {
+    const textureNames = await keys(textureStore);
+    return textureNames;
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
 };
 
 export const getTextureData = async (name) => {

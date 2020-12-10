@@ -7,4 +7,3 @@ const ImportSettings = () => {
 }
 
 export default ImportSettings;
-

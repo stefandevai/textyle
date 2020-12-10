@@ -54,7 +54,7 @@ const WebGLCanvas = ({ selectedTile, selectedTool, selectedLayer, layers, addLay
 
   const handleOneTimeTools = e => {
     const position = getTilePositionOnClick(e, tileSize);
-    const layerId = layers[selectedLayer].numericId;
+    const layerId = layers[selectedLayer].id;
 
     switch (selectedTool) {
       case FILL_TOOL: {
@@ -67,9 +67,20 @@ const WebGLCanvas = ({ selectedTile, selectedTool, selectedLayer, layers, addLay
     }
   }
 
+  // Used to allow preventing default wheel behavior on chrome
+  useEffect(() => {
+    const cancelWheel = (event) => event.preventDefault();
+
+    document.body.addEventListener('wheel', cancelWheel, {passive: false});
+
+    return () => {
+        document.body.removeEventListener('wheel', cancelWheel);
+    }
+  }, []);
+
   const handleContinuousTools = e => {
     const position = getTilePositionOnClick(e, tileSize);
-    const layerId = layers[selectedLayer].numericId;
+    const layerId = layers[selectedLayer].id;
 
     switch (selectedTool) {
       case DEFAULT_TOOL: {
@@ -109,6 +120,22 @@ const WebGLCanvas = ({ selectedTile, selectedTool, selectedLayer, layers, addLay
     handleOneTimeTools(e);
   }
 
+  const handleWheel = e => {
+    if (!e.altKey) {
+      return;
+    }
+
+    let zoom = 1.0;
+
+    if (e.deltaY < -0.1) {
+      zoom = 0.98;
+    } else if (e.deltaY > 0.1) {
+      zoom = 1.02;
+    }
+
+    RendererInstance.camera.applyZoom(zoom);
+  }
+
   // Update state on mouseup event if the mouse is outside the canvas area
   useEventListener('mouseup', () => {
     if (usingTool) {
@@ -123,9 +150,10 @@ const WebGLCanvas = ({ selectedTile, selectedTool, selectedLayer, layers, addLay
         <AbsoluteCanvas
           id={EDITOR_CANVAS_ID}
           style={{ width: '100%', height: '100%', zIndex: '1' }}
-          onMouseDown={e => handleMouseDown(e)}
-          onMouseMove={e => handleMouseMove(e)}
-          onMouseUp={e => handleMouseUp(e)}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onWheel={handleWheel}
           ref={editingCanvasRef} />
 
         <AbsoluteCanvas

@@ -14,14 +14,17 @@ export const fileToBase64 = file => {
 }
 
 export const getImageBitmap = async name => {
-  const fileData = await getTextureData(name);
-  if (!fileData) {
-    console.error(`It was not possible to get ${name} from IDB`);
-    return;
+  try {
+    const fileData = await getTextureData(name);
+    if (!fileData.file) {
+      return null;
+    }
+
+    return createImageBitmap(fileData.file);
+  } catch (err) {
+    console.error(err);
+    return null;
   }
-
-
-  return createImageBitmap(fileData.file);
 }
 
 //export const getFileName = (fullpath) => {

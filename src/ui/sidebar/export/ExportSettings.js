@@ -8,12 +8,14 @@ const FormatSelector = ({ format, onOptionSelected }) => {
     formats.FORMAT_TMX,
   ];
 
+  const formatOptions = formatsArray.map(format => <option key={format} value={format}>{format}</option>);
+
   return (
     <select
       className='text-gray-900'
       value={format}
       onChange={onOptionSelected}>
-      {formatsArray.map(f => <option key={f} value={f}>{f}</option>)}
+      {formatOptions} 
     </select>
   );
 }

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { addTileset, addTilesets } from 'redux/actions';
 import { setTextureData, getTextureNames, hasTexture } from 'idb';
-import Layers from 'ui/sidebar/tileset/Layers';
+import LayerList from 'ui/sidebar/tileset/LayerList';
 import TileManagerInstance from 'renderer/TileManager';
 import TilesetPreview from 'ui/sidebar/tileset/TilesetPreview';
 import TilesetSelector from 'ui/sidebar/tileset/TilesetSelector';
@@ -57,7 +57,7 @@ const TilesetManager = ({ addTileset, addTilesets }) => {
   return (
     <div>
       <CollapseSection title='Layers'>
-        <Layers />
+        <LayerList />
       </CollapseSection>
       <CollapseSection title='Tileset'>
         <TilesetSelector />

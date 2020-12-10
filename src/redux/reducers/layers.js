@@ -8,9 +8,9 @@ import {
 
 const initialState = {
   selected: '',
-  ids: [],
+  names: [],
   layers: {},
-  lastId: 0,
+  lastIdx: 0,
 }
 
 export default function(state = initialState, action) {
@@ -20,35 +20,35 @@ export default function(state = initialState, action) {
 
       // If name is not provided, add a default one
       if (!name) {
-        name = `Layer ${state.lastId + 1}`;
+        name = `Layer ${state.lastIdx + 1}`;
       }
 
       return {
         ...state,
-        ids: [...state.ids, name],
+        names: [...state.names, name],
         layers: {
           ...state.layers,
           [name]: {
-            numericId: state.lastId,
+            id: state.lastIdx,
             visible: true,
           }
         },
         selected: name,
-        lastId: state.lastId + 1,
+        lastIdx: state.lastIdx + 1,
       };
     }
 
     case DELETE_LAYER: {
       const { name } = action.payload;
       const { [name]: value, ...newLayers } = state.layers;
-      const newIds = state.ids.filter(id => id !== name);
+      const newIds = state.names.filter(id => id !== name);
 
       let newSelected = state.selected;
 
       // If the selected layer is the layer we are deleting and
       // it is not the last layer, select a new index.
       if (newSelected === name && newIds.length > 0) {
-        const idx = Math.max(state.ids.indexOf(name) - 1, 0);
+        const idx = Math.max(state.names.indexOf(name) - 1, 0);
         newSelected = newIds[idx];
       }
       else if (newIds.length === 0) {
@@ -57,7 +57,7 @@ export default function(state = initialState, action) {
 
       return {
         ...state,
-        ids: newIds,
+        names: newIds,
         layers: newLayers,
         selected: newSelected,
       };
@@ -73,18 +73,18 @@ export default function(state = initialState, action) {
 
     case MOVE_LAYER: {
       const { name, to } = action.payload;
-      const from = state.ids.indexOf(name);
-      const reorderedIds = state.ids;
+      const from = state.names.indexOf(name);
+      const reorderedNames = state.names;
 
       // If the layer exists
       if (from !== -1) {
-        reorderedIds.splice(from, 1);
-        reorderedIds.splice(to, 0, name);
+        reorderedNames.splice(from, 1);
+        reorderedNames.splice(to, 0, name);
       }
 
       return {
         ...state,
-        ids: reorderedIds,
+        names: reorderedNames,
       };
     }
 
