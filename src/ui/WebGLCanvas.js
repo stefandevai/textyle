@@ -53,7 +53,8 @@ const WebGLCanvas = ({ selectedTile, selectedTool, selectedLayer, layers, addLay
   }, [addLayer]);
 
   const handleOneTimeTools = e => {
-    const position = getTilePositionOnClick(e, tileSize);
+    const zoomLevel = RendererInstance.camera.getZoomLevel();
+    const position = getTilePositionOnClick(e, [tileSize[0] * zoomLevel, tileSize[1] * zoomLevel], RendererInstance.camera.position);
     const layerId = layers[selectedLayer].id;
 
     switch (selectedTool) {
@@ -79,7 +80,8 @@ const WebGLCanvas = ({ selectedTile, selectedTool, selectedLayer, layers, addLay
   }, []);
 
   const handleContinuousTools = e => {
-    const position = getTilePositionOnClick(e, tileSize);
+    const zoomLevel = RendererInstance.camera.getZoomLevel();
+    const position = getTilePositionOnClick(e, [tileSize[0] * zoomLevel, tileSize[1] * zoomLevel], RendererInstance.camera.position);
     const layerId = layers[selectedLayer].id;
 
     switch (selectedTool) {
@@ -125,15 +127,17 @@ const WebGLCanvas = ({ selectedTile, selectedTool, selectedLayer, layers, addLay
       return;
     }
 
-    //let zoom = 1.0;
-
-    //if (e.deltaY < -0.1) {
-      //zoom = 0.98;
-    //} else if (e.deltaY > 0.1) {
-      //zoom = 1.02;
-    //}
-
     RendererInstance.camera.applyZoom(e.deltaY);
+  }
+
+  const handleDragStart = e => {
+    RendererInstance.camera.setOrigin(e.clientX, e.clientY);
+  }
+
+  const handleDrag = e => {
+    if (e.clientX != 0 && e.clientY != 0) {
+      RendererInstance.camera.moveTo(e.clientX, e.clientY);
+    }
   }
 
   // Update state on mouseup event if the mouse is outside the canvas area
@@ -154,6 +158,8 @@ const WebGLCanvas = ({ selectedTile, selectedTool, selectedLayer, layers, addLay
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onWheel={handleWheel}
+          onDragStart={handleDragStart}
+          onDrag={handleDrag}
           ref={editingCanvasRef} />
 
         <AbsoluteCanvas
