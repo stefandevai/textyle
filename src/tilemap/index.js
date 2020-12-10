@@ -1,5 +1,9 @@
-// JavaScript wrapper class
-class Grid {
+import {
+  ADD_LAYER,
+  DELETE_LAYER,
+} from 'redux/actionTypes';
+
+class Tilemap {
   constructor() {
     console.log('DEBUG: CONSTRUCTING GRID');
     this.hasInitialized = false;
@@ -9,7 +13,7 @@ class Grid {
     try {
       this.wasm = await import('./pkg');
       const { memory } = await import('./pkg/canvas_bg');
-      this.grid = this.wasm.Layer.new(width, height);
+      this.map = this.wasm.Tilemap.new();
       this.memory = memory;
       this.hasLoaded = true;
     } catch (err) {
@@ -17,23 +21,69 @@ class Grid {
     }
   }
 
-  get = (x, y) => {
-    return this.grid.get(x, y);
+  width = () => {
+    return this.map.width();
   }
 
-  set = (x, y, value) => {
-    this.grid.set(x, y, value);
+  height = () => {
+    return this.map.height();
   }
 
-  fill = (x, y, targetValue) => {
-    this.grid.fill(x, y, targetValue);
+  addLayer = (x, y, width, height) => {
+    // Set default position to (0,0)
+    if (!x || !y) {
+      x = 0;
+      y = 0;
+    }
+
+    // Set default size to the map size
+    if (!width || !height) {
+      width = TilemapInstance.width();
+      height = TilemapInstance.height();
+    }
+
+    this.map.add_layer(x, y, width, height);
+  }
+
+  get = (x, y, layerId) => {
+    return this.map.get(x, y, layerId);
+  }
+
+  set = (x, y, value, layerId) => {
+    this.map.set(x, y, value, layerId);
+  }
+
+  fill = (x, y, targetValue, layerId) => {
+    this.map.fill(x, y, targetValue, layerId);
   }
 
   dump = (format) => {
-    return this.grid.dump(format);
+    // TODO: Implement dump for whole map
+    //return this.grid.dump(format);
   }
 }
 
-const GridInstance = new Grid();
+const tilemapReduxMiddleware = store => next => action => {
+  switch(action.type) {
+    case ADD_LAYER: {
+      let { x, y, width, height } = action.payload || {};
+      TilemapInstance.addLayer(x, y, width, height);
+      break;
+    }
 
-export default GridInstance;
+    case DELETE_LAYER: {
+      // TODO: Implement layer deletion
+      break;
+    }
+
+    default:
+      break;
+  }
+
+  return next(action);
+}
+
+const TilemapInstance = new Tilemap();
+
+export { tilemapReduxMiddleware };
+export default TilemapInstance;

@@ -10,7 +10,7 @@ wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
 fn test_dump_tmx() {
-  let layer = Layer::new(2, 2);
+  let layer = Layer::new(0, 0, 2, 2);
 
   let data = layer.dump("tmx");
 
@@ -19,7 +19,7 @@ fn test_dump_tmx() {
 
 #[wasm_bindgen_test]
 fn test_dump_csv() {
-  let mut layer = Layer::new(3, 3);
+  let mut layer = Layer::new(0, 0, 3, 3);
   layer.set_tiles(&[(1, 2)], 47);
   layer.set_tiles(&[(0, 0), (1, 0)], 0);
 

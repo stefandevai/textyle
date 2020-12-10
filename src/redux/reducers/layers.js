@@ -10,7 +10,7 @@ const initialState = {
   selected: '',
   ids: [],
   layers: {},
-  lastAddedId: 0,
+  lastId: 0,
 }
 
 export default function(state = initialState, action) {
@@ -20,7 +20,7 @@ export default function(state = initialState, action) {
 
       // If name is not provided, add a default one
       if (!name) {
-        name = `Layer ${state.lastAddedId + 1}`;
+        name = `Layer ${state.lastId + 1}`;
       }
 
       return {
@@ -29,11 +29,12 @@ export default function(state = initialState, action) {
         layers: {
           ...state.layers,
           [name]: {
+            numericId: state.lastId,
             visible: true,
           }
         },
         selected: name,
-        lastAddedId: state.lastAddedId + 1,
+        lastId: state.lastId + 1,
       };
     }
 

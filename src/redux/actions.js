@@ -36,9 +36,9 @@ export const selectTool = tool => ({
   payload: { tool },
 });
 
-export const addLayer = name => ({
+export const addLayer = (name, x, y, width, height) => ({
   type: ADD_LAYER,
-  payload: { name },
+  payload: { name, x, y, width, height },
 });
 
 export const deleteLayer = name => ({

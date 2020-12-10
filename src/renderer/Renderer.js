@@ -1,5 +1,6 @@
+import store from 'redux/store';
 import { mat4 } from 'gl-matrix';
-import GridInstance from 'tilemap';
+import TilemapInstance from 'tilemap';
 import ShaderProgram from 'renderer/Shader';
 import Batch2D from 'renderer/Batch2D';
 import Texture from 'renderer/Texture';
@@ -59,7 +60,7 @@ class Renderer {
 
   renderGrid = () => {
     // Return early if the wasm module hasn't loaded yet
-    if (!GridInstance.hasLoaded) {
+    if (!TilemapInstance.hasLoaded) {
       return;
     }
 
@@ -69,18 +70,31 @@ class Renderer {
     // to get the actual tiles to render from rust
     const canvasWidth = this.gl.canvas.width;
     const canvasHeight = this.gl.canvas.height;
+    const layersState = store.getState().layers;
 
     this.batch.begin();
 
-    for (let i = 0, y = 0; y < canvasHeight; i++, y += tileSize[1]) {
-      for (let j = 0, x = 0; x < canvasWidth; j++, x += tileSize[0]) {
-        const value = GridInstance.get(j, i);
+    for (const layerName of layersState.ids) {
+      const layer = layersState.layers[layerName];
+      if (!layer.visible) {
+        continue;
+      }
 
-        if (value !== -1) {
-          this.batch.emplace(value, [x, y]);
+      const numericId = layer.numericId;
+
+      if (numericId >= 0) {
+        for (let i = 0, y = 0; y < canvasHeight; i++, y += tileSize[1]) {
+          for (let j = 0, x = 0; x < canvasWidth; j++, x += tileSize[0]) {
+            const value = TilemapInstance.get(j, i, numericId);
+
+            if (value !== -1) {
+              this.batch.emplace(value, [x, y]);
+            }
+          }
         }
       }
     }
+
 
     this.batch.flush();
     this.batch.render(this.shaderProgram);

@@ -32,15 +32,31 @@ impl Tilemap {
     }
   }
 
-  // Adds a new layer and return it's index in the own HashMap
-  pub fn add_layer(&mut self, width: u32, height: u32) -> u32 {
-    let layer = Layer::new(width, height);
+  // Add a new layer and return it's index in the own HashMap
+  pub fn add_layer(&mut self, x: i32, y: i32, width: u32, height: u32) -> u32 {
+    let layer = Layer::new(x, y, width, height);
     let last_id = self.next_id;
 
     self.layers.insert(self.next_id, layer);
     self.next_id += 1;
 
     last_id
+  }
+
+  pub fn width(&self) -> u32 {
+    let mut width = 0;
+    for (_, layer) in &self.layers {
+      width = std::cmp::max(width, layer.width());
+    }
+    width
+  }
+
+  pub fn height(&self) -> u32 {
+    let mut height = 0;
+    for (_, layer) in &self.layers {
+      height = std::cmp::max(height, layer.height());
+    }
+    height
   }
 
   pub fn set(&mut self, x: i32, y: i32, value: i32, layer_id: u32) {

@@ -11,6 +11,8 @@ extern crate web_sys;
 
 #[wasm_bindgen]
 pub struct Layer {
+  x: i32,
+  y: i32,
   width: u32,
   height: u32,
   tiles: Vec<i32>,
@@ -18,14 +20,24 @@ pub struct Layer {
 
 #[wasm_bindgen]
 impl Layer {
-  pub fn new(width: u32, height: u32) -> Layer {
+  pub fn new(x: i32, y: i32, width: u32, height: u32) -> Layer {
     let tiles = vec![-1; (width * height) as usize];
 
     Layer {
+      x: x,
+      y: y,
       width: width,
       height: height,
       tiles: tiles,
     }
+  }
+
+  pub fn x(&self) -> i32 {
+    self.x
+  }
+
+  pub fn y(&self) -> i32 {
+    self.y
   }
 
   pub fn width(&self) -> u32 {

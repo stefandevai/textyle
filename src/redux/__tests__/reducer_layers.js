@@ -6,7 +6,7 @@ it('should return the initial state', () => {
     ids: [],
     layers: {},
     selected: '',
-    lastAddedId: 0,
+    lastId: 0,
   });
 });
 
@@ -16,7 +16,6 @@ it('should handle ADD_LAYER', () => {
     payload: { name: 'Layer 1' }
   });
   expect(state.ids).toEqual(['Layer 1']);
-  expect(state.layers).toEqual({'Layer 1': { visible: true }});
   expect(state.selected).toEqual('Layer 1');
 
   state = reducer(state, {
@@ -24,7 +23,6 @@ it('should handle ADD_LAYER', () => {
     payload: { name: 'Layer 2' }
   });
   expect(state.ids).toEqual(['Layer 1', 'Layer 2']);
-  expect(state.layers).toEqual({'Layer 1': { visible: true }, 'Layer 2': { visible: true }});
   expect(state.selected).toEqual('Layer 2');
 
   state = reducer(state, {
@@ -32,7 +30,6 @@ it('should handle ADD_LAYER', () => {
     payload: { name: undefined }
   });
   expect(state.ids).toEqual(['Layer 1', 'Layer 2', 'Layer 3']);
-  expect(state.layers).toEqual({'Layer 1': { visible: true }, 'Layer 2': { visible: true }, 'Layer 3': { visible: true }});
   expect(state.selected).toEqual('Layer 3');
 
   state = reducer(state, {
@@ -40,7 +37,6 @@ it('should handle ADD_LAYER', () => {
     payload: { name: '' }
   });
   expect(state.ids).toEqual(['Layer 1', 'Layer 2', 'Layer 3', 'Layer 4']);
-  expect(state.layers).toEqual({'Layer 1': { visible: true }, 'Layer 2': { visible: true }, 'Layer 3': { visible: true }, 'Layer 4': { visible: true }});
   expect(state.selected).toEqual('Layer 4');
 });
 
@@ -58,7 +54,6 @@ it('should handle DELETE_LAYER', () => {
     payload: { name: 'Layer 2' }
   });
   expect(state.ids).toEqual(['Layer 1', 'Layer 3']);
-  expect(state.layers).toEqual({'Layer 1': { visible: true }, 'Layer 3': { visible: false }});
   expect(state.selected).toEqual('Layer 1');
 
   state = reducer(state, {
@@ -66,7 +61,6 @@ it('should handle DELETE_LAYER', () => {
     payload: { name: 'Layer 1' }
   });
   expect(state.ids).toEqual(['Layer 3']);
-  expect(state.layers).toEqual({'Layer 3': { visible: false }});
   expect(state.selected).toEqual('Layer 3');
 
   state = reducer(state, {
