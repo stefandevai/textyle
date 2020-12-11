@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getTextureData } from 'idb';
 import { selectTile } from 'redux/actions';
 import { getTilePositionOnClick } from 'utils/tile';
@@ -35,12 +35,20 @@ const drawGridLines = (canvas, tileDimensions) => {
   }
 }
 
-const TilesetPreview = ({ selectedTileset, selectTile }) => {
+const TilesetPreview = () => {
+  // ====================================
+  // Initialize
+  // ====================================
+  const dispatch = useDispatch();
+  const selectedTileset = useSelector(state => state.tileset.selectedTileset);
   const [selectedTile, setSelectedTile] = useState([-1, -1]);
   const [tilesetIndex, setTilesetIndex] = useState(0);
   const tilegridCanvasRef = useRef(null);
   const tilesetCanvasRef = useRef(null);
 
+  // ====================================
+  // Logic
+  // ====================================
   // Load a new tileset to the preview
   useEffect(() => {
     if (!selectedTileset || !tilegridCanvasRef.current || !tilesetCanvasRef.current) {
@@ -94,10 +102,13 @@ const TilesetPreview = ({ selectedTileset, selectTile }) => {
   const onSelectTile = e => {
     const tilePos = getTilePositionOnClick(e, tileSize);
     const tileIndex = tilesetIndex + tilePos[1] * Math.floor(e.target.width / tileSize[0]) + tilePos[0]
-    selectTile(tileIndex);
+    dispatch(selectTile(tileIndex));
     setSelectedTile(tilePos);
   }
 
+  // ====================================
+  // Render
+  // ====================================
   const tilesetPreview = selectedTileset === ''
     ? <div />
     : (<div style={{ position: 'relative' }} >
@@ -108,9 +119,4 @@ const TilesetPreview = ({ selectedTileset, selectTile }) => {
   return tilesetPreview;
 }
 
-const mapStateToProps = state => {
-  const { selectedTileset } = state.tileset || {};
-  return { selectedTileset };
-}
-
-export default connect(mapStateToProps, { selectTile })(TilesetPreview);
+export default TilesetPreview;

@@ -1,4 +1,4 @@
-import WebGLCanvas from 'ui/WebGLCanvas';
+import Canvas from 'ui/canvas/Canvas';
 import Sidebar from 'ui/sidebar/Sidebar';
 import { HashRouter } from "react-router-dom";
 
@@ -9,7 +9,7 @@ const App = () => {
         <HashRouter>
           <Sidebar />
         </HashRouter>
-        <WebGLCanvas />
+        <Canvas />
       </main>
     </div>
   );

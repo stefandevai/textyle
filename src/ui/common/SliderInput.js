@@ -1,4 +1,7 @@
 export default function SliderInput(props) {
+  // ====================================
+  // Render
+  // ====================================
   return (
     <div>
       <p><strong>{props.title}</strong></p>
@@ -8,7 +11,8 @@ export default function SliderInput(props) {
         min='1'
         max='100'
         value={props.value}
-        onChange={props.onChange} />
+        onChange={props.onChange}
+      />
     </div>
   );
 };

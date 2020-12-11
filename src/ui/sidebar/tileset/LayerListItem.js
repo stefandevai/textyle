@@ -1,26 +1,31 @@
-import { connect, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd';
+import { selectLayer, toggleLayerVisibility } from 'redux/actions';
+import { mdiEye, mdiEyeOffOutline } from '@mdi/js';
 import Icon from '@mdi/react';
-import {
-  selectLayer,
-  toggleLayerVisibility,
-} from 'redux/actions';
-import {
-  mdiEye,
-  mdiEyeOffOutline,
-} from '@mdi/js';
 
-const LayerItem = ({ layer, selected, index, selectLayer, toggleLayerVisibility }) => {
+const LayerItem = ({ layer, index, isSelected }) => {
+  // ====================================
+  // Initialize
+  // ====================================
+  const dispatch = useDispatch();
+
+  // ====================================
+  // Logic
+  // ====================================
   const handleLayerClick = () => {
-    selectLayer(layer.name);
+    dispatch(selectLayer(layer.name));
   }
 
   const handleEyeClick = () => {
-    toggleLayerVisibility(layer.name);
+    dispatch(toggleLayerVisibility(layer.name));
   }
 
+  // ====================================
+  // Render
+  // ====================================
   const icon = layer.visible ? mdiEye : mdiEyeOffOutline;
-  const selectedClassName = selected ? 'bg-gray-700' : 'hover:bg-gray-800';
+  const selectedClassName = isSelected ? 'bg-gray-700' : 'hover:bg-gray-800';
 
   return (
     <Draggable draggableId={layer.name} index={index}>
@@ -35,8 +40,8 @@ const LayerItem = ({ layer, selected, index, selectLayer, toggleLayerVisibility 
               ref={provided.innerRef}
               {...provided.draggableProps}
               {...provided.dragHandleProps}
-              style={style}>
-
+              style={style}
+          >
             <span className='flex-1 pl-4 py-1' onClick={handleLayerClick}>
               {layer.name}
             </span>
@@ -50,5 +55,4 @@ const LayerItem = ({ layer, selected, index, selectLayer, toggleLayerVisibility 
   );
 }
 
-export default connect(null, { selectLayer, toggleLayerVisibility })(LayerItem);
-
+export default LayerItem;

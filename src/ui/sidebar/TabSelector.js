@@ -1,7 +1,8 @@
-import Icon from '@mdi/react';
-import { NavLink } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
-import tooltipMap from 'ui/tooltipMap';
+import tooltips from 'ui/tooltips';
+import TabButton from 'ui/sidebar/TabButton';
+import * as tabs from 'ui/sidebar/tabs';
+import { TOOLTIP_DELAY } from 'ui/constants';
 import {
   mdiMap,
   mdiViewModule,
@@ -10,43 +11,25 @@ import {
   mdiHelpCircleOutline,
   mdiCog,
 } from '@mdi/js';
-import {
-  TAB_TILES,
-  TAB_MAP,
-  TAB_IMPORT,
-  TAB_SAVE,
-  TAB_SETTINGS,
-  TAB_HELP,
-} from 'ui/sidebar/tabs';
-import {
-  TOOLTIP_DELAY,
-} from 'ui/constants';
-
-const TabButton = ({ icon, path }) => {
-  return (
-    <NavLink to={path} activeClassName='text-indigo-200 bg-indigo-900'>
-      <button className='px-2 py-3 hover:text-indigo-400 hover:bg-indigo-900' data-tip data-for={path}>
-        <Icon path={icon} size={1.2} />
-      </button>
-    </NavLink>
-  );
-}
 
 const TabSelector = () => {
+  // ====================================
+  // Render
+  // ====================================
   const sectionsData = [
-    { path: TAB_TILES, icon: mdiViewModule },
-    { path: TAB_MAP, icon: mdiMap },
-    { path: TAB_IMPORT, icon: mdiUpload },
-    { path: TAB_SAVE, icon: mdiContentSave },
-    { path: TAB_SETTINGS, icon: mdiCog },
-    { path: TAB_HELP, icon: mdiHelpCircleOutline },
+    { path: tabs.TAB_TILES, icon: mdiViewModule },
+    { path: tabs.TAB_MAP, icon: mdiMap },
+    { path: tabs.TAB_IMPORT, icon: mdiUpload },
+    { path: tabs.TAB_SAVE, icon: mdiContentSave },
+    { path: tabs.TAB_SETTINGS, icon: mdiCog },
+    { path: tabs.TAB_HELP, icon: mdiHelpCircleOutline },
   ];
 
   const sections = sectionsData.map(section =>
     <div key={section.path} className='flex'>
-      <TabButton path={section.path} icon={section.icon}/>
+      <TabButton routerPath={section.path} iconPath={section.icon}/>
       <ReactTooltip id={section.path} place='right' effect='solid' delayShow={TOOLTIP_DELAY}>
-        {tooltipMap.get(section.path)}
+        {tooltips.get(section.path)}
       </ReactTooltip>
     </div>);
 

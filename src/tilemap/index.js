@@ -15,7 +15,7 @@ class Tilemap {
       const { memory } = await import('./pkg/canvas_bg');
       this.map = this.wasm.Tilemap.new();
       this.memory = memory;
-      this.hasLoaded = true;
+      this.hasInitialized = true;
     } catch (err) {
       console.error(`[x] Error loading grid: ${err.message}`);
     }

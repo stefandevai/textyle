@@ -1,29 +1,38 @@
 import { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectTileset } from 'redux/actions';
-import {
-  LOCAL_STORAGE_LAST_SELECTED_TILESET,
-} from 'ui/constants';
+import { LOCAL_STORAGE_LAST_SELECTED_TILESET } from 'ui/constants';
 
-const TilesetSelector = ({ selectedTileset, tilesetNames, selectTileset }) => {
+const TilesetSelector = () => {
+  // ====================================
+  // Initialize
+  // ====================================
+  const dispatch = useDispatch();
+  const { selectedTileset, tilesetNames } = useSelector(state => state.tileset);
+
+  // ====================================
+  // Logic
+  // ====================================
   // Get last tileset used from localStorage
   useEffect(() => {
     const lastSelectedTileset = localStorage.getItem(LOCAL_STORAGE_LAST_SELECTED_TILESET);
 
     // TODO: Check if tileset exists
     if (lastSelectedTileset) {
-      selectTileset(lastSelectedTileset);
+      dispatch(selectTileset(lastSelectedTileset));
     }
-  }, [selectTileset]);
+  }, [dispatch]);
 
   const onOptionSelected = e => {
     const name = e.target.value;
     localStorage.setItem(LOCAL_STORAGE_LAST_SELECTED_TILESET, name);
-    selectTileset(name);
+    dispatch(selectTileset(name));
   }
 
+  // ====================================
+  // Render
+  // ====================================
   const options = [];
-
   for (const [index, value] of tilesetNames.entries()) {
     options.push(<option value={value} key={index}>{value}</option>);
   }
@@ -39,12 +48,4 @@ const TilesetSelector = ({ selectedTileset, tilesetNames, selectTileset }) => {
   );
 }
 
-const mapStateToProps = state => {
-  const { selectedTileset, tilesetNames } = state.tileset || {};
-  return { selectedTileset, tilesetNames };
-}
-
-export default connect(
-  mapStateToProps,
-  { selectTileset }
-)(TilesetSelector);
+export default TilesetSelector;

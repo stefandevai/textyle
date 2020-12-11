@@ -1,4 +1,7 @@
 const ProjectSettings = () => {
+  // ====================================
+  // Render
+  // ====================================
   return (
     <div>
       <h1>Project Settings</h1>

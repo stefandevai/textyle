@@ -1,4 +1,7 @@
 const FileInput = ({ title, onUpload }) => {
+  // ====================================
+  // Render
+  // ====================================
   return (
     <div>
       <p>{title}</p>

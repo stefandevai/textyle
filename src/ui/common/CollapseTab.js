@@ -2,19 +2,23 @@ import { useState } from 'react';
 import { Collapse } from 'react-collapse';
 import 'ui/common/CollapseTab.css';
 import Icon from '@mdi/react';
-import {
-  mdiMenuDown,
-  mdiMenuUp,
-} from '@mdi/js';
+import { mdiMenuDown, mdiMenuUp } from '@mdi/js';
 
 const CollapseSection = ({ title, children }) => {
+  // ====================================
+  // Initialize
+  // ====================================
   const [open, setOpen] = useState(true);
   const icon = open ? mdiMenuUp : mdiMenuDown;
 
+  // ====================================
+  // Render
+  // ====================================
   return (
     <div>
       <div className='flex items-center border-b border-gray-50 cursor-pointer'
-           onDoubleClick={e => setOpen(!open)}>
+           onDoubleClick={e => setOpen(!open)}
+      >
 
         <Icon path={icon} size={1} />
 

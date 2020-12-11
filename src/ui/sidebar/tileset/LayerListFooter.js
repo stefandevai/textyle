@@ -1,25 +1,28 @@
 import { useDispatch } from 'react-redux';
+import { addLayer, deleteLayer } from 'redux/actions';
+import { mdiDelete, mdiPlaylistPlus } from '@mdi/js';
 import Icon from '@mdi/react';
-import {
-  addLayer,
-  deleteLayer,
-} from 'redux/actions';
-import {
-  mdiDelete,
-  mdiPlaylistPlus,
-} from '@mdi/js';
 
-const LayerListFooter = ({ selected }) => {
+const LayerListFooter = ({ selectedLayer }) => {
+  // ====================================
+  // Initialize
+  // ====================================
   const dispatch = useDispatch();
 
+  // ====================================
+  // Logic
+  // ====================================
   const handleAddClick = () => {
     dispatch(addLayer());
   }
 
   const handleDeleteClick = () => {
-    dispatch(deleteLayer(selected));
+    dispatch(deleteLayer(selectedLayer));
   }
 
+  // ====================================
+  // Render
+  // ====================================
   return (
     <div className='flex items-center justify-start py-3'>
       <button onClick={handleAddClick}>

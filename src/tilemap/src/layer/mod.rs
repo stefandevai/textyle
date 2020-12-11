@@ -3,11 +3,11 @@ use wasm_bindgen::prelude::*;
 use std::fmt;
 extern crate web_sys;
 
-//macro_rules! log {
-  //( $( $t:tt )* ) => {
-    //web_sys::console::log_1(&format!( $( $t )* ).into());
-  //}
-//}
+macro_rules! log {
+  ( $( $t:tt )* ) => {
+    web_sys::console::log_1(&format!( $( $t )* ).into());
+  }
+}
 
 #[wasm_bindgen]
 pub struct Layer {

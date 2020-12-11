@@ -9,6 +9,9 @@ import { Switch, Route } from "react-router-dom";
 import * as tabs from './tabs';
 
 const Sidebar = () => {
+  // ====================================
+  // Render
+  // ====================================
   return (
     <aside className='flex flex-row bg-gray-900'>
       <TabSelector />

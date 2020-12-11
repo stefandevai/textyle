@@ -56,7 +56,7 @@ class Renderer {
 
   renderGrid = () => {
     // Return early if the wasm module hasn't loaded yet
-    if (!TilemapInstance.hasLoaded) {
+    if (!TilemapInstance.hasInitialized) {
       return;
     }
 
@@ -82,7 +82,7 @@ class Renderer {
           for (let j = 0, x = 0; x < canvasWidth; j++, x += tileSize[0]) {
             const value = TilemapInstance.get(j, i, layer.id);
 
-            if (value !== -1) {
+            if (value != -1) {
               this.batch.emplace(value, [x, y]);
             }
           }

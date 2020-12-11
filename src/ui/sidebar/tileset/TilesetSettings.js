@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addTileset, addTilesets } from 'redux/actions';
 import { setTextureData, getTextureNames, hasTexture } from 'idb';
 import LayerList from 'ui/sidebar/tileset/LayerList';
@@ -13,11 +13,19 @@ import {
   LOCAL_STORAGE_LAST_SELECTED_TILESET,
 } from 'ui/constants';
 
-const TilesetManager = ({ addTileset, addTilesets }) => {
+const TilesetManager = () => {
+  // ====================================
+  // Initialize
+  // ====================================
+  const dispatch = useDispatch();
+
+  // ====================================
+  // Logic
+  // ====================================
   // Get available tilesets
   useEffect(() => {
     getTextureNames().then(async textures => {
-      addTilesets(textures);
+      dispatch(addTilesets(textures));
 
       // Create tiles from textures
       // Respects order of creation
@@ -26,7 +34,7 @@ const TilesetManager = ({ addTileset, addTilesets }) => {
         await TileManagerInstance.addTilesFromTileset(texture, [32, 32]);
       }
     });
-  }, [addTilesets]);
+  }, [dispatch]);
 
   const onTilesetUpload = async (event) => {
     if (event.target.files.length <= 0) {
@@ -51,9 +59,12 @@ const TilesetManager = ({ addTileset, addTilesets }) => {
     // Create tiles from the texture
     TileManagerInstance.addTilesFromTileset(name, [32, 32]);
     localStorage.setItem(LOCAL_STORAGE_LAST_SELECTED_TILESET, name);
-    addTileset(name);
+    dispatch(addTileset(name));
   }
 
+  // ====================================
+  // Render
+  // ====================================
   return (
     <div>
       <CollapseSection title='Layers'>
@@ -68,7 +79,4 @@ const TilesetManager = ({ addTileset, addTilesets }) => {
   );
 }
 
-export default connect(
-  null,
-  { addTileset, addTilesets }
-)(TilesetManager);
+export default TilesetManager;
