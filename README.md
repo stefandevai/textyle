@@ -1,12 +1,7 @@
 # Aestyle
-Web-based modern tilemap editor.
+Aestyle is a web-based tilemap editor powered by WASM.
 
-# Stack
-- React (front end)
-- Rust (WASM)
-- Tailwind (CSS)
-
-# Goals
+# Design Goals
 - [x] Multi layer support
 - [x] Multiple tilesets
 - [ ] JSON export / import
