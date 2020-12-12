@@ -4,8 +4,8 @@
     "43522593764f603af546.module.wasm": "/aestyle/43522593764f603af546.module.wasm",
     "static/js/0.8eb16de8.chunk.js.map": "/aestyle/static/js/0.8eb16de8.chunk.js.map",
     "main.css": "/aestyle/static/css/main.c2612231.chunk.css",
-    "main.js": "/aestyle/static/js/main.6ced32f2.chunk.js",
-    "main.js.map": "/aestyle/static/js/main.6ced32f2.chunk.js.map",
+    "main.js": "/aestyle/static/js/main.1366d1dd.chunk.js",
+    "main.js.map": "/aestyle/static/js/main.1366d1dd.chunk.js.map",
     "runtime-main.js": "/aestyle/static/js/runtime-main.36b709df.js",
     "runtime-main.js.map": "/aestyle/static/js/runtime-main.36b709df.js.map",
     "static/js/3.bd951ed3.chunk.js": "/aestyle/static/js/3.bd951ed3.chunk.js",
@@ -20,6 +20,6 @@
     "static/js/runtime-main.36b709df.js",
     "static/js/3.bd951ed3.chunk.js",
     "static/css/main.c2612231.chunk.css",
-    "static/js/main.6ced32f2.chunk.js"
+    "static/js/main.1366d1dd.chunk.js"
   ]
 }
