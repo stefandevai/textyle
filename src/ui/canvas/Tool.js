@@ -3,6 +3,7 @@ import { selectTool } from 'redux/actions';
 import ReactTooltip from 'react-tooltip';
 import Icon from '@mdi/react';
 import tooltips from 'ui/tooltips';
+import * as testIds from 'resources/testIds';
 import {
   TOOLTIP_DELAY,
 } from 'ui/constants';
@@ -31,7 +32,7 @@ const Tool = ({ iconPath, tool }) => {
     ? 'text-indigo-400 hover:text-indigo-500'
     : 'hover:text-indigo-500 cursor-pointer';
   return (
-    <button className='px-4 py-2 cursor-default' role='button' data-testid={tool === selectedTool ? 'selected-tool' : ''}>
+    <button className='px-4 py-2 cursor-default' role='button' data-testid={tool === selectedTool ? testIds.SELECTED_TOOL : ''}>
       <div className={iconClasses} onClick={handleOnClick} data-tip data-for={tool} data-testid={tool}>
         <Icon path={iconPath} size={iconSize} />
       </div>

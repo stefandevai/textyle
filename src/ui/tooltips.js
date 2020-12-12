@@ -1,4 +1,4 @@
-import * as tools from 'ui/toolbar/tools';
+import * as tools from 'ui/canvas/tools';
 import * as tabs from 'ui/sidebar/tabs';
 
 const tooltips = new Map();

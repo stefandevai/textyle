@@ -6,7 +6,7 @@ import { EDITOR_CANVAS_ID } from 'ui/constants';
 import RendererInstance from 'renderer/Renderer';
 import TilemapInstance from 'tilemap';
 import AbsoluteCanvas from 'ui/common/AbsoluteCanvas';
-import * as tools from 'ui/toolbar/tools';
+import * as tools from 'ui/canvas/tools';
 
 // TODO: Provide a method to change tile size per layer
 const tileSize = [32, 32];

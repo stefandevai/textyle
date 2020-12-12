@@ -3,7 +3,7 @@ import reducer from '../reducers/canvas';
 import {
   DEFAULT_TOOL,
   FILL_TOOL,
-} from 'ui/toolbar/tools';
+} from 'ui/canvas/tools';
 
 it('should return the initial state', () => {
   expect(reducer(undefined, {})).toEqual({

@@ -35,7 +35,7 @@
   },
   "jest": {
     "setupFilesAfterEnv": [
-      "./src/setupTests.js"
+      "./src/utils/test/setupTests.js"
     ]
   },
   "browserslist": {

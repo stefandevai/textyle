@@ -1,4 +1,4 @@
-import Toolbar from 'ui/toolbar/Toolbar';
+import Toolbar from 'ui/canvas/Toolbar';
 import WebGLCanvas from 'ui/canvas/WebGLCanvas';
 import EditorCanvas from 'ui/canvas/EditorCanvas';
 

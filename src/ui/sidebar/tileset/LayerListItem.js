@@ -3,6 +3,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import { selectLayer, toggleLayerVisibility } from 'redux/actions';
 import { mdiEye, mdiEyeOffOutline } from '@mdi/js';
 import Icon from '@mdi/react';
+import * as testIds from 'resources/testIds';
 
 const LayerItem = ({ layer, index, isSelected }) => {
   // ====================================
@@ -26,6 +27,7 @@ const LayerItem = ({ layer, index, isSelected }) => {
   // ====================================
   const icon = layer.visible ? mdiEye : mdiEyeOffOutline;
   const selectedClassName = isSelected ? 'bg-gray-700' : 'hover:bg-gray-800';
+  const visibilityTestId = layer.visible ? testIds.LAYER_VISIBLE : testIds.LAYER_HIDDEN;
 
   return (
     <Draggable draggableId={layer.name} index={index}>
@@ -41,11 +43,12 @@ const LayerItem = ({ layer, index, isSelected }) => {
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               style={style}
+              data-testid={visibilityTestId}
           >
             <span className='flex-1 pl-4 py-1' onClick={handleLayerClick}>
               {layer.name}
             </span>
-            <span onClick={handleEyeClick} className='cursor-pointer pr-4 py-1'>
+            <span onClick={handleEyeClick} className='cursor-pointer pr-4 py-1' data-testid={testIds.HIDE_LAYER_BUTTON}>
               <Icon path={icon} size={0.6} />
             </span>
           </li>);

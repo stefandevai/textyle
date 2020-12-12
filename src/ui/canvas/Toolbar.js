@@ -1,5 +1,5 @@
 import React from 'react';
-import Tool from 'ui/toolbar/Tool';
+import Tool from 'ui/canvas/Tool';
 import {
   mdiPencil,
   mdiPail,
@@ -8,7 +8,7 @@ import {
   mdiCursorMove,
 } from '@mdi/js';
 
-import * as tools from 'ui/toolbar/tools';
+import * as tools from 'ui/canvas/tools';
 
 const Toolbar = () => {
   // ====================================

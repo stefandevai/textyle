@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectTileset } from 'redux/actions';
 import { LOCAL_STORAGE_LAST_SELECTED_TILESET } from 'ui/constants';
+import * as testIds from 'resources/testIds';
 
 const TilesetSelector = () => {
   // ====================================
@@ -33,8 +34,8 @@ const TilesetSelector = () => {
   // Render
   // ====================================
   const options = [];
-  for (const [index, value] of tilesetNames.entries()) {
-    options.push(<option value={value} key={index}>{value}</option>);
+  for (const value of tilesetNames) {
+    options.push(<option value={value} key={value} data-testid={value}>{value}</option>);
   }
 
   return (
@@ -42,7 +43,9 @@ const TilesetSelector = () => {
     <select
       className='text-gray-900'
       value={selectedTileset}
-      onChange={onOptionSelected}>
+      onChange={onOptionSelected}
+      data-testid={testIds.SELECT_TILESET}
+    >
       {options}
     </select>
   );

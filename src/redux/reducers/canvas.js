@@ -4,7 +4,7 @@ import {
 
 import {
   DEFAULT_TOOL
-} from 'ui/toolbar/tools';
+} from 'ui/canvas/tools';
 
 const initialState = {
   selectedTool: DEFAULT_TOOL,

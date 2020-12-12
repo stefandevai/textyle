@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import { addLayer, deleteLayer } from 'redux/actions';
 import { mdiDelete, mdiPlaylistPlus } from '@mdi/js';
 import Icon from '@mdi/react';
+import * as testIds from 'resources/testIds';
 
 const LayerListFooter = ({ selectedLayer }) => {
   // ====================================
@@ -25,10 +26,10 @@ const LayerListFooter = ({ selectedLayer }) => {
   // ====================================
   return (
     <div className='flex items-center justify-start py-3'>
-      <button onClick={handleAddClick}>
+      <button onClick={handleAddClick} data-testid={testIds.ADD_LAYER_BUTTON}>
         <Icon path={mdiPlaylistPlus} size={0.7} />
       </button>
-      <button onClick={handleDeleteClick}>
+      <button onClick={handleDeleteClick} data-testid={testIds.DELETE_LAYER_BUTTON}>
         <Icon path={mdiDelete} size={0.65} />
       </button>
     </div>
