@@ -29,7 +29,7 @@ const Sidebar = () => {
             <ImportSettings />
           </Route>
 
-          <Route path={`/${tabs.TAB_SAVE}`}>
+          <Route path={`/${tabs.TAB_EXPORT}`}>
             <ExportSettings />
           </Route>
 

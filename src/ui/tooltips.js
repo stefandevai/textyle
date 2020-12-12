@@ -11,7 +11,7 @@ tooltips.set(tools.MOVE_TOOL, 'move tool');
 tooltips.set(tabs.TAB_TILES, 'tab tiles');
 tooltips.set(tabs.TAB_MAP, 'tab map');
 tooltips.set(tabs.TAB_IMPORT, 'tab import');
-tooltips.set(tabs.TAB_SAVE, 'tab save');
+tooltips.set(tabs.TAB_EXPORT, 'tab export');
 tooltips.set(tabs.TAB_SETTINGS, 'settings tab');
 tooltips.set(tabs.TAB_HELP, 'help tab');
 
