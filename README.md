@@ -1,6 +1,8 @@
 # Aestyle
 
-![ci badge](https://github.com/stefandevai/aestyle/workflows/CI/badge.svg)
+![ci badge](https://github.com/stefandevai/aestyle/workflows/CI/badge.svg?branch=main)
+
+[Demo](https://stefandevai.github.io/aestyle)
 
 Aestyle is a web-based tilemap editor powered by WASM.
 
