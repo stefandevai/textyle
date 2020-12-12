@@ -3,7 +3,7 @@ name: CI
 on: [push]
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
 
@@ -12,16 +12,27 @@ jobs:
         node-version: [15.x]
     
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js version ${{ matrix.node-version }} a one-line script
+    - uses: actions/checkout@v2
+    - name: Use Node.js version ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: yarn install
+    - name: Install wasm-pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+    - name: Install node dependencies
       run: yarn install
 
-    - name: yarn test
+    - name: Test React
       run: yarn test
       env:
         CI: true
+
+    - run: cd src/tilemap
+
+    - name: Test WASM on Chrome
+      run: wasm-pack test --headless --chrome
+
+    - name: Test WASM on Firefox
+      run: wasm-pack test --headless --firefox
