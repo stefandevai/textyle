@@ -22,3 +22,4 @@ export const useEventListener = (eventName, handler, element = window) => {
     [eventName, element]
   );
 };
+
