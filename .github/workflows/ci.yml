@@ -6,8 +6,22 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [15.x]
     
     steps:
     - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
+    - name: Use Node.js version ${{ matrix.node-version }} a one-line script
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: yarn install
+      run: yarn install
+
+    - name: yarn test
+      run: yarn test
+      env:
+        CI: true
