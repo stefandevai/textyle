@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { useEventListener } from 'ui/hooks';
+import { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectTool } from 'redux/actions';
 import { getTilePositionOnClick } from 'utils/tile';
 import { EDITOR_CANVAS_ID } from 'ui/constants';
 import RendererInstance from 'renderer/Renderer';
@@ -15,8 +15,8 @@ const EditorCanvas = () => {
   // ====================================
   // Initialize
   // ====================================
+  const dispatch = useDispatch();
   const editingCanvasRef = useRef();
-  const [usingTool, setUsingTool] = useState(false);
   const { selectedLayer, layers } = useSelector(state => ({ selectedLayer: state.layers.selected, layers: state.layers.layers }));
   const selectedTile = useSelector(state => state.tileset.selectedTile);
   const selectedTool = useSelector(state => state.canvas.selectedTool);
@@ -42,15 +42,43 @@ const EditorCanvas = () => {
         document.body.removeEventListener('wheel', cancelWheel);
     }
   }, []);
+  
+  useEffect(() => {
+    const panToolStartHandler = ({ key }) => {
+      if (key === ' ') {
+        dispatch(selectTool(tools.PAN_TOOL));
+      }
+    }
+
+    // TODO: Create a stack of tools to be able to get back
+    // to the previous tool instead of the default one
+    const panToolEndHandler = ({ key }) => {
+      if (key === ' ') {
+        dispatch(selectTool(tools.DEFAULT_TOOL));
+      }
+    }
+
+    window.addEventListener('keydown', panToolStartHandler);
+    window.addEventListener('keyup', panToolEndHandler);
+    return () => {
+      window.removeEventListener('keydown', panToolStartHandler);
+      window.removeEventListener('keyup', panToolEndHandler);
+    };
+  }, [dispatch]);
 
   const handleOneTimeTools = e => {
-    const zoomLevel = RendererInstance.camera.getZoomLevel();
-    const position = getTilePositionOnClick(e, [tileSize[0] * zoomLevel, tileSize[1] * zoomLevel], RendererInstance.camera.position);
-    const layerId = layers[selectedLayer].id;
-
     switch (selectedTool) {
       case tools.FILL_TOOL: {
+        const zoomLevel = RendererInstance.camera.getZoomLevel();
+        const position = getTilePositionOnClick(e, [tileSize[0] * zoomLevel, tileSize[1] * zoomLevel], RendererInstance.camera.position);
+        const layerId = layers[selectedLayer].id;
+
         TilemapInstance.fill(...position, selectedTile, layerId);
+        break;
+      }
+
+      case tools.PAN_TOOL: {
+        RendererInstance.camera.setOrigin(e.clientX, e.clientY);
         break;
       }
 
@@ -76,7 +104,12 @@ const EditorCanvas = () => {
         break;
       }
 
-      case tools.MOVE_TOOL: {
+      case tools.PAN_TOOL: {
+        if (e.clientX == 0 || e.clientY == 0) {
+          break;
+        }
+
+        RendererInstance.camera.moveTo(e.clientX, e.clientY);
         break;
       }
 
@@ -86,20 +119,12 @@ const EditorCanvas = () => {
   }
 
   const handleMouseDown = e => {
-    setUsingTool(true);
-    handleContinuousTools(e);
-  }
-
-  const handleMouseMove = e => {
-    if (!usingTool) {
-      return;
-    }
-    handleContinuousTools(e);
-  }
-
-  const handleMouseUp = e => {
-    setUsingTool(true);
     handleOneTimeTools(e);
+    handleContinuousTools(e);
+  }
+
+  const handleDrag = e => {
+    handleContinuousTools(e);
   }
 
   const handleWheel = e => {
@@ -110,23 +135,6 @@ const EditorCanvas = () => {
     RendererInstance.camera.applyZoom(e.deltaY);
   }
 
-  const handleDragStart = e => {
-    RendererInstance.camera.setOrigin(e.clientX, e.clientY);
-  }
-
-  const handleDrag = e => {
-    if (e.clientX != 0 && e.clientY != 0) {
-      RendererInstance.camera.moveTo(e.clientX, e.clientY);
-    }
-  }
-
-  // Update state on mouseup event if the mouse is outside the canvas area
-  useEventListener('mouseup', () => {
-    if (usingTool) {
-      setUsingTool(false)
-    }
-  }, document);
-
   // ====================================
   // Render
   // ====================================
@@ -135,11 +143,8 @@ const EditorCanvas = () => {
       id={EDITOR_CANVAS_ID}
       style={{ width: '100%', height: '100%', zIndex: '1' }}
       onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
+      onDrag={handleContinuousTools}
       onWheel={handleWheel}
-      onDragStart={handleDragStart}
-      onDrag={handleDrag}
       ref={editingCanvasRef}
     />
   );
