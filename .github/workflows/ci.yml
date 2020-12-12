@@ -19,7 +19,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Install wasm-pack
-        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+      run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
     - name: Install node dependencies
       run: yarn install
