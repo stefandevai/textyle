@@ -1,14 +1,14 @@
+import Tab from 'ui/common/Tab';
+
 const ProjectSettings = () => {
   // ====================================
   // Render
   // ====================================
   return (
-    <div>
-      <h1>Project Settings</h1>
-
+    <Tab title='Project Settings'>
       <label htmlFor='show-grid'>Show grid</label>
       <input type='checkbox' name='show-grid' />
-    </div>
+    </Tab>
   );
 }
 

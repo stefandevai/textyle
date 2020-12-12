@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getLayersByAddedTime } from 'redux/selectors';
+import CollapseSection from 'ui/common/CollapseTab';
 import LayerListItem from 'ui/sidebar/tileset/LayerListItem';
 import LayerListFooter from 'ui/sidebar/tileset/LayerListFooter';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -49,10 +50,10 @@ const LayerList = () => {
     : <div />;
 
   return (
-    <>
+    <CollapseSection title='Layers'>
       {dndArea}
       <LayerListFooter selectedLayer={selectedLayer} />
-    </>
+    </CollapseSection>
   );
 }
 

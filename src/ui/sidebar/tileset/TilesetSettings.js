@@ -66,16 +66,11 @@ const TilesetManager = () => {
   // Render
   // ====================================
   return (
-    <div>
-      <CollapseSection title='Layers'>
-        <LayerList />
-      </CollapseSection>
-      <CollapseSection title='Tileset'>
-        <TilesetSelector />
-        <FileInput title={ADD_TILESET_TITLE} onUpload={e => onTilesetUpload(e) }/>
-        <TilesetPreview />
-      </CollapseSection>
-    </div>
+    <CollapseSection title='Tileset'>
+      <TilesetSelector />
+      <FileInput title={ADD_TILESET_TITLE} onUpload={e => onTilesetUpload(e) }/>
+      <TilesetPreview />
+    </CollapseSection>
   );
 }
 

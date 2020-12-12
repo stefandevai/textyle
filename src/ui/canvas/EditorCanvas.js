@@ -25,24 +25,22 @@ const EditorCanvas = () => {
   // Logic
   // ====================================
   useEffect(() => {
-    if (!editingCanvasRef.current) {
+    const refElement = editingCanvasRef.current;
+    if (!refElement) {
       return;
     }
-    editingCanvasRef.current.width = editingCanvasRef.current.clientWidth;
-    editingCanvasRef.current.height = editingCanvasRef.current.clientHeight;
-  }, []);
 
-  // Used to allow preventing default wheel behavior on chrome
-  useEffect(() => {
-    const cancelWheel = (event) => event.preventDefault();
+    editingCanvasRef.current.width = refElement.clientWidth;
+    editingCanvasRef.current.height = refElement.clientHeight;
 
-    document.body.addEventListener('wheel', cancelWheel, {passive: false});
-
+    // Used to allow preventing default wheel behavior on chrome
+    const cancelWheel = event => event.preventDefault();
+    refElement.addEventListener('wheel', cancelWheel, {passive: false});
     return () => {
-        document.body.removeEventListener('wheel', cancelWheel);
+        refElement.removeEventListener('wheel', cancelWheel);
     }
   }, []);
-  
+
   useEffect(() => {
     const panToolStartHandler = ({ key }) => {
       if (key === ' ') {
