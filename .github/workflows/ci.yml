@@ -1,6 +1,6 @@
 name: CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   test:
@@ -21,14 +21,6 @@ jobs:
     - name: Install wasm-pack
       run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
-    - name: Install node dependencies
-      run: yarn install
-
-    - name: Test React
-      run: yarn test
-      env:
-        CI: true
-
     - name: Test WASM on Chrome
       working-directory: ./src/tilemap
       run: wasm-pack test --headless --chrome
@@ -36,3 +28,11 @@ jobs:
     - name: Test WASM on Firefox
       working-directory: ./src/tilemap
       run: wasm-pack test --headless --firefox
+
+    - name: Install node dependencies
+      run: yarn install
+
+    - name: Test React
+      run: yarn test
+      env:
+        CI: true
