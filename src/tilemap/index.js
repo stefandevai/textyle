@@ -12,7 +12,7 @@ class Tilemap {
   init = async (width, height) => {
     try {
       this.wasm = await import('./pkg');
-      const { memory } = await import('./pkg/canvas_bg');
+      const { memory } = await import('./pkg/tilemap_bg');
       this.map = this.wasm.Tilemap.new();
       this.memory = memory;
       this.hasInitialized = true;
