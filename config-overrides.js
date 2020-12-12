@@ -1,7 +1,7 @@
 const path = require("path");
 const { override, addPostcssPlugins } = require("customize-cra");
 
-const WasmPackPlugin = require("@wasm-tool/wasm-pack-plugin");
+//const WasmPackPlugin = require("@wasm-tool/wasm-pack-plugin");
 
 module.exports = override(
   // Ignore wasm files on file loader
@@ -18,18 +18,18 @@ module.exports = override(
     return config;
   },
 
-  // Hook canvas Rust-WASM module
-  config => {
-    config.plugins = (config.plugins || []).concat([
-      new WasmPackPlugin({
-        crateDirectory: path.resolve(__dirname, "./src/tilemap"),
-        extraArgs: "--no-typescript",
-        outDir: path.resolve(__dirname, "./src/tilemap/pkg")
-      })
-    ]);
+  //// Hook canvas Rust-WASM module
+  //config => {
+    //config.plugins = (config.plugins || []).concat([
+      //new WasmPackPlugin({
+        //crateDirectory: path.resolve(__dirname, "./src/tilemap"),
+        //extraArgs: "--no-typescript",
+        //outDir: path.resolve(__dirname, "./src/tilemap/pkg")
+      //})
+    //]);
 
-    return config;
-  },
+    //return config;
+  //},
 
   addPostcssPlugins([
     require('tailwindcss'),

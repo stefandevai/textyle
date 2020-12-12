@@ -2,7 +2,7 @@ name: CD
 
 on:
   push:
-    branches: [ main ]
+    branches: main
   workflow_dispatch:
 
 jobs:
@@ -14,7 +14,11 @@ jobs:
         with:
           persist-credentials: false
         
-      - name: Install and build
+      - name: Build wasm module
+        working-directory: ./src/tilemap
+        run: wasm-pack build --release --no-typescript
+
+      - name: Install and build React app
         run: |
           curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
           yarn install
