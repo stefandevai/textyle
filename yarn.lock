@@ -9144,6 +9144,11 @@ react-collapse@^5.1.0:
   resolved "https://registry.yarnpkg.com/react-collapse/-/react-collapse-5.1.0.tgz#36f69ecb0fe797f976aaf5e4f2b2c248d2760140"
   integrity sha512-5v0ywsn9HjiR/odNzbRDs0RZfrnbdSippJebWOBCFFDA12Vx8DddrbI4qWVf1P2wTiVagrpcSy07AU0b6+gM9Q==
 
+react-custom-scroll@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/react-custom-scroll/-/react-custom-scroll-4.2.1.tgz#04081737c8f665103660239ff6e279916e8954bb"
+  integrity sha512-R0iBc61fUVA+EpMqFT+dseoOjgTf0sIggBwNuNUmyEm4YqT3py6Bo1/+9FYDtxIKC/MMjZ7Cu2SPWA1Ghm0kBg==
+
 react-dev-utils@^11.0.1:
   version "11.0.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-11.0.1.tgz#30106c2055acfd6b047d2dc478a85c356e66fe45"

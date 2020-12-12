@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getTextureData } from 'idb';
 import { selectTile } from 'redux/actions';
 import { getTilePositionOnClick } from 'utils/tile';
-import AbsoluteCanvas from 'ui/common/AbsoluteCanvas';
 import {
   GRID_COLOR,
   GRID_CANVAS_ID,
@@ -111,10 +110,12 @@ const TilesetPreview = () => {
   // ====================================
   const tilesetPreview = selectedTileset === ''
     ? <div />
-    : (<div style={{ position: 'relative' }} >
-        <AbsoluteCanvas id={GRID_CANVAS_ID} style={{border: '1px solid rgba(0,0,0,0)', zIndex: '1'}} onMouseUp={onSelectTile} ref={tilegridCanvasRef}/>
-        <AbsoluteCanvas id={TILESET_CANVAS_ID} style={{border: `1px solid ${GRID_COLOR}`, zIndex: '0'}} ref={tilesetCanvasRef}/>
-      </div>);
+    : (<div className='max-h-40 overflow-scroll border'>
+         <div className='grid'>
+           <canvas id={GRID_CANVAS_ID} onMouseUp={onSelectTile} ref={tilegridCanvasRef} className='col-span-full row-span-full z-10' />
+           <canvas id={TILESET_CANVAS_ID} ref={tilesetCanvasRef} className='col-span-full row-span-full z-0' />
+         </div>
+       </div>);
 
   return tilesetPreview;
 }
