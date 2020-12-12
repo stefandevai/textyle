@@ -1,11 +1,13 @@
+import Tab from 'ui/common/Tab';
+
 const ImportSettings = () => {
   // ====================================
   // Render
   // ====================================
   return (
-    <div>
+    <Tab title='Import'>
       <h3>Import</h3>
-    </div>
+    </Tab>
   );
 }
 

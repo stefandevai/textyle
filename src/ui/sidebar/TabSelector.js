@@ -2,6 +2,7 @@ import ReactTooltip from "react-tooltip";
 import tooltips from 'ui/tooltips';
 import TabButton from 'ui/sidebar/TabButton';
 import * as tabs from 'ui/sidebar/tabs';
+import { dividerBorderColor } from 'ui/common/styles';
 import { TOOLTIP_DELAY } from 'ui/constants';
 import {
   mdiMap,
@@ -34,7 +35,7 @@ const TabSelector = () => {
     </div>);
 
   return (
-    <div className='flex flex-col justify-end bg-black'>
+    <div className={`flex flex-col justify-end bg-black border-r ${dividerBorderColor}`}>
       {sections}
     </div>
   );

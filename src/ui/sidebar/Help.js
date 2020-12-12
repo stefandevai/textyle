@@ -1,11 +1,13 @@
+import Tab from 'ui/common/Tab';
+
 const Help = () => {
   // ====================================
   // Render
   // ====================================
   return (
-    <div>
+    <Tab title='Help'>
       <h3>Help</h3>
-    </div>
+    </Tab>
   );
 }
 

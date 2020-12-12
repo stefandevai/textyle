@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Tab from 'ui/common/Tab';
 import Slider from 'ui/common/SliderInput';
 
 const MapSettings = (props) => {
@@ -11,10 +12,9 @@ const MapSettings = (props) => {
   // Render
   // ====================================
   return (
-    <div>
-      <h3>Map</h3>
+    <Tab title='Map Settings'>
       <Slider title="Tile size" onChange={e => setTileSize(e.target.value)} value={tileSize} />
-    </div>
+    </Tab>
   );
 }
 

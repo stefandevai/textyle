@@ -1,5 +1,6 @@
 import React from 'react';
 import Tool from 'ui/canvas/Tool';
+import { dividerBorderColor, toolbarHeight } from 'ui/common/styles';
 import {
   mdiPencil,
   mdiPail,
@@ -15,7 +16,7 @@ const Toolbar = () => {
   // Render
   // ====================================
   return (
-    <nav className='flex flex-row items-stretch bg-black'>
+    <nav className={`flex flex-row items-stretch bg-black border-b ${dividerBorderColor} ${toolbarHeight}`}>
       <div className='flex flex-row justify-start items-center flex-grow'>
         <Tool iconPath={mdiCursorDefaultOutline} tool={tools.DEFAULT_TOOL} />
         <Tool iconPath={mdiPencil} tool={tools.PLACEMENT_TOOL} />

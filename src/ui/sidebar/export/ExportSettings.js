@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Tab from 'ui/common/Tab';
 import * as formats from 'ui/sidebar/export/formats';
 import TilemapInstance from 'tilemap';
 import FormatSelector from 'ui/sidebar/export/FormatSelector';
@@ -31,15 +32,14 @@ const ExportSettings = () => {
   // Render
   // ====================================
   return (
-    <div>
-      <h3>Export</h3>
+    <Tab title='Export Map'>
       <FormatSelector format={format} onOptionSelected={onOptionSelected} />
       <button className='bg-indigo-900 my-3 py-2 px-4 flex justify-center rounded cursor-pointer'
               onClick={handleExport}
       >
         Export
       </button>
-    </div>
+    </Tab>
   );
 }
 

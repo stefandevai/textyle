@@ -1,11 +1,12 @@
 import TabSelector from 'ui/sidebar/TabSelector';
-import TilesetSettings from 'ui/sidebar/tileset/TilesetSettings';
+import Edit from 'ui/sidebar/tileset/Edit';
 import MapSettings from 'ui/sidebar/map/MapSettings';
 import ImportSettings from 'ui/sidebar/import/ImportSettings';
 import ExportSettings from 'ui/sidebar/export/ExportSettings';
 import ProjectSettings from 'ui/sidebar/project/ProjectSettings';
 import Help from 'ui/sidebar/Help';
 import { Switch, Route } from "react-router-dom";
+import { dividerBorderColor } from 'ui/common/styles';
 import * as tabs from './tabs';
 
 const Sidebar = () => {
@@ -13,12 +14,12 @@ const Sidebar = () => {
   // Render
   // ====================================
   return (
-    <aside className='flex flex-row bg-gray-900'>
+    <aside className={`flex flex-row bg-gray-900 border-r ${dividerBorderColor}`}>
       <TabSelector />
       <div className='flex-1'>
         <Switch>
           <Route path={`/${tabs.TAB_TILES}`}>
-            <TilesetSettings />
+            <Edit />
           </Route>
 
           <Route path={`/${tabs.TAB_MAP}`}>
