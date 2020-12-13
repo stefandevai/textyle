@@ -28,10 +28,6 @@ class TileManager {
   }
 
   get = (tile) => {
-    if (!this.debug) {
-      console.log(tile);
-      this.debug = true;
-    }
     return this.tiles.get(tile);
   }
 

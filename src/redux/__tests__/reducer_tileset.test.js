@@ -35,12 +35,6 @@ it('should handle LOAD_EXISTING_TILESETS', () => {
 });
 
 it('should handle SELECT_TILESET', () => {
-  //let state = reducer(undefined, {
-    //type: types.LOAD_EXISTING_TILESETS,
-    //payload: { names: ['tileset1', 'tileset2'] }
-  //});
-  //expect(state.selectedTileset).toEqual('');
-  //expect(state.tilesetNames).toEqual(['tileset1', 'tileset2']);
   let state = reducer({
     tilesetNames: ['tileset1', 'tileset2'],
     selectedTileset: '',

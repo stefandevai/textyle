@@ -72,7 +72,8 @@ const loadTilesFromExistingTilesets = async (tilesets) => {
   // Create tiles from textures
   // Respects order of creation
   // TODO: replace hardcoded 32 x 32 tile size with a user defined one
-  for (const tileset of tilesets.reverse()) {
+  for (const tileset of tilesets) {
+    console.log(tileset);
     await TileManagerInstance.addTilesFromTileset(tileset, [32, 32]);
   }
 }
