@@ -5,7 +5,7 @@ import { dividerBorderColor } from 'ui/common/styles';
 
 const App = () => {
   return (
-    <div className={`h-screen w-screen flex flex-col text-gray-50 bg-gray-900 border ${dividerBorderColor} text-gray-100`}>
+    <div className={`h-screen w-screen flex flex-col text-gray-50 bg-gray-900 border-l border-t ${dividerBorderColor} text-gray-100`}>
       <main className='flex-1 grid grid-cols-4'>
         <HashRouter>
           <Sidebar />

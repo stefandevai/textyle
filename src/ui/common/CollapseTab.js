@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Collapse } from 'react-collapse';
-import 'ui/common/CollapseTab.css';
 import Icon from '@mdi/react';
 import { mdiMenuDown, mdiMenuRight } from '@mdi/js';
 import { dividerBorderColor, titleBarHeight } from './styles.js';

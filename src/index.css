@@ -24,3 +24,8 @@ button, button:focus {
 .cursor-default {
   cursor: default;
 }
+
+.ReactCollapse--collapse {
+  transition: height 200ms;
+}
+

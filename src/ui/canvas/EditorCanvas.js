@@ -137,15 +137,23 @@ const EditorCanvas = () => {
   // Render
   // ====================================
   return (
-    <AbsoluteCanvas
-      id={EDITOR_CANVAS_ID}
-      style={{ width: '100%', height: '100%', zIndex: '1' }}
-      onMouseDown={handleMouseDown}
-      onDrag={handleContinuousTools}
-      onWheel={handleWheel}
-      ref={editingCanvasRef}
+    <canvas id={EDITOR_CANVAS_ID}
+            ref={editingCanvasRef}
+            onWheel={handleWheel}
+            onMouseDown={handleMouseDown}
+            onDrag={handleContinuousTools}
+            draggable='true'
+            className='col-span-full row-span-full z-10 w-full h-full'
     />
   );
 }
+    //<AbsoluteCanvas
+      //id={EDITOR_CANVAS_ID}
+      //style={{ width: '100%', height: '100%', zIndex: '1' }}
+      //onMouseDown={handleMouseDown}
+      //onDrag={handleContinuousTools}
+      //onWheel={handleWheel}
+      //ref={editingCanvasRef}
+    ///>
 
 export default EditorCanvas;

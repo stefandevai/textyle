@@ -48,12 +48,13 @@ const WebGLCanvas = () => {
   // Render
   // ====================================
   return (
-    <AbsoluteCanvas
-      id={TILEMAP_CANVAS_ID}
-      style={{ width: '100%', height: '100%', zIndex: '0' }}
-      ref={tilesCanvasRef}
-    />
+    <canvas id={TILEMAP_CANVAS_ID} ref={tilesCanvasRef} className='col-span-full row-span-full z-0 w-full h-full' />
   );
 }
+    //<AbsoluteCanvas
+      //id={TILEMAP_CANVAS_ID}
+      //style={{ width: '100%', height: '100%', zIndex: '0' }}
+      //ref={tilesCanvasRef}
+    ///>
 
 export default WebGLCanvas;

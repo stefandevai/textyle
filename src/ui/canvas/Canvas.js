@@ -9,7 +9,7 @@ const Canvas = () => {
   return (
     <div className='col-span-3 flex flex-col'>
       <Toolbar />
-      <section className='relative flex-1 bg-gray-600'>
+      <section className='grid flex-1 bg-gray-600'>
         <EditorCanvas />
         <WebGLCanvas />
       </section>
