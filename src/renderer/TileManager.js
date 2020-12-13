@@ -24,7 +24,6 @@ class TileManager {
         ++this.length;
       }
     }
-    console.log(this.tiles);
   }
 
   get = (tile) => {
