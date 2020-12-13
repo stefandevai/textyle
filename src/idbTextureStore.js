@@ -45,6 +45,10 @@ export const setTextureData = async (name, data) => {
 export const deleteTextureData = async (name) => {
   try {
     await del(name, textureStore);
+    const lastSelectedTileset = localStorage.getItem(LOCAL_STORAGE_LAST_SELECTED_TILESET);
+    if (lastSelectedTileset === name) {
+      localStorage.removeItem(LOCAL_STORAGE_LAST_SELECTED_TILESET);
+    }
   } catch (err) {
     console.error(err);
   }
