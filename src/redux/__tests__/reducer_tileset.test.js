@@ -25,9 +25,9 @@ it('should handle ADD_TILESET', () => {
   expect(state.tilesetNames).toEqual(['tileset1', 'tileset2']);
 });
 
-it('should handle ADD_TILESETS', () => {
+it('should handle LOAD_EXISTING_TILESETS', () => {
   let state = reducer(undefined, {
-    type: types.ADD_TILESETS,
+    type: types.LOAD_EXISTING_TILESETS,
     payload: { names: ['tileset1', 'tileset2'] }
   });
   expect(state.selectedTileset).toEqual('');
@@ -35,18 +35,40 @@ it('should handle ADD_TILESETS', () => {
 });
 
 it('should handle SELECT_TILESET', () => {
-  let state = reducer(undefined, {
-    type: types.ADD_TILESETS,
-    payload: { names: ['tileset1', 'tileset2'] }
-  });
-  expect(state.selectedTileset).toEqual('');
-  expect(state.tilesetNames).toEqual(['tileset1', 'tileset2']);
-
-  state = reducer(state, {
+  let state = reducer({
+    tilesetNames: ['tileset1', 'tileset2'],
+    selectedTileset: '',
+  }, {
     type: types.SELECT_TILESET,
     payload: { name: 'tileset2' }
   });
   expect(state.selectedTileset).toEqual('tileset2');
+
+  state = reducer(state, {
+    type: types.SELECT_TILESET,
+    payload: { name: 'tileset1' }
+  });
+  expect(state.selectedTileset).toEqual('tileset1');
+});
+
+it('should handle DELETE_TILESET', () => {
+  let state = reducer({
+    tilesetNames: ['tileset1', 'tileset2'],
+    selectedTileset: 'tileset2',
+  }, {
+    type: types.DELETE_TILESET,
+    payload: { name: 'tileset2' }
+  });
+
+  expect(state.tilesetNames).toEqual(['tileset1']);
+  expect(state.selectedTileset).toEqual('tileset1');
+
+  state = reducer(state, {
+    type: types.DELETE_TILESET,
+    payload: { name: 'tileset1' }
+  });
+  expect(state.tilesetNames).toEqual([]);
+  expect(state.selectedTileset).toEqual('');
 });
 
 it('should handle SELECT_TILE', () => {

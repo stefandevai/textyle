@@ -19,7 +19,7 @@ it('it should select different textures', () => {
   option = screen.getByTestId('test3');
   expect(option.selected).toBeFalsy();
 
-  const select = screen.getByTestId(testIds.SELECT_TILESET);
+  const select = screen.getByTestId(testIds.SELECT_TAG);
   expect(select).toBeInTheDocument();
 
   fireEvent.change(select, { target: { value: 'test3' } }); 

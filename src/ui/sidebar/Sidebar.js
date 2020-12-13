@@ -14,9 +14,8 @@ const Sidebar = () => {
   // Render
   // ====================================
   return (
-    <aside className={`flex flex-row bg-gray-900 border-r ${dividerBorderColor}`}>
+    <aside className={`flex flex-row bg-gray-900 border-r border-b ${dividerBorderColor}`}>
       <TabSelector />
-      <div className='flex-1'>
         <Switch>
           <Route path={`/${tabs.TAB_TILES}`}>
             <Edit />
@@ -42,7 +41,6 @@ const Sidebar = () => {
             <Help />
           </Route>
         </Switch>
-      </div>
     </aside>
   );
 };

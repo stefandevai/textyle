@@ -1,4 +1,4 @@
-import { getTextureData } from 'idb';
+import { getTextureData } from 'idbTextureStore';
 
 export const fileToBase64 = file => {
   if (!file) {

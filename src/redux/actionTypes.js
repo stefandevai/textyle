@@ -1,6 +1,7 @@
 export const ADD_TILESET = '[TILESET] Add one';
-export const ADD_TILESETS = '[TILESET] Add multiple';
+export const LOAD_EXISTING_TILESETS = '[TILESET] Load existing';
 export const SELECT_TILESET = '[TILESET] Select';
+export const DELETE_TILESET = '[TILESET] Delete';
 export const SELECT_TILE = '[TILE] Select';
 
 export const SELECT_TOOL = '[TOOL] Select';

@@ -3,6 +3,7 @@ import Tab from 'ui/common/Tab';
 import * as formats from 'ui/sidebar/export/formats';
 import TilemapInstance from 'tilemap';
 import FormatSelector from 'ui/sidebar/export/FormatSelector';
+import Button from 'ui/common/Button';
 
 const ExportSettings = () => {
   // ====================================
@@ -34,13 +35,14 @@ const ExportSettings = () => {
   return (
     <Tab title='Export Map'>
       <FormatSelector format={format} onOptionSelected={onOptionSelected} />
-      <button className='bg-indigo-900 my-3 py-2 px-4 flex justify-center rounded cursor-pointer'
-              onClick={handleExport}
-      >
-        Export
-      </button>
+      <Button text='Export' onClick={handleExport} />
     </Tab>
   );
 }
+      //<button className='bg-indigo-900 my-3 py-2 px-4 flex justify-center rounded cursor-pointer'
+              //onClick={handleExport}
+      //>
+        //Export
+      //</button>
 
 export default ExportSettings;

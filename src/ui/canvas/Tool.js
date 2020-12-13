@@ -6,9 +6,8 @@ import tooltips from 'ui/tooltips';
 import * as testIds from 'resources/testIds';
 import {
   TOOLTIP_DELAY,
+  TOOLBAR_ICON_SIZE,
 } from 'ui/constants';
-
-const iconSize = 0.75;
 
 const Tool = ({ iconPath, tool }) => {
   // ====================================
@@ -34,7 +33,7 @@ const Tool = ({ iconPath, tool }) => {
   return (
     <button className='px-4 py-2 cursor-default' role='button' data-testid={tool === selectedTool ? testIds.SELECTED_TOOL : ''}>
       <div className={iconClasses} onClick={handleOnClick} data-tip data-for={tool} data-testid={tool}>
-        <Icon path={iconPath} size={iconSize} />
+        <Icon path={iconPath} size={TOOLBAR_ICON_SIZE} />
       </div>
       <ReactTooltip id={tool} place='bottom' effect='solid' delayShow={TOOLTIP_DELAY}>
         {tooltips.get(tool)}

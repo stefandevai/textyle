@@ -27,9 +27,6 @@ class TileManager {
   }
 
   get = (tile) => {
-    if (!this.debug) {
-      this.debug = true;
-    }
     return this.tiles.get(tile);
   }
 

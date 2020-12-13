@@ -5,7 +5,6 @@ import { getTilePositionOnClick } from 'utils/tile';
 import { EDITOR_CANVAS_ID } from 'ui/constants';
 import RendererInstance from 'renderer/Renderer';
 import TilemapInstance from 'tilemap';
-import AbsoluteCanvas from 'ui/common/AbsoluteCanvas';
 import * as tools from 'ui/canvas/tools';
 
 // TODO: Provide a method to change tile size per layer
@@ -96,7 +95,7 @@ const EditorCanvas = () => {
       }
 
       case tools.PLACEMENT_TOOL: {
-        if (selectedTile && selectedTile !== -1) {
+        if (selectedTile !== null && selectedTile !== undefined && selectedTile !== -1) {
           TilemapInstance.set(...position, selectedTile, layerId);
         }
         break;
@@ -137,15 +136,23 @@ const EditorCanvas = () => {
   // Render
   // ====================================
   return (
-    <AbsoluteCanvas
-      id={EDITOR_CANVAS_ID}
-      style={{ width: '100%', height: '100%', zIndex: '1' }}
-      onMouseDown={handleMouseDown}
-      onDrag={handleContinuousTools}
-      onWheel={handleWheel}
-      ref={editingCanvasRef}
+    <canvas id={EDITOR_CANVAS_ID}
+            ref={editingCanvasRef}
+            onWheel={handleWheel}
+            onMouseDown={handleMouseDown}
+            onDrag={handleContinuousTools}
+            draggable='true'
+            className='col-span-full row-span-full z-10 w-full h-full'
     />
   );
 }
+    //<AbsoluteCanvas
+      //id={EDITOR_CANVAS_ID}
+      //style={{ width: '100%', height: '100%', zIndex: '1' }}
+      //onMouseDown={handleMouseDown}
+      //onDrag={handleContinuousTools}
+      //onWheel={handleWheel}
+      //ref={editingCanvasRef}
+    ///>
 
 export default EditorCanvas;
