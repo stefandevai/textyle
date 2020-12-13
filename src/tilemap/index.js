@@ -1,8 +1,3 @@
-import {
-  ADD_LAYER,
-  DELETE_LAYER,
-} from 'redux/actionTypes';
-
 class Tilemap {
   constructor() {
     console.log('DEBUG: CONSTRUCTING GRID');
@@ -63,27 +58,5 @@ class Tilemap {
   }
 }
 
-const tilemapReduxMiddleware = store => next => action => {
-  switch(action.type) {
-    case ADD_LAYER: {
-      let { x, y, width, height } = action.payload || {};
-      TilemapInstance.addLayer(x, y, width, height);
-      break;
-    }
-
-    case DELETE_LAYER: {
-      // TODO: Implement layer deletion
-      break;
-    }
-
-    default:
-      break;
-  }
-
-  return next(action);
-}
-
 const TilemapInstance = new Tilemap();
-
-export { tilemapReduxMiddleware };
 export default TilemapInstance;

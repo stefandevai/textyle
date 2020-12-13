@@ -1,6 +1,7 @@
 import {
   ADD_TILESET,
   LOAD_EXISTING_TILESETS,
+  COMPLETE_TEXTURE_LOADING,
   SELECT_TILESET,
   DELETE_TILESET,
   SELECT_TILE,
@@ -20,6 +21,11 @@ export const addTileset = (name, data) => ({
 export const loadExistingTilesets = names => ({
   type: LOAD_EXISTING_TILESETS,
   payload: { names },
+});
+
+export const completeTextureLoading = names => ({
+  type: COMPLETE_TEXTURE_LOADING,
+  payload: {},
 });
 
 export const selectTileset = name => ({

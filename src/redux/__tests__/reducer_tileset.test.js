@@ -6,6 +6,7 @@ it('should return the initial state', () => {
     tilesetNames: [],
     selectedTileset: '',
     selectedTile: -1,
+    hasLoadedTextures: false,
   });
 });
 
@@ -32,6 +33,14 @@ it('should handle LOAD_EXISTING_TILESETS', () => {
   });
   expect(state.selectedTileset).toEqual('');
   expect(state.tilesetNames).toEqual(['tileset1', 'tileset2']);
+});
+
+it('should handle COMPLETE_TEXTURE_LOADING', () => {
+  let state = reducer(undefined, {
+    type: types.COMPLETE_TEXTURE_LOADING,
+    payload: {}
+  });
+  expect(state.hasLoadedTextures).toEqual(true);
 });
 
 it('should handle SELECT_TILESET', () => {

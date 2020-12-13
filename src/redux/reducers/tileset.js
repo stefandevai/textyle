@@ -1,6 +1,7 @@
 import {
   ADD_TILESET,
   LOAD_EXISTING_TILESETS,
+  COMPLETE_TEXTURE_LOADING,
   SELECT_TILESET,
   DELETE_TILESET,
   SELECT_TILE,
@@ -10,6 +11,7 @@ const initialState = {
   tilesetNames: [],
   selectedTileset: '',
   selectedTile: -1,
+  hasLoadedTextures: false,
 }
 
 export default function(state = initialState, action) {
@@ -20,6 +22,13 @@ export default function(state = initialState, action) {
       return {
         ...state,
         tilesetNames: names,
+      };
+    }
+
+    case COMPLETE_TEXTURE_LOADING: {
+      return {
+        ...state,
+        hasLoadedTextures: true,
       };
     }
 
