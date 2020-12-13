@@ -95,7 +95,7 @@ const EditorCanvas = () => {
       }
 
       case tools.PLACEMENT_TOOL: {
-        if (selectedTile && selectedTile !== -1) {
+        if (selectedTile !== null && selectedTile !== undefined && selectedTile !== -1) {
           TilemapInstance.set(...position, selectedTile, layerId);
         }
         break;
