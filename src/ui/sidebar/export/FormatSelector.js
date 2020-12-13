@@ -1,4 +1,5 @@
 import * as formats from 'ui/sidebar/export/formats';
+import Select from 'ui/common/Select';
 
 const FormatSelector = ({ format, onOptionSelected }) => {
   // ====================================
@@ -15,12 +16,7 @@ const FormatSelector = ({ format, onOptionSelected }) => {
   const formatOptions = formatsArray.map(format => <option key={format} value={format}>{format}</option>);
 
   return (
-    <select
-      className='text-gray-900'
-      value={format}
-      onChange={onOptionSelected}>
-      {formatOptions} 
-    </select>
+    <Select value={format} options={formatOptions} onChange={onOptionSelected} />
   );
 }
 

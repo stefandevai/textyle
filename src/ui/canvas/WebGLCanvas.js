@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { addLayer } from 'redux/actions';
 import RendererInstance from 'renderer/Renderer';
 import TilemapInstance from 'tilemap';
-import AbsoluteCanvas from 'ui/common/AbsoluteCanvas';
 import { TILEMAP_CANVAS_ID } from 'ui/constants';
 
 // TODO: Provide a method to change tile size per layer

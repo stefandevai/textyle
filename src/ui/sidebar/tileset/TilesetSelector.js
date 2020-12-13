@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
-import Select from 'react-select';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectTileset } from 'redux/actions';
 import { LOCAL_STORAGE_LAST_SELECTED_TILESET } from 'ui/constants';
-import * as testIds from 'resources/testIds';
+import Select from 'ui/common/Select';
 
 const TilesetSelector = () => {
   // ====================================
@@ -20,8 +19,11 @@ const TilesetSelector = () => {
     const lastSelectedTileset = localStorage.getItem(LOCAL_STORAGE_LAST_SELECTED_TILESET);
 
     // TODO: Check if tileset exists
-    if (lastSelectedTileset) {
+    if (lastSelectedTileset && lastSelectedTileset !== '') {
       dispatch(selectTileset(lastSelectedTileset));
+    }
+    else {
+      localStorage.setItem(LOCAL_STORAGE_LAST_SELECTED_TILESET, '');
     }
   }, [dispatch]);
 
@@ -41,14 +43,7 @@ const TilesetSelector = () => {
 
   return (
     tilesetNames.length > 0 &&
-    <select
-      className='text-gray-400 w-full px-1 py-1 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-sm'
-      value={selectedTileset}
-      onChange={onOptionSelected}
-      data-testid={testIds.SELECT_TILESET}
-    >
-      {options}
-    </select>
+    <Select value={selectedTileset} options={options} onChange={onOptionSelected} />
   );
 }
 

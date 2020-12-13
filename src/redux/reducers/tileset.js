@@ -1,7 +1,8 @@
 import {
   ADD_TILESET,
-  ADD_TILESETS,
+  LOAD_EXISTING_TILESETS,
   SELECT_TILESET,
+  DELETE_TILESET,
   SELECT_TILE,
 } from 'redux/actionTypes'
 
@@ -13,12 +14,12 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch(action.type) {
-    case ADD_TILESETS: {
+    case LOAD_EXISTING_TILESETS: {
       const { names } = action.payload;
 
       return {
         ...state,
-        tilesetNames: [...state.tilesetNames, ...names],
+        tilesetNames: names,
       };
     }
 
@@ -36,6 +37,29 @@ export default function(state = initialState, action) {
       return {
         ...state,
         selectedTileset: name,
+      };
+    }
+
+    case DELETE_TILESET: {
+      const { name } = action.payload;
+      const newTilesetNames = state.tilesetNames.filter(n => n !== name);
+
+      let newSelected = state.selectedTileset;
+
+      // If the selected layer is the layer we are deleting and
+      // it is not the last layer, select a new index.
+      if (newSelected === name && newTilesetNames.length > 0) {
+        const idx = Math.max(state.tilesetNames.indexOf(name) - 1, 0);
+        newSelected = newTilesetNames[idx];
+      }
+      else if (newTilesetNames.length == 0) {
+        newSelected = '';
+      }
+
+      return {
+        ...state,
+        selectedTileset: newSelected,
+        tilesetNames: newTilesetNames,
       };
     }
 

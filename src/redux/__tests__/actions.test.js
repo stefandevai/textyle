@@ -14,11 +14,11 @@ it('should create an action an add a tileset', () => {
 it('should create an action an add multiple tilesets', () => {
   const names = ['tileset1', 'tileset2', 'tileset3'];
   const expectedAction = {
-    type: types.ADD_TILESETS,
+    type: types.LOAD_EXISTING_TILESETS,
     payload: { names },
   }
 
-  expect(actions.addTilesets(names)).toEqual(expectedAction);
+  expect(actions.loadExistingTilesets(names)).toEqual(expectedAction);
 });
 
 it('should create an action an select a tileset', () => {

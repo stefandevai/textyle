@@ -28,7 +28,7 @@ const CollapseSection = ({ title, children }) => {
       </div>
 
       <Collapse isOpened={open}>
-        <div className='text-xs text-gray-300 px-2 py-4'>
+        <div className='text-xs text-gray-300 px-2 py-2'>
           {children}
         </div>
       </Collapse>

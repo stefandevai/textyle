@@ -1,7 +1,8 @@
 import {
   ADD_TILESET,
-  ADD_TILESETS,
+  LOAD_EXISTING_TILESETS,
   SELECT_TILESET,
+  DELETE_TILESET,
   SELECT_TILE,
   SELECT_TOOL,
   ADD_LAYER,
@@ -11,18 +12,23 @@ import {
   TOGGLE_LAYER_VISIBILITY,
 } from 'redux/actionTypes';
 
-export const addTileset = name => ({
+export const addTileset = (name, data) => ({
   type: ADD_TILESET,
-  payload: { name },
+  payload: { name, data },
 });
 
-export const addTilesets = names => ({
-  type: ADD_TILESETS,
+export const loadExistingTilesets = names => ({
+  type: LOAD_EXISTING_TILESETS,
   payload: { names },
 });
 
 export const selectTileset = name => ({
   type: SELECT_TILESET,
+  payload: { name },
+});
+
+export const deleteTileset = name => ({
+  type: DELETE_TILESET,
   payload: { name },
 });
 

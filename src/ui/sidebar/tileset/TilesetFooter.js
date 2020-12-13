@@ -1,10 +1,10 @@
 import { useDispatch } from 'react-redux';
-import { addLayer, deleteLayer } from 'redux/actions';
-import { mdiDelete, mdiPlaylistPlus } from '@mdi/js';
+import { deleteTileset } from 'redux/actions';
+import { mdiDelete, mdiCog } from '@mdi/js';
 import Icon from '@mdi/react';
 import * as testIds from 'resources/testIds';
 
-const LayerListFooter = ({ selectedLayer }) => {
+const TilesetFooter = ({ selectedTileset }) => {
   // ====================================
   // Initialize
   // ====================================
@@ -13,27 +13,27 @@ const LayerListFooter = ({ selectedLayer }) => {
   // ====================================
   // Logic
   // ====================================
-  const handleAddClick = () => {
-    dispatch(addLayer());
+  const handleSettingsClick = () => {
   }
 
   const handleDeleteClick = () => {
-    dispatch(deleteLayer(selectedLayer));
+    dispatch(deleteTileset(selectedTileset));
   }
 
   // ====================================
   // Render
   // ====================================
   return (
-    <div className='flex items-center justify-start mt-1'>
-      <button onClick={handleAddClick} data-testid={testIds.ADD_LAYER_BUTTON}>
-        <Icon path={mdiPlaylistPlus} size={0.7} />
+    <div className='flex items-center justify-start'>
+      <button onClick={handleSettingsClick}>
+        <Icon path={mdiCog} size={0.6} />
       </button>
-      <button onClick={handleDeleteClick} data-testid={testIds.DELETE_LAYER_BUTTON}>
+      <button onClick={handleDeleteClick}>
         <Icon path={mdiDelete} size={0.65} />
       </button>
     </div>
   );
 }
 
-export default LayerListFooter;
+export default TilesetFooter;
+

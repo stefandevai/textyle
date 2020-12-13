@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTextureData } from 'idb';
+import { getTextureData, hasTexture } from 'idbTextureStore';
 import { selectTile } from 'redux/actions';
 import { getTilePositionOnClick } from 'utils/tile';
+import TilesetFooter from 'ui/sidebar/tileset/TilesetFooter';
 import {
   GRID_COLOR,
   GRID_CANVAS_ID,
@@ -50,7 +51,7 @@ const TilesetPreview = () => {
   // ====================================
   // Load a new tileset to the preview
   useEffect(() => {
-    if (!selectedTileset || !tilegridCanvasRef.current || !tilesetCanvasRef.current) {
+    if (!selectedTileset || selectedTileset === '' || !tilegridCanvasRef.current || !tilesetCanvasRef.current) {
       return;
     }
 
@@ -110,12 +111,16 @@ const TilesetPreview = () => {
   // ====================================
   const tilesetPreview = selectedTileset === ''
     ? <div />
-    : (<div className='max-h-40 max-w-full overflow-scroll border inline-block rounded-sm mt-4'>
-         <div className='grid'>
-           <canvas id={GRID_CANVAS_ID} onMouseUp={onSelectTile} ref={tilegridCanvasRef} className='col-span-full row-span-full z-10 overflow-hidden' />
-           <canvas id={TILESET_CANVAS_ID} ref={tilesetCanvasRef} className='col-span-full row-span-full z-0 overflow-hidden' />
+    : (<>
+         <div className='max-h-40 max-w-full overflow-scroll border inline-block rounded-sm mt-2'>
+           <div className='grid'>
+             <canvas id={GRID_CANVAS_ID} onMouseUp={onSelectTile} ref={tilegridCanvasRef} className='col-span-full row-span-full z-10 overflow-hidden' />
+             <canvas id={TILESET_CANVAS_ID} ref={tilesetCanvasRef} className='col-span-full row-span-full z-0 overflow-hidden' />
+           </div>
          </div>
-       </div>);
+         <TilesetFooter selectedTileset={selectedTileset} />
+       </>
+    );
 
   return tilesetPreview;
 }
