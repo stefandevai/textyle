@@ -1,7 +1,9 @@
 import { compose, createStore, applyMiddleware } from 'redux';
 import rootReducer from 'redux/reducers';
-import { tilemapReduxMiddleware } from 'tilemap';
-import { idbReduxMiddleware } from 'idbTextureStore';
+import {
+  tilemapReduxMiddleware,
+  idbReduxMiddleware,
+} from 'redux/middlewares';
 
 // Remove Redux Devtools in production
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

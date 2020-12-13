@@ -18,6 +18,7 @@ const TilesetManager = () => {
   // ====================================
   const dispatch = useDispatch();
   const tilesetNames = useSelector(state => state.tileset.tilesetNames);
+  const hasLoadedTextures = useSelector(state => state.tileset.hasLoadedTextures);
 
   // ====================================
   // Logic
@@ -43,11 +44,16 @@ const TilesetManager = () => {
   // ====================================
   return (
     <CollapseSection title='Tileset'>
-      <TilesetSelector />
-      <div className='mt-2'>
-        <FileInput title={ADD_TILESET_TITLE} onUpload={e => onTilesetUpload(e) }/>
-      </div>
-      <TilesetPreview />
+      {hasLoadedTextures
+        ? (<>
+            <TilesetSelector />
+            <div className='mt-2'>
+              <FileInput title={ADD_TILESET_TITLE} onUpload={e => onTilesetUpload(e) }/>
+            </div>
+            <TilesetPreview />
+          </>)
+        : <div />
+      }
     </CollapseSection>
   );
 }
