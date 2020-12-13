@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import Select from 'react-select';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectTileset } from 'redux/actions';
 import { LOCAL_STORAGE_LAST_SELECTED_TILESET } from 'ui/constants';
@@ -41,7 +42,7 @@ const TilesetSelector = () => {
   return (
     tilesetNames.length > 0 &&
     <select
-      className='text-gray-900'
+      className='text-gray-400 w-full px-1 py-1 bg-gray-800 border border-gray-700 rounded-sm'
       value={selectedTileset}
       onChange={onOptionSelected}
       data-testid={testIds.SELECT_TILESET}
