@@ -18,7 +18,7 @@ const CollapseSection = ({ title, children }) => {
   // ====================================
   return (
     <div className={sectionClass}>
-      <div className={`flex items-center hover:bg-gray-800 cursor-pointer border-b ${dividerBorderColor} ${titleBarHeight}`}
+      <div className={`text-xs flex items-center hover:bg-gray-800 cursor-pointer border-b ${dividerBorderColor} ${titleBarHeight}`}
            onDoubleClick={e => setOpen(!open)}
       >
         <Icon path={icon} size={1} />
@@ -29,7 +29,7 @@ const CollapseSection = ({ title, children }) => {
       </div>
 
       <Collapse isOpened={open}>
-        <div className='text-xs text-gray-400 px-2 py-4'>
+        <div className='text-xs text-gray-300 px-2 py-4'>
           {children}
         </div>
       </Collapse>

@@ -40,7 +40,7 @@ const LayerList = () => {
     ? <DragDropContext onDragEnd={handleLayerDragEnd} onBeforeDragStart={handleLayerBeforeDragStart}>
         <Droppable droppableId='layers'>
           {(provided) => (
-            <ul {...provided.droppableProps} ref={provided.innerRef}>
+            <ul {...provided.droppableProps} ref={provided.innerRef} className='border rounded-sm border-gray-700'>
               {layerComponents}
               {provided.placeholder}
             </ul>

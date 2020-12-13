@@ -10,3 +10,4 @@ export const GRID_COLOR = '#dddddd';
 export const SELECTED_TILE_COLOR_OVERLAY = 'rgba(79, 70, 229, 0.4)';
 
 export const TOOLTIP_DELAY = 600;
+export const TOOLBAR_ICON_SIZE = 0.68;

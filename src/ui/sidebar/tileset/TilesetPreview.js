@@ -110,7 +110,7 @@ const TilesetPreview = () => {
   // ====================================
   const tilesetPreview = selectedTileset === ''
     ? <div />
-    : (<div className='max-h-40 max-w-full overflow-scroll border inline-block rounded-sm'>
+    : (<div className='max-h-40 max-w-full overflow-scroll border inline-block rounded-sm mt-4'>
          <div className='grid'>
            <canvas id={GRID_CANVAS_ID} onMouseUp={onSelectTile} ref={tilegridCanvasRef} className='col-span-full row-span-full z-10 overflow-hidden' />
            <canvas id={TILESET_CANVAS_ID} ref={tilesetCanvasRef} className='col-span-full row-span-full z-0 overflow-hidden' />

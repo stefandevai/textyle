@@ -25,7 +25,7 @@ const LayerListFooter = ({ selectedLayer }) => {
   // Render
   // ====================================
   return (
-    <div className='flex items-center justify-start py-3'>
+    <div className='flex items-center justify-start mt-2'>
       <button onClick={handleAddClick} data-testid={testIds.ADD_LAYER_BUTTON}>
         <Icon path={mdiPlaylistPlus} size={0.7} />
       </button>

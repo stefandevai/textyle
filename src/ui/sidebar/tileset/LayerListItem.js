@@ -26,10 +26,11 @@ const LayerItem = ({ layer, index, isSelected }) => {
   // Render
   // ====================================
   const icon = layer.visible ? mdiEye : mdiEyeOffOutline;
-  const selectedClassName = isSelected ? 'bg-gray-700' : 'hover:bg-gray-800';
+  const selectedClassName = isSelected ? 'bg-gray-700' : 'bg-gray-800 hover:bg-gray-900';
   const visibilityTestId = layer.visible ? testIds.LAYER_VISIBLE : testIds.LAYER_HIDDEN;
 
   return (
+    <div className='border-t border-gray-700 first:border-t-0'>
     <Draggable draggableId={layer.name} index={index}>
       {(provided, snapshop) => {
         const style = {
@@ -55,6 +56,7 @@ const LayerItem = ({ layer, index, isSelected }) => {
         }
       }
     </Draggable>
+    </div>
   );
 }
 
