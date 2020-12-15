@@ -5,17 +5,17 @@ import {
   SELECT_TILESET,
   DELETE_TILESET,
   SELECT_TILE,
-} from 'redux/actionTypes'
+} from "redux/actionTypes";
 
 const initialState = {
   tilesetNames: [],
-  selectedTileset: '',
+  selectedTileset: "",
   selectedTile: -1,
   hasLoadedTextures: false,
-}
+};
 
-export default function(state = initialState, action) {
-  switch(action.type) {
+export default function (state = initialState, action) {
+  switch (action.type) {
     case LOAD_EXISTING_TILESETS: {
       const { names } = action.payload;
 
@@ -51,7 +51,7 @@ export default function(state = initialState, action) {
 
     case DELETE_TILESET: {
       const { name } = action.payload;
-      const newTilesetNames = state.tilesetNames.filter(n => n !== name);
+      const newTilesetNames = state.tilesetNames.filter((n) => n !== name);
 
       let newSelected = state.selectedTileset;
 
@@ -60,9 +60,8 @@ export default function(state = initialState, action) {
       if (newSelected === name && newTilesetNames.length > 0) {
         const idx = Math.max(state.tilesetNames.indexOf(name) - 1, 0);
         newSelected = newTilesetNames[idx];
-      }
-      else if (newTilesetNames.length == 0) {
-        newSelected = '';
+      } else if (newTilesetNames.length == 0) {
+        newSelected = "";
       }
 
       return {

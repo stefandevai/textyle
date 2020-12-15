@@ -1,3 +1,5 @@
+![Textyle logo](./assets/logo-typography.png)
+
 ![ci badge](https://github.com/stefandevai/textyle/workflows/CI/badge.svg?branch=main)
 
 [Try Textyle!](https://stefandevai.github.io/textyle)
@@ -14,7 +16,7 @@ The project is in its initial stages of development, expect great improvements t
 
 Textyle UI is simple. Check the [wiki](https://github.com/stefandevai/textyle/wiki) for tutorials on how to start making your maps. However, you are encouraged to explore the application and leave the mouse on any term or box as almost everything has a [tooltip](https://en.wikipedia.org/wiki/Tooltip) indicating its use.
 
-# Integrating a Textyle map in your project
+# Integrating a Textyle map to your project
 
 Currently Textyle exports to JSON. It's a simple and widely used format in game development, you can use any JSON parser to get you tilemap data to your game; check the details [here](https://github.com/stefandevai/textyle/wiki). One of the priorities, however, is to allow multiple export targets so it will be a lot easier to integrate your map to the most common game engines.
 
@@ -40,15 +42,17 @@ Currently Textyle exports to JSON. It's a simple and widely used format in game 
 - Data layers
 - Custom parameters on tiles
 - Images over the tiles
+- Undo/Redo
 
 # Technical overview
 
-**Tech Stack:**
+**Stack:**
+
 - React JS
 - WebGL
 - Rust (WASM)
 
-Textyle is built using React JS for the UI, WebGL for rendering graphics and Rust (WASM) for managing tiles data and logic. In this sense, we try to explore each technology's strength: React JS for easily building complex UIs, WebGL API for rendering using the GPU and Rust compiled to WASM for managing tilemap's  logic and algorithms with high performance.
+Textyle is built using React JS for the UI, WebGL for rendering graphics and Rust (WASM) for managing tiles data and logic. In this sense, we try to explore each technology's strength: React JS for easily building complex UIs, WebGL API for rendering using the GPU and Rust compiled to WASM for managing tilemap's logic and algorithms with high performance.
 
 # Browser support
 

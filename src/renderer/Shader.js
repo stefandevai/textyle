@@ -3,9 +3,9 @@ function createShader(gl, source, type) {
   gl.shaderSource(shader, source);
   gl.compileShader(shader);
 
-  if ( !gl.getShaderParameter(shader, gl.COMPILE_STATUS) ) {
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
     const info = gl.getShaderInfoLog(shader);
-    console.error('Could not compile shader: ' + info);
+    console.error("Could not compile shader: " + info);
   }
 
   return shader;
@@ -29,22 +29,22 @@ class ShaderProgram {
     this.gl.linkProgram(this.id);
 
     if (!this.gl.getProgramParameter(this.id, this.gl.LINK_STATUS)) {
-      console.error('Unable to initialize the shader program: ' + this.gl.getProgramInfoLog(this.id));
+      console.error("Unable to initialize the shader program: " + this.gl.getProgramInfoLog(this.id));
       return null;
     }
-  }
+  };
 
   use = () => {
     this.gl.useProgram(this.id);
-  }
+  };
 
   setMat4 = (uniformName, value) => {
     this.gl.uniformMatrix4fv(this.gl.getUniformLocation(this.id, uniformName), false, value);
-  }
+  };
 
   setInt = (uniformName, value) => {
     this.gl.uniform1i(this.gl.getUniformLocation(this.id, uniformName), value);
-  }
+  };
 }
 
 export default ShaderProgram;

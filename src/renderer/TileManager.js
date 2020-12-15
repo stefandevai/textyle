@@ -1,9 +1,9 @@
-import { getImageBitmap } from 'utils/file';
-import { getTileUV } from 'utils/tile';
+import { getImageBitmap } from "utils/file";
+import { getTileUV } from "utils/tile";
 
 class TileManager {
   constructor() {
-    this.tiles = new Map();
+    this.tiles = [];
     this.lastId = 0;
   }
 
@@ -17,37 +17,28 @@ class TileManager {
     for (let i = 0; i < vFrames; i++) {
       for (let j = 0; j < hFrames; j++) {
         const idx = i * hFrames + j;
-        const uv = getTileUV(idx, tileSize, [bitmap.width, bitmap.height])
-        this.tiles.set(this.lastId, {
+        const uv = getTileUV(idx, tileSize, [bitmap.width, bitmap.height]);
+        this.tiles[this.lastId] = {
           size: tileSize,
-          texture: texture,
+          tileset: texture,
           uv: uv,
-        });
+        };
         ++this.lastId;
       }
     }
 
     return tileIndex;
-  }
-
-  loadTileset = async tileset => {
-    const tiles = await get(tileset, tileStore);
-
-    if (!tiles) {
-      console.error(`The tileset does not exist: ${tileset}`);
-      return;
-    }
-
-    for (const [key, value] of tiles) {
-      this.tiles.set(key, value);
-    }
-  }
+  };
 
   get = (tile) => {
-    return this.tiles.get(tile);
-  }
+    // Bound checking
+    if (tile < 0 || tile >= this.tiles.length) {
+      return null;
+    }
 
-};
+    return this.tiles[tile];
+  };
+}
 
 const TileManagerInstance = new TileManager();
 

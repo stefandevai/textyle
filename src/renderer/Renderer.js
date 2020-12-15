@@ -1,24 +1,18 @@
-import store from 'redux/store';
-import TilemapInstance from 'tilemap';
-import ShaderProgram from 'renderer/Shader';
-import Batch2D from 'renderer/Batch2D';
-import Texture from 'renderer/Texture';
-import Camera from 'renderer/Camera';
-import {
-  UNIFORM_MVP,
-  BATCH_VERTEX_SHADER_SOURCE,
-  BATCH_FRAGMENT_SHADER_SOURCE,
-} from 'renderer/constants';
+import store from "redux/store";
+import TilemapInstance from "tilemap";
+import ShaderProgram from "renderer/Shader";
+import Batch2D from "renderer/Batch2D";
+import Texture from "renderer/Texture";
+import Camera from "renderer/Camera";
+import { UNIFORM_MVP, BATCH_VERTEX_SHADER_SOURCE, BATCH_FRAGMENT_SHADER_SOURCE } from "renderer/constants";
 
 // TODO: Provide a method to change tile size per layer
 const tileSize = [32, 32];
 
 class Renderer {
-  hasInitialized = false
+  hasInitialized = false;
 
   init = (gl) => {
-    console.log('DEBUG: CONSTRUCTING RENDERER');
-
     this.gl = gl;
     if (!this.gl) {
       return;
@@ -37,25 +31,25 @@ class Renderer {
 
     this.batch = new Batch2D(this.gl, this.shaderProgram);
     this.hasInitialized = true;
-  }
+  };
 
   setClearColor = (r, g, b, a) => {
     this.gl.clearColor(r, g, b, a);
-  }
+  };
 
   //updateViewport = (width, height) => {
-    //this.gl.viewport(0, 0, width, height);
-    //const projectionMatrix = mat4.create();
-    //mat4.ortho(projectionMatrix, 0, width, height, 0, 0.1, 100.0);
-    //this.shaderProgram.use();
-    //this.shaderProgram.setMat4(UNIFORM_PROJECTION, projectionMatrix);
+  //this.gl.viewport(0, 0, width, height);
+  //const projectionMatrix = mat4.create();
+  //mat4.ortho(projectionMatrix, 0, width, height, 0, 0.1, 100.0);
+  //this.shaderProgram.use();
+  //this.shaderProgram.setMat4(UNIFORM_PROJECTION, projectionMatrix);
   //}
 
   render = () => {
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
     this.renderGrid();
     window.requestAnimationFrame(this.render);
-  }
+  };
 
   renderGrid = () => {
     // Return early if the wasm module hasn't loaded yet
@@ -93,10 +87,9 @@ class Renderer {
       }
     }
 
-
     this.batch.flush();
     this.batch.render(this.shaderProgram);
-  }
+  };
 }
 
 const RendererInstance = new Renderer();

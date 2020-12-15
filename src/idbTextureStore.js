@@ -1,11 +1,11 @@
-import { set, get, del, keys, Store } from 'idb-keyval';
-import TileManagerInstance from 'renderer/TileManager';
-import { selectTileset } from 'redux/actions';
-import { LOCAL_STORAGE_LAST_SELECTED_TILESET } from 'ui/constants';
-import reduxStore from 'redux/store';
-import { completeTextureLoading } from 'redux/actions';
+import { set, get, del, keys, Store } from "idb-keyval";
+import TileManagerInstance from "renderer/TileManager";
+import { selectTileset } from "redux/actions";
+import { LOCAL_STORAGE_LAST_SELECTED_TILESET } from "ui/constants";
+import reduxStore from "redux/store";
+import { completeTextureLoading } from "redux/actions";
 
-const textureStore = new Store('textures-store', 'textures');
+const textureStore = new Store("textures-store", "textures");
 
 // Gets all texture names available
 export const getTextureNames = async () => {
@@ -59,7 +59,7 @@ export const hasTexture = async (name) => {
     console.error(err);
     return false;
   }
-}
+};
 
 export const loadTilesFromExistingTilesets = async (tilesets) => {
   // Return if tiles where already loaded
@@ -88,5 +88,4 @@ export const loadTilesFromExistingTilesets = async (tilesets) => {
   }
 
   reduxStore.dispatch(completeTextureLoading());
-}
-
+};

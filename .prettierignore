@@ -1,0 +1,6 @@
+.git
+.github
+build
+coverage
+node_modules
+src/tilemap

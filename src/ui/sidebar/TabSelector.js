@@ -1,17 +1,11 @@
 import ReactTooltip from "react-tooltip";
-import tooltips from 'ui/tooltips';
-import TabButton from 'ui/sidebar/TabButton';
-import * as tabs from 'ui/sidebar/tabs';
-import { dividerBorderColor } from 'ui/common/styles';
-import { TOOLTIP_DELAY } from 'ui/constants';
-import {
-  mdiMap,
-  mdiViewModule,
-  mdiContentSave,
-  mdiUpload,
-  mdiHelpCircleOutline,
-  mdiCog,
-} from '@mdi/js';
+import TabButton from "ui/sidebar/TabButton";
+import tooltips from "resources/tooltips";
+import * as tabs from "resources/tabs";
+import { dividerBorderColor } from "resources/styles";
+import { TOOLTIP_DELAY } from "ui/constants";
+import { mdiMap, mdiViewModule, mdiContentSave, mdiUpload, mdiHelpCircleOutline, mdiCog } from "@mdi/js";
+import { ReactComponent as Logo } from 'resources/logo.svg';
 
 const TabSelector = () => {
   // ====================================
@@ -26,19 +20,24 @@ const TabSelector = () => {
     { path: tabs.TAB_HELP, icon: mdiHelpCircleOutline },
   ];
 
-  const sections = sectionsData.map(section =>
-    <div key={section.path} className='flex' data-testid={section.path}>
-      <TabButton routerPath={section.path} iconPath={section.icon}/>
-      <ReactTooltip id={section.path} place='right' effect='solid' delayShow={TOOLTIP_DELAY}>
+  const sections = sectionsData.map((section) => (
+    <div key={section.path} className="flex" data-testid={section.path}>
+      <TabButton routerPath={section.path} iconPath={section.icon} />
+      <ReactTooltip id={section.path} place="right" effect="solid" delayShow={TOOLTIP_DELAY}>
         {tooltips.get(section.path)}
       </ReactTooltip>
-    </div>);
+    </div>
+  ));
 
   return (
     <div className={`flex flex-col justify-end bg-black border-r ${dividerBorderColor}`}>
+      <div className='w-full flex-1'>
+        <div className='w-full px-2 py-4'>
+          <Logo />
+        </div>
+      </div>
       {sections}
-    </div>
-  );
-}
+    </div>);
+};
 
 export default TabSelector;

@@ -1,4 +1,4 @@
-import Texture from 'renderer/Texture';
+import Texture from "renderer/Texture";
 
 class TextureManager {
   constructor() {
@@ -9,7 +9,7 @@ class TextureManager {
   add = (gl, name) => {
     this.indexMap.set(name, this.map.size);
     this.map.set(name, new Texture(gl, name));
-  }
+  };
 
   get(name) {
     return this.map.get(name);

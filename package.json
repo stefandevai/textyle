@@ -1,6 +1,6 @@
 {
   "name": "textyle",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "homepage": "https://stefandevai.github.io/textyle",
   "private": true,
   "dependencies": {
@@ -56,6 +56,7 @@
     "autoprefixer": "^9.8.6",
     "customize-cra": "^1.0.0",
     "postcss": "^7.0.35",
+    "prettier": "2.2.1",
     "react-app-rewired": "^2.1.6",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1"
   }

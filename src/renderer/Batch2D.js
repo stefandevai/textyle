@@ -1,20 +1,19 @@
-import TextureManager from 'renderer/TextureManager';
-import TileManagerInstance from 'renderer/TileManager';
+import TextureManager from "renderer/TextureManager";
+import TileManagerInstance from "renderer/TileManager";
 import {
   ATTRIB_POSITION,
   ATTRIB_TEXTURE_COORD,
   ATTRIB_TEXTURE_IDX,
   ATTRIB_COLOR,
   UNIFORM_SAMPLERS,
-} from 'renderer/constants';
+} from "renderer/constants";
 
 const createIndices = (indicesSize) => {
   let offset = 0;
   let indices = new Uint16Array(indicesSize);
 
-  for (let i = 0; i < indicesSize; i += 6)
-  {
-    indices[i]     = offset;
+  for (let i = 0; i < indicesSize; i += 6) {
+    indices[i] = offset;
     indices[i + 1] = offset + 1;
     indices[i + 2] = offset + 2;
 
@@ -26,7 +25,7 @@ const createIndices = (indicesSize) => {
   }
 
   return indices;
-}
+};
 
 export default class Batch2D {
   constructor(gl, shaderProgram) {
@@ -38,7 +37,7 @@ export default class Batch2D {
   }
 
   create = () => {
-    const maxSprites  = 10000;
+    const maxSprites = 10000;
     const floatsPerVertex = 9;
     const bytesPerVertex = 4 * floatsPerVertex;
     const floatsPerSprite = floatsPerVertex * 4;
@@ -85,11 +84,11 @@ export default class Batch2D {
 
     // Used for rendering
     this.indexCount = 0;
-  }
+  };
 
   begin = () => {
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.VBO);
-  }
+  };
 
   emplace = (tileValue, position, color) => {
     const tileData = TileManagerInstance.get(tileValue);
@@ -112,12 +111,11 @@ export default class Batch2D {
 
     let textureIdx = 0.0;
 
-    if (this.textureManager.has(tileData.texture)) {
-      textureIdx = this.textureManager.getIndex(tileData.texture);
-    }
-    else {
-      this.textureManager.add(this.gl, tileData.texture);
-      textureIdx = this.textureManager.getIndex(tileData.texture);
+    if (this.textureManager.has(tileData.tileset)) {
+      textureIdx = this.textureManager.getIndex(tileData.tileset);
+    } else {
+      this.textureManager.add(this.gl, tileData.tileset);
+      textureIdx = this.textureManager.getIndex(tileData.tileset);
     }
 
     // Top left
@@ -165,12 +163,12 @@ export default class Batch2D {
     this.vertices[this.vertexIndex++] = a;
 
     this.indexCount += 6;
-  }
+  };
 
   flush = () => {
     this.gl.bufferSubData(this.gl.ARRAY_BUFFER, 0, this.vertices.subarray(0, this.vertexIndex));
     this.vertexIndex = 0;
-  }
+  };
 
   render = (shader) => {
     if (this.indexCount === 0) {
@@ -178,7 +176,7 @@ export default class Batch2D {
     }
 
     let idx = 0;
-    this.textureManager.map.forEach(texture => {
+    this.textureManager.map.forEach((texture) => {
       this.gl.activeTexture(this.gl.TEXTURE0 + idx);
       texture.bind(this.gl);
       this.shaderProgram.setInt(`${UNIFORM_SAMPLERS}[${idx}]`, idx);
@@ -190,5 +188,5 @@ export default class Batch2D {
     this.gl.bindVertexArray(this.VAO);
     this.gl.drawElements(this.gl.TRIANGLES, this.indexCount, this.gl.UNSIGNED_SHORT, 0);
     this.indexCount = 0;
-  }
+  };
 }

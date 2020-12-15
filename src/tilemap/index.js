@@ -1,9 +1,8 @@
-import * as formats from 'ui/sidebar/export/formats';
-import { dumpJson } from 'utils/dump';
+import * as formats from 'resources/formats';
+import { exportJson } from 'utils/export';
 
 class Tilemap {
   constructor() {
-    console.log('DEBUG: CONSTRUCTING GRID');
     this.hasInitialized = false;
   }
 
@@ -55,10 +54,26 @@ class Tilemap {
     this.map.fill(x, y, targetValue, layerId);
   }
 
-  dump = (format) => {
+  layerWidth = (layerId) => {
+    return this.map.layer_width(layerId);
+  }
+
+  layerHeight = (layerId) => {
+    return this.map.layer_height(layerId);
+  }
+
+  layerX = (layerId) => {
+    return this.map.layer_x(layerId);
+  }
+
+  layerY = (layerId) => {
+    return this.map.layer_y(layerId);
+  }
+
+  export = (format) => {
     switch (format) {
       case formats.FORMAT_JSON:
-        return dumpJson();
+        return exportJson();
       default:
         return null;
     }

@@ -11,39 +11,39 @@ import {
   SELECT_LAYER,
   MOVE_LAYER,
   TOGGLE_LAYER_VISIBILITY,
-} from 'redux/actionTypes';
+} from "redux/actionTypes";
 
 export const addTileset = (name, data) => ({
   type: ADD_TILESET,
   payload: { name, data },
 });
 
-export const loadExistingTilesets = names => ({
+export const loadExistingTilesets = (names) => ({
   type: LOAD_EXISTING_TILESETS,
   payload: { names },
 });
 
-export const completeTextureLoading = names => ({
+export const completeTextureLoading = (names) => ({
   type: COMPLETE_TEXTURE_LOADING,
   payload: {},
 });
 
-export const selectTileset = name => ({
+export const selectTileset = (name) => ({
   type: SELECT_TILESET,
   payload: { name },
 });
 
-export const deleteTileset = name => ({
+export const deleteTileset = (name) => ({
   type: DELETE_TILESET,
   payload: { name },
 });
 
-export const selectTile = value => ({
+export const selectTile = (value) => ({
   type: SELECT_TILE,
   payload: { value },
 });
 
-export const selectTool = tool => ({
+export const selectTool = (tool) => ({
   type: SELECT_TOOL,
   payload: { tool },
 });
@@ -53,12 +53,12 @@ export const addLayer = (name, x, y, width, height) => ({
   payload: { name, x, y, width, height },
 });
 
-export const deleteLayer = name => ({
+export const deleteLayer = (name) => ({
   type: DELETE_LAYER,
   payload: { name },
 });
 
-export const selectLayer = name => ({
+export const selectLayer = (name) => ({
   type: SELECT_LAYER,
   payload: { name },
 });
@@ -68,7 +68,7 @@ export const moveLayer = (name, to) => ({
   payload: { name, to },
 });
 
-export const toggleLayerVisibility = name => ({
+export const toggleLayerVisibility = (name) => ({
   type: TOGGLE_LAYER_VISIBILITY,
   payload: { name },
 });
