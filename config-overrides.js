@@ -5,9 +5,9 @@ const { override, addPostcssPlugins } = require("customize-cra");
 
 module.exports = override(
   // Ignore wasm files on file loader
-  config => {
-    config.module.rules.find(rule => {
-      return (rule.oneOf || []).find(item => {
+  (config) => {
+    config.module.rules.find((rule) => {
+      return (rule.oneOf || []).find((item) => {
         if (item.loader && item.loader.indexOf("file-loader") >= 0) {
           item.exclude.push(/\.wasm$/);
           return true;
@@ -20,19 +20,16 @@ module.exports = override(
 
   //// Hook canvas Rust-WASM module
   //config => {
-    //config.plugins = (config.plugins || []).concat([
-      //new WasmPackPlugin({
-        //crateDirectory: path.resolve(__dirname, "./src/tilemap"),
-        //extraArgs: "--no-typescript",
-        //outDir: path.resolve(__dirname, "./src/tilemap/pkg")
-      //})
-    //]);
+  //config.plugins = (config.plugins || []).concat([
+  //new WasmPackPlugin({
+  //crateDirectory: path.resolve(__dirname, "./src/tilemap"),
+  //extraArgs: "--no-typescript",
+  //outDir: path.resolve(__dirname, "./src/tilemap/pkg")
+  //})
+  //]);
 
-    //return config;
+  //return config;
   //},
 
-  addPostcssPlugins([
-    require('tailwindcss'),
-    require('autoprefixer'),
-  ]),
+  addPostcssPlugins([require("tailwindcss"), require("autoprefixer")])
 );

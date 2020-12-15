@@ -1,4 +1,4 @@
-import Button from 'ui/common/Button';
+import Button from "ui/common/Button";
 
 const FileInput = ({ title, onUpload }) => {
   // ====================================
@@ -7,17 +7,17 @@ const FileInput = ({ title, onUpload }) => {
   return (
     <div>
       <input
-        type='file'
-        name='tilesetFile'
-        id='tilesetFile'
-        min='1'
-        max='100'
-        value=''
+        type="file"
+        name="tilesetFile"
+        id="tilesetFile"
+        min="1"
+        max="100"
+        value=""
         onChange={onUpload}
-        style={{ width: '0.1px', height: '0.1px', opacity: 0, overflow: 'hidden', position: 'absolute', zIndex: '-1' }}
+        style={{ width: "0.1px", height: "0.1px", opacity: 0, overflow: "hidden", position: "absolute", zIndex: "-1" }}
       />
-      <label htmlFor='tilesetFile' className='block '>
-        <Button text='Choose a file...' />
+      <label htmlFor="tilesetFile" className="block ">
+        <Button text="Choose a file..." />
       </label>
     </div>
   );

@@ -1,5 +1,5 @@
-import { getImageBitmap } from 'utils/file';
-import { getTileUV } from 'utils/tile';
+import { getImageBitmap } from "utils/file";
+import { getTileUV } from "utils/tile";
 
 class TileManager {
   constructor() {
@@ -17,7 +17,7 @@ class TileManager {
     for (let i = 0; i < vFrames; i++) {
       for (let j = 0; j < hFrames; j++) {
         const idx = i * hFrames + j;
-        const uv = getTileUV(idx, tileSize, [bitmap.width, bitmap.height])
+        const uv = getTileUV(idx, tileSize, [bitmap.width, bitmap.height]);
         this.tiles.set(this.lastId, {
           size: tileSize,
           texture: texture,
@@ -28,9 +28,9 @@ class TileManager {
     }
 
     return tileIndex;
-  }
+  };
 
-  loadTileset = async tileset => {
+  loadTileset = async (tileset) => {
     const tiles = await get(tileset, tileStore);
 
     if (!tiles) {
@@ -41,13 +41,12 @@ class TileManager {
     for (const [key, value] of tiles) {
       this.tiles.set(key, value);
     }
-  }
+  };
 
   get = (tile) => {
     return this.tiles.get(tile);
-  }
-
-};
+  };
+}
 
 const TileManagerInstance = new TileManager();
 

@@ -1,5 +1,3 @@
-const dumpJson = () => {
-
-}
+const dumpJson = () => {};
 
 export default dumpJson;

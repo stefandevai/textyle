@@ -1,19 +1,9 @@
-import TilemapInstance from 'tilemap';
-import {
-  setTextureData,
-  deleteTextureData,
-  loadTilesFromExistingTilesets
-} from 'idbTextureStore';
-import {
-  ADD_TILESET,
-  DELETE_TILESET,
-  LOAD_EXISTING_TILESETS,
-  ADD_LAYER,
-  DELETE_LAYER,
-} from 'redux/actionTypes';
+import TilemapInstance from "tilemap";
+import { setTextureData, deleteTextureData, loadTilesFromExistingTilesets } from "idbTextureStore";
+import { ADD_TILESET, DELETE_TILESET, LOAD_EXISTING_TILESETS, ADD_LAYER, DELETE_LAYER } from "redux/actionTypes";
 
-export const idbReduxMiddleware = store => next => action => {
-  switch(action.type) {
+export const idbReduxMiddleware = (store) => (next) => (action) => {
+  switch (action.type) {
     case ADD_TILESET: {
       const { name, data } = action.payload || {};
       setTextureData(name, data);
@@ -37,10 +27,10 @@ export const idbReduxMiddleware = store => next => action => {
   }
 
   return next(action);
-}
+};
 
-export const tilemapReduxMiddleware = store => next => action => {
-  switch(action.type) {
+export const tilemapReduxMiddleware = (store) => (next) => (action) => {
+  switch (action.type) {
     case ADD_LAYER: {
       let { x, y, width, height } = action.payload || {};
       TilemapInstance.addLayer(x, y, width, height);
@@ -57,4 +47,4 @@ export const tilemapReduxMiddleware = store => next => action => {
   }
 
   return next(action);
-}
+};

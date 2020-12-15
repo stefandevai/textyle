@@ -1,20 +1,14 @@
-import {
-  ADD_LAYER,
-  DELETE_LAYER,
-  SELECT_LAYER,
-  MOVE_LAYER,
-  TOGGLE_LAYER_VISIBILITY,
-} from 'redux/actionTypes';
+import { ADD_LAYER, DELETE_LAYER, SELECT_LAYER, MOVE_LAYER, TOGGLE_LAYER_VISIBILITY } from "redux/actionTypes";
 
 const initialState = {
-  selected: '',
+  selected: "",
   names: [],
   layers: {},
   lastIdx: 0,
-}
+};
 
-export default function(state = initialState, action) {
-  switch(action.type) {
+export default function (state = initialState, action) {
+  switch (action.type) {
     case ADD_LAYER: {
       let { name } = action.payload;
 
@@ -31,7 +25,7 @@ export default function(state = initialState, action) {
           [name]: {
             id: state.lastIdx,
             visible: true,
-          }
+          },
         },
         selected: name,
         lastIdx: state.lastIdx + 1,
@@ -41,7 +35,7 @@ export default function(state = initialState, action) {
     case DELETE_LAYER: {
       const { name } = action.payload;
       const { [name]: value, ...newLayers } = state.layers;
-      const newIds = state.names.filter(id => id !== name);
+      const newIds = state.names.filter((id) => id !== name);
 
       let newSelected = state.selected;
 
@@ -50,9 +44,8 @@ export default function(state = initialState, action) {
       if (newSelected === name && newIds.length > 0) {
         const idx = Math.max(state.names.indexOf(name) - 1, 0);
         newSelected = newIds[idx];
-      }
-      else if (newIds.length === 0) {
-        newSelected = '';
+      } else if (newIds.length === 0) {
+        newSelected = "";
       }
 
       return {
@@ -97,9 +90,9 @@ export default function(state = initialState, action) {
           [name]: {
             ...state.layers[name],
             visible: !state.layers[name].visible,
-          }
-        }
-      }
+          },
+        },
+      };
     }
 
     default:

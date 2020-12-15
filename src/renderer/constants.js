@@ -1,11 +1,11 @@
-export const UNIFORM_PROJECTION = 'uProjectionMatrix';
-export const UNIFORM_MVP = 'uMVP';
-export const UNIFORM_SAMPLERS = 'uSamplers';
+export const UNIFORM_PROJECTION = "uProjectionMatrix";
+export const UNIFORM_MVP = "uMVP";
+export const UNIFORM_SAMPLERS = "uSamplers";
 
-export const ATTRIB_POSITION = 'aPosition';
-export const ATTRIB_TEXTURE_COORD = 'aTextureCoord';
-export const ATTRIB_TEXTURE_IDX = 'aTextureIdx';
-export const ATTRIB_COLOR = 'aColor';
+export const ATTRIB_POSITION = "aPosition";
+export const ATTRIB_TEXTURE_COORD = "aTextureCoord";
+export const ATTRIB_TEXTURE_IDX = "aTextureIdx";
+export const ATTRIB_COLOR = "aColor";
 
 export const BATCH_VERTEX_SHADER_SOURCE = `#version 300 es
 
@@ -84,4 +84,3 @@ export const BATCH_FRAGMENT_SHADER_SOURCE = `#version 300 es
         oColor = finalColor;
       }
       `;
-        

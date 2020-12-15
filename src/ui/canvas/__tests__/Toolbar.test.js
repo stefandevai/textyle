@@ -1,8 +1,8 @@
-import React from 'react';
-import { render, fireEvent, screen } from 'utils/test/testRender';
-import Toolbar from '../Toolbar';
-import { DEFAULT_TOOL, FILL_TOOL } from 'ui/canvas/tools';
-import * as testIds from 'resources/testIds';
+import React from "react";
+import { render, fireEvent, screen } from "utils/test/testRender";
+import Toolbar from "../Toolbar";
+import { DEFAULT_TOOL, FILL_TOOL } from "ui/canvas/tools";
+import * as testIds from "resources/testIds";
 
 const initialState = {
   canvas: {
@@ -10,17 +10,17 @@ const initialState = {
   },
 };
 
-it('renders the Toolbar with DEFAULT_TOOL', () => {
+it("renders the Toolbar with DEFAULT_TOOL", () => {
   render(<Toolbar />, { initialState });
   expect(screen.getByTestId(testIds.SELECTED_TOOL)).toBeInTheDocument();
 });
 
-it('should select the FILL_TOOL when clicked', () => {
+it("should select the FILL_TOOL when clicked", () => {
   render(<Toolbar />, { initialState });
 
   const fillButton = screen.getByTestId(FILL_TOOL);
   expect(fillButton).toBeInTheDocument();
-  fireEvent.click(fillButton); 
+  fireEvent.click(fillButton);
 
   const selectedFillButton = screen.getByTestId(FILL_TOOL);
   expect(selectedFillButton).toBeInTheDocument();

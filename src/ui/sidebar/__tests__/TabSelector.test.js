@@ -1,11 +1,15 @@
-import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
-import TabSelector from '../TabSelector';
+import React from "react";
+import { render, fireEvent, screen } from "@testing-library/react";
+import TabSelector from "../TabSelector";
 import { HashRouter } from "react-router-dom";
-import * as tabs from 'ui/sidebar/tabs';
+import * as tabs from "ui/sidebar/tabs";
 
-it('should display sidebar tabs', () => {
-  render(<HashRouter><TabSelector /></HashRouter>);
+it("should display sidebar tabs", () => {
+  render(
+    <HashRouter>
+      <TabSelector />
+    </HashRouter>
+  );
 
   let button = screen.getByTestId(tabs.TAB_TILES);
   expect(button).toBeInTheDocument();
@@ -25,4 +29,3 @@ it('should display sidebar tabs', () => {
   button = screen.getByTestId(tabs.TAB_HELP);
   expect(button).toBeInTheDocument();
 });
-

@@ -1,1 +1,1 @@
-export { default as dumpJson } from './dumpJson';
+export { default as dumpJson } from "./dumpJson";

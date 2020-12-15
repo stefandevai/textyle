@@ -5,7 +5,7 @@ export const getTilePositionOnClick = (e, tileSize, offset) => {
   const x = Math.floor((e.clientX + offset[0] - bounds.left) / tileSize[0]);
   const y = Math.floor((e.clientY + offset[1] - bounds.top) / tileSize[1]);
   return [x, y];
-}
+};
 
 export const getTileUV = (frame, frameSize, textureSize) => {
   // TODO: Better handling of out of bounds frame sizes
@@ -18,7 +18,7 @@ export const getTileUV = (frame, frameSize, textureSize) => {
     ];
   }
 
-  const frameWidth  = (frameSize[0] * 1.0) / textureSize[0];
+  const frameWidth = (frameSize[0] * 1.0) / textureSize[0];
   const frameHeight = (frameSize[1] * 1.0) / textureSize[1];
   const hFrames = Math.floor(textureSize[0] / frameSize[0]);
   const vFrames = Math.floor(textureSize[1] / frameSize[1]);
@@ -27,10 +27,10 @@ export const getTileUV = (frame, frameSize, textureSize) => {
   const frameX = Math.floor(frame % hFrames);
   const frameY = Math.floor((frame % maxFrames) / hFrames);
   // Multiply the x coord of the frame in the texture atlas by the normalized value of the width one frame.
-  const topLeftX = frameX * (textureSize[0] / hFrames) * 1.0 / textureSize[0];
+  const topLeftX = (frameX * (textureSize[0] / hFrames) * 1.0) / textureSize[0];
   // Multiply the y coord of the frame in the tile map by the normalized value of the height one frame.
   // Invert the value as the y axis is upwards for OpenGL
-  const topLeftY = frameY * (textureSize[1] / vFrames) / textureSize[1];
+  const topLeftY = (frameY * (textureSize[1] / vFrames)) / textureSize[1];
 
   return [
     [topLeftX, topLeftY], // top-left
@@ -38,4 +38,4 @@ export const getTileUV = (frame, frameSize, textureSize) => {
     [topLeftX + frameWidth, topLeftY + frameHeight], // bottom-right
     [topLeftX, topLeftY + frameHeight], // bottom-left
   ];
-}
+};

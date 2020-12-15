@@ -1,5 +1,5 @@
-import { getImageBitmap } from 'utils/file';
-import { getTileUV } from 'utils/tile';
+import { getImageBitmap } from "utils/file";
+import { getTileUV } from "utils/tile";
 
 class Texture {
   constructor(gl, name) {
@@ -7,7 +7,7 @@ class Texture {
     this.create(gl);
   }
 
-  create = gl => {
+  create = (gl) => {
     this.id = gl.createTexture();
 
     gl.bindTexture(gl.TEXTURE_2D, this.id);
@@ -17,7 +17,7 @@ class Texture {
     const pixel = new Uint8Array([0, 0, 0, 0]);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.width, this.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
 
-    getImageBitmap(this.name).then(bitmap => {
+    getImageBitmap(this.name).then((bitmap) => {
       if (!bitmap) {
         return;
       }
@@ -28,27 +28,27 @@ class Texture {
       gl.bindTexture(gl.TEXTURE_2D, this.id);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, bitmap);
 
-      gl.texParameteri (gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
-      gl.texParameteri (gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
-      gl.texParameteri (gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-      gl.texParameteri (gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
     });
-  }
+  };
 
   bind = (gl) => {
     gl.bindTexture(gl.TEXTURE_2D, this.id);
-  }
+  };
 
   getUV = (frame, frameSize) => {
     return getTileUV(frame, frameSize, [this.width, this.height]);
     //// If the texture has not been initialized yet
     //if (this.width == 1 && this.height == 1) {
-      //return [
-        //[0.0, 0.0],
-        //[0.0, 0.0],
-        //[0.0, 0.0],
-        //[0.0, 0.0],
-      //];
+    //return [
+    //[0.0, 0.0],
+    //[0.0, 0.0],
+    //[0.0, 0.0],
+    //[0.0, 0.0],
+    //];
     //}
 
     //const frameWidth  = (frameSize[0] * 1.0) / this.width;
@@ -66,13 +66,12 @@ class Texture {
     //const topLeftY = frameY * (this.height / vFrames) / this.height;
 
     //return [
-      //[topLeftX, topLeftY],
-      //[topLeftX + frameWidth, topLeftY],
-      //[topLeftX + frameWidth, topLeftY + frameHeight],
-      //[topLeftX, topLeftY + frameHeight],
+    //[topLeftX, topLeftY],
+    //[topLeftX + frameWidth, topLeftY],
+    //[topLeftX + frameWidth, topLeftY + frameHeight],
+    //[topLeftX, topLeftY + frameHeight],
     //];
-  }
+  };
 }
 
 export default Texture;
-

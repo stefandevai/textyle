@@ -44,11 +44,12 @@ Currently Textyle exports to JSON. It's a simple and widely used format in game 
 # Technical overview
 
 **Tech Stack:**
+
 - React JS
 - WebGL
 - Rust (WASM)
 
-Textyle is built using React JS for the UI, WebGL for rendering graphics and Rust (WASM) for managing tiles data and logic. In this sense, we try to explore each technology's strength: React JS for easily building complex UIs, WebGL API for rendering using the GPU and Rust compiled to WASM for managing tilemap's  logic and algorithms with high performance.
+Textyle is built using React JS for the UI, WebGL for rendering graphics and Rust (WASM) for managing tiles data and logic. In this sense, we try to explore each technology's strength: React JS for easily building complex UIs, WebGL API for rendering using the GPU and Rust compiled to WASM for managing tilemap's logic and algorithms with high performance.
 
 # Browser support
 
