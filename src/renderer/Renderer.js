@@ -13,8 +13,6 @@ class Renderer {
   hasInitialized = false;
 
   init = (gl) => {
-    console.log("DEBUG: CONSTRUCTING RENDERER");
-
     this.gl = gl;
     if (!this.gl) {
       return;

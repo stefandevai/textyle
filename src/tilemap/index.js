@@ -3,7 +3,6 @@ import { exportJson } from 'utils/export';
 
 class Tilemap {
   constructor() {
-    console.log('DEBUG: CONSTRUCTING GRID');
     this.hasInitialized = false;
   }
 

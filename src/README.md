@@ -1,5 +1,7 @@
 # How to navigate the code?
+
 ## Overview
+
 - `index.js` contains the entry point for the application.
 - `redux` contains code for managing the application state.
 - `renderer` contains the code responsible for rendering the tilemaps using the WebGL API.
@@ -9,16 +11,21 @@
 - `utils` contains snippets or functions used in multiple parts.
 
 ## Entry point
+
 TODO
 
 ## Redux
+
 TODO
 
 ## Renderer
+
 TODO
 
 ## Tilemap
+
 TODO
 
 ## UI
+
 TODO

@@ -44,7 +44,7 @@ Currently Textyle exports to JSON. It's a simple and widely used format in game 
 
 # Technical overview
 
-**Tech Stack:**
+**Stack:**
 
 - React JS
 - WebGL

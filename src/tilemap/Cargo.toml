@@ -1,8 +1,11 @@
 [package]
 name = "tilemap"
+description = "Module for Textyle, a web tilemap editor."
 version = "0.1.0"
 authors = ["Stefan Devai <stedevai@gmail.com>"]
 edition = "2018"
+repository = "https://github.com/stefandevai/textyle"
+license = "MIT"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
