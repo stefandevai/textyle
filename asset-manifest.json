@@ -1,25 +1,25 @@
 {
   "files": {
-    "static/js/0.90c860be.chunk.js": "/aestyle/static/js/0.90c860be.chunk.js",
-    "f220849550612d776237.module.wasm": "/aestyle/f220849550612d776237.module.wasm",
-    "static/js/0.90c860be.chunk.js.map": "/aestyle/static/js/0.90c860be.chunk.js.map",
-    "main.css": "/aestyle/static/css/main.fde867bf.chunk.css",
-    "main.js": "/aestyle/static/js/main.043672e5.chunk.js",
-    "main.js.map": "/aestyle/static/js/main.043672e5.chunk.js.map",
-    "runtime-main.js": "/aestyle/static/js/runtime-main.7f9d5a00.js",
-    "runtime-main.js.map": "/aestyle/static/js/runtime-main.7f9d5a00.js.map",
-    "static/js/3.f23a805e.chunk.js": "/aestyle/static/js/3.f23a805e.chunk.js",
-    "static/js/3.f23a805e.chunk.js.map": "/aestyle/static/js/3.f23a805e.chunk.js.map",
-    "static/js/4.0d3f4a63.chunk.js": "/aestyle/static/js/4.0d3f4a63.chunk.js",
-    "static/js/4.0d3f4a63.chunk.js.map": "/aestyle/static/js/4.0d3f4a63.chunk.js.map",
-    "index.html": "/aestyle/index.html",
-    "static/css/main.fde867bf.chunk.css.map": "/aestyle/static/css/main.fde867bf.chunk.css.map",
-    "static/js/3.f23a805e.chunk.js.LICENSE.txt": "/aestyle/static/js/3.f23a805e.chunk.js.LICENSE.txt"
+    "static/js/0.0287924c.chunk.js": "/textyle/static/js/0.0287924c.chunk.js",
+    "f220849550612d776237.module.wasm": "/textyle/f220849550612d776237.module.wasm",
+    "static/js/0.0287924c.chunk.js.map": "/textyle/static/js/0.0287924c.chunk.js.map",
+    "main.css": "/textyle/static/css/main.2359da93.chunk.css",
+    "main.js": "/textyle/static/js/main.f2b3ee7d.chunk.js",
+    "main.js.map": "/textyle/static/js/main.f2b3ee7d.chunk.js.map",
+    "runtime-main.js": "/textyle/static/js/runtime-main.21b34c88.js",
+    "runtime-main.js.map": "/textyle/static/js/runtime-main.21b34c88.js.map",
+    "static/js/3.1f61c7d1.chunk.js": "/textyle/static/js/3.1f61c7d1.chunk.js",
+    "static/js/3.1f61c7d1.chunk.js.map": "/textyle/static/js/3.1f61c7d1.chunk.js.map",
+    "static/js/4.b8e7f193.chunk.js": "/textyle/static/js/4.b8e7f193.chunk.js",
+    "static/js/4.b8e7f193.chunk.js.map": "/textyle/static/js/4.b8e7f193.chunk.js.map",
+    "index.html": "/textyle/index.html",
+    "static/css/main.2359da93.chunk.css.map": "/textyle/static/css/main.2359da93.chunk.css.map",
+    "static/js/3.1f61c7d1.chunk.js.LICENSE.txt": "/textyle/static/js/3.1f61c7d1.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.7f9d5a00.js",
-    "static/js/3.f23a805e.chunk.js",
-    "static/css/main.fde867bf.chunk.css",
-    "static/js/main.043672e5.chunk.js"
+    "static/js/runtime-main.21b34c88.js",
+    "static/js/3.1f61c7d1.chunk.js",
+    "static/css/main.2359da93.chunk.css",
+    "static/js/main.f2b3ee7d.chunk.js"
   ]
 }
