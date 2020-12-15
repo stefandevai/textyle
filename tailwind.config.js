@@ -7,6 +7,7 @@ module.exports = {
   variants: {
     extend: {
       borderWidth: ['first'],
+      backgroundColor: ['active'],
     },
   },
   plugins: [],

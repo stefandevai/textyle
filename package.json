@@ -1,7 +1,7 @@
 {
-  "name": "aestyle",
+  "name": "textyle",
   "version": "0.1.1",
-  "homepage": "https://stefandevai.github.io/aestyle",
+  "homepage": "https://stefandevai.github.io/textyle",
   "private": true,
   "dependencies": {
     "@mdi/js": "^5.8.55",
