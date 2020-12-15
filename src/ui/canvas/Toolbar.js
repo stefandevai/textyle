@@ -1,9 +1,8 @@
 import React from "react";
 import Tool from "ui/canvas/Tool";
-import { dividerBorderColor, toolbarHeight } from "ui/common/styles";
+import { dividerBorderColor, toolbarHeight } from "resources/styles";
 import { mdiPencil, mdiPail, mdiSelect, mdiCursorDefaultOutline, mdiCursorMove } from "@mdi/js";
-
-import * as tools from "ui/canvas/tools";
+import * as tools from "resources/tools";
 
 const Toolbar = () => {
   // ====================================

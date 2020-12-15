@@ -1,6 +1,6 @@
 import { SELECT_TOOL } from "redux/actionTypes";
 
-import { DEFAULT_TOOL } from "ui/canvas/tools";
+import { DEFAULT_TOOL } from "resources/tools";
 
 const initialState = {
   selectedTool: DEFAULT_TOOL,

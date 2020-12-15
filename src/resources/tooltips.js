@@ -1,5 +1,5 @@
-import * as tools from "ui/canvas/tools";
-import * as tabs from "ui/sidebar/tabs";
+import * as tools from "resources/tools";
+import * as tabs from "resources/tabs";
 
 const tooltips = new Map();
 

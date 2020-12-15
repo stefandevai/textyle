@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent, screen } from "utils/test/testRender";
 import Toolbar from "../Toolbar";
-import { DEFAULT_TOOL, FILL_TOOL } from "ui/canvas/tools";
+import { DEFAULT_TOOL, FILL_TOOL } from "resources/tools";
 import * as testIds from "resources/testIds";
 
 const initialState = {

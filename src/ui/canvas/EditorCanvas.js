@@ -5,7 +5,7 @@ import { getTilePositionOnClick } from "utils/tile";
 import { EDITOR_CANVAS_ID } from "ui/constants";
 import RendererInstance from "renderer/Renderer";
 import TilemapInstance from "tilemap";
-import * as tools from "ui/canvas/tools";
+import * as tools from "resources/tools";
 
 // TODO: Provide a method to change tile size per layer
 const tileSize = [32, 32];

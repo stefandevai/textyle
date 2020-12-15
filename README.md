@@ -40,6 +40,7 @@ Currently Textyle exports to JSON. It's a simple and widely used format in game 
 - Data layers
 - Custom parameters on tiles
 - Images over the tiles
+- Undo/Redo
 
 # Technical overview
 

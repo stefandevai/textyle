@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Collapse } from "react-collapse";
 import Icon from "@mdi/react";
 import { mdiMenuDown, mdiMenuRight } from "@mdi/js";
-import { dividerBorderColor, titleBarHeight } from "./styles.js";
+import { dividerBorderColor, titleBarHeight } from "resources/styles.js";
 
 const CollapseSection = ({ title, children }) => {
   // ====================================

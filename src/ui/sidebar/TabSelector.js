@@ -1,8 +1,8 @@
 import ReactTooltip from "react-tooltip";
-import tooltips from "ui/tooltips";
 import TabButton from "ui/sidebar/TabButton";
-import * as tabs from "ui/sidebar/tabs";
-import { dividerBorderColor } from "ui/common/styles";
+import tooltips from "resources/tooltips";
+import * as tabs from "resources/tabs";
+import { dividerBorderColor } from "resources/styles";
 import { TOOLTIP_DELAY } from "ui/constants";
 import { mdiMap, mdiViewModule, mdiContentSave, mdiUpload, mdiHelpCircleOutline, mdiCog } from "@mdi/js";
 

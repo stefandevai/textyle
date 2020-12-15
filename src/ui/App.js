@@ -1,7 +1,7 @@
 import Canvas from "ui/canvas/Canvas";
 import Sidebar from "ui/sidebar/Sidebar";
 import { HashRouter } from "react-router-dom";
-import { dividerBorderColor } from "ui/common/styles";
+import { dividerBorderColor } from "resources/styles";
 
 const App = () => {
   // ====================================

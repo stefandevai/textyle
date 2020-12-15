@@ -6,8 +6,8 @@ import ExportSettings from "ui/sidebar/export/ExportSettings";
 import ProjectSettings from "ui/sidebar/project/ProjectSettings";
 import Help from "ui/sidebar/Help";
 import { Switch, Route } from "react-router-dom";
-import { dividerBorderColor } from "ui/common/styles";
-import * as tabs from "./tabs";
+import { dividerBorderColor } from "resources/styles";
+import * as tabs from "resources/tabs";
 
 const Sidebar = () => {
   // ====================================

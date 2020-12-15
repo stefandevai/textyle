@@ -1,4 +1,4 @@
-import * as formats from "ui/sidebar/export/formats";
+import * as formats from "resources/formats";
 import Select from "ui/common/Select";
 
 const FormatSelector = ({ format, onOptionSelected }) => {

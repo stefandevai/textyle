@@ -1,6 +1,6 @@
 import * as types from "../actionTypes";
 import reducer from "../reducers/canvas";
-import { DEFAULT_TOOL, FILL_TOOL } from "ui/canvas/tools";
+import { DEFAULT_TOOL, FILL_TOOL } from "resources/tools";
 
 it("should return the initial state", () => {
   expect(reducer(undefined, {})).toEqual({

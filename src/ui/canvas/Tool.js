@@ -2,7 +2,7 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { selectTool } from "redux/actions";
 import ReactTooltip from "react-tooltip";
 import Icon from "@mdi/react";
-import tooltips from "ui/tooltips";
+import tooltips from "resources/tooltips";
 import * as testIds from "resources/testIds";
 import { TOOLTIP_DELAY, TOOLBAR_ICON_SIZE } from "ui/constants";
 

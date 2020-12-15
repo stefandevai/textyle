@@ -2,7 +2,7 @@ import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import TabSelector from "../TabSelector";
 import { HashRouter } from "react-router-dom";
-import * as tabs from "ui/sidebar/tabs";
+import * as tabs from "resources/tabs";
 
 it("should display sidebar tabs", () => {
   render(

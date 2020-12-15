@@ -1,4 +1,4 @@
-import { dividerBorderColor, titleBarHeight } from "./styles.js";
+import { dividerBorderColor, titleBarHeight } from "resources/styles.js";
 
 const Tab = ({ children, title }) => {
   return (

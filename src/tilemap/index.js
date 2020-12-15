@@ -1,5 +1,5 @@
-import * as formats from 'ui/sidebar/export/formats';
-import { dumpJson } from 'utils/dump';
+import * as formats from 'resources/formats';
+import { exportJson } from 'utils/export';
 
 class Tilemap {
   constructor() {
@@ -55,10 +55,10 @@ class Tilemap {
     this.map.fill(x, y, targetValue, layerId);
   }
 
-  dump = (format) => {
+  export = (format) => {
     switch (format) {
       case formats.FORMAT_JSON:
-        return dumpJson();
+        return exportJson();
       default:
         return null;
     }

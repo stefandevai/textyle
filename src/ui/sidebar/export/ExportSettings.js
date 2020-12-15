@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Tab from "ui/common/Tab";
-import * as formats from "ui/sidebar/export/formats";
+import * as formats from "resources/formats";
 import TilemapInstance from "tilemap";
 import FormatSelector from "ui/sidebar/export/FormatSelector";
 import Button from "ui/common/Button";
