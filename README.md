@@ -1,3 +1,5 @@
+![Textyle logo](./assets/logo-typography.png)
+
 ![ci badge](https://github.com/stefandevai/textyle/workflows/CI/badge.svg?branch=main)
 
 [Try Textyle!](https://stefandevai.github.io/textyle)
