@@ -3,7 +3,7 @@ import { getTileUV } from "utils/tile";
 
 class TileManager {
   constructor() {
-    this.tiles = new Map();
+    this.tiles = [];
     this.lastId = 0;
   }
 
@@ -18,11 +18,16 @@ class TileManager {
       for (let j = 0; j < hFrames; j++) {
         const idx = i * hFrames + j;
         const uv = getTileUV(idx, tileSize, [bitmap.width, bitmap.height]);
-        this.tiles.set(this.lastId, {
+        this.tiles[this.lastId] = {
           size: tileSize,
           texture: texture,
           uv: uv,
-        });
+        };
+        //this.tiles.set(this.lastId, {
+          //size: tileSize,
+          //texture: texture,
+          //uv: uv,
+        //});
         ++this.lastId;
       }
     }
@@ -30,21 +35,13 @@ class TileManager {
     return tileIndex;
   };
 
-  loadTileset = async (tileset) => {
-    const tiles = await get(tileset, tileStore);
-
-    if (!tiles) {
-      console.error(`The tileset does not exist: ${tileset}`);
-      return;
-    }
-
-    for (const [key, value] of tiles) {
-      this.tiles.set(key, value);
-    }
-  };
-
   get = (tile) => {
-    return this.tiles.get(tile);
+    // Check bounds
+    if (tile < 0 || tile >= this.tiles.length) {
+      return null;
+    }
+
+    return this.tiles[tile];
   };
 }
 

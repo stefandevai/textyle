@@ -9,7 +9,7 @@ const ExportSettings = () => {
   // ====================================
   // Initialize
   // ====================================
-  const [format, setFormat] = useState(formats.FORMAT_TMX);
+  const [format, setFormat] = useState(formats.FORMAT_JSON);
 
   // ====================================
   // Logic
@@ -19,14 +19,15 @@ const ExportSettings = () => {
   };
 
   const handleExport = async () => {
-    const rawData = TilemapInstance.dump(format);
-    const filename = "tilemap." + format;
-    const blob = new Blob([rawData], { type: "application/xml" });
-    const a = document.createElement("a");
+    const rawData = await TilemapInstance.export(format);
+    console.log(rawData);
+    //const filename = "tilemap." + format;
+    //const blob = new Blob([rawData], { type: "application/json" });
+    //const a = document.createElement("a");
 
-    a.href = URL.createObjectURL(blob);
-    a.download = filename;
-    a.click();
+    //a.href = URL.createObjectURL(blob);
+    //a.download = filename;
+    //a.click();
   };
 
   // ====================================
@@ -39,10 +40,5 @@ const ExportSettings = () => {
     </Tab>
   );
 };
-//<button className='bg-indigo-900 my-3 py-2 px-4 flex justify-center rounded cursor-pointer'
-//onClick={handleExport}
-//>
-//Export
-//</button>
 
 export default ExportSettings;
