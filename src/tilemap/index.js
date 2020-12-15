@@ -55,6 +55,22 @@ class Tilemap {
     this.map.fill(x, y, targetValue, layerId);
   }
 
+  layerWidth = (layerId) => {
+    return this.map.layer_width(layerId);
+  }
+
+  layerHeight = (layerId) => {
+    return this.map.layer_height(layerId);
+  }
+
+  layerX = (layerId) => {
+    return this.map.layer_x(layerId);
+  }
+
+  layerY = (layerId) => {
+    return this.map.layer_y(layerId);
+  }
+
   export = (format) => {
     switch (format) {
       case formats.FORMAT_JSON:

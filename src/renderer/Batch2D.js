@@ -111,11 +111,11 @@ export default class Batch2D {
 
     let textureIdx = 0.0;
 
-    if (this.textureManager.has(tileData.texture)) {
-      textureIdx = this.textureManager.getIndex(tileData.texture);
+    if (this.textureManager.has(tileData.tileset)) {
+      textureIdx = this.textureManager.getIndex(tileData.tileset);
     } else {
-      this.textureManager.add(this.gl, tileData.texture);
-      textureIdx = this.textureManager.getIndex(tileData.texture);
+      this.textureManager.add(this.gl, tileData.tileset);
+      textureIdx = this.textureManager.getIndex(tileData.tileset);
     }
 
     // Top left

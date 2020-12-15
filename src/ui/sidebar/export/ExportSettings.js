@@ -20,14 +20,13 @@ const ExportSettings = () => {
 
   const handleExport = async () => {
     const rawData = await TilemapInstance.export(format);
-    console.log(rawData);
-    //const filename = "tilemap." + format;
-    //const blob = new Blob([rawData], { type: "application/json" });
-    //const a = document.createElement("a");
+    const filename = "tilemap." + format;
+    const blob = new Blob([rawData], { type: "application/json" });
+    const a = document.createElement("a");
 
-    //a.href = URL.createObjectURL(blob);
-    //a.download = filename;
-    //a.click();
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
   };
 
   // ====================================

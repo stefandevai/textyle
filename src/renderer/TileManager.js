@@ -20,14 +20,9 @@ class TileManager {
         const uv = getTileUV(idx, tileSize, [bitmap.width, bitmap.height]);
         this.tiles[this.lastId] = {
           size: tileSize,
-          texture: texture,
+          tileset: texture,
           uv: uv,
         };
-        //this.tiles.set(this.lastId, {
-          //size: tileSize,
-          //texture: texture,
-          //uv: uv,
-        //});
         ++this.lastId;
       }
     }
@@ -36,7 +31,7 @@ class TileManager {
   };
 
   get = (tile) => {
-    // Check bounds
+    // Bound checking
     if (tile < 0 || tile >= this.tiles.length) {
       return null;
     }

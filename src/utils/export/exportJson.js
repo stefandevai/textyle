@@ -16,7 +16,7 @@ const exportJson = async () => {
   }
 
   // ========================
-  // Layer exporting
+  // Layer
   // ========================
   const layerNames = state.layers.names;
   const layers = state.layers.layers;
@@ -32,16 +32,16 @@ const exportJson = async () => {
     const layerObj = {}
     layerObj['name'] = layerName;
 
-    layerObj['width'] = layerWidth;
-    layerObj['height'] = layerHeight;
-    layerObj['x'] = layerX;
-    layerObj['y'] = layerY;
-    layerObj['tiles'] = [];
+    layerObj['width'] = TilemapInstance.layerWidth(layer.id);
+    layerObj['height'] = TilemapInstance.layerHeight(layer.id);
+    layerObj['x'] = TilemapInstance.layerX(layer.id);
+    layerObj['y'] = TilemapInstance.layerY(layer.id);
+    layerObj['data'] = [];
 
     for (let y = 0; y < layerHeight; y++) {
       for (let x = 0; x < layerWidth; x++) {
         const value = TilemapInstance.get(x, y, layer.id);
-        layerObj['tiles'].push(value);
+        layerObj['data'].push(value);
       }
     }
 
@@ -49,7 +49,7 @@ const exportJson = async () => {
   }
 
   // ========================
-  // Tileset exporting
+  // Tileset
   // ========================
   const tilesetNames = state.tileset.tilesetNames;
   exportObject['tilesets'] = [];
@@ -70,7 +70,12 @@ const exportJson = async () => {
     exportObject['tilesets'].push(tilesetObj);
   }
 
-  return JSON.stringify(exportObject, null, 2);
+  // ========================
+  // Tiles
+  // ========================
+  exportObject['tiles'] = TileManagerInstance.tiles;
+
+  return JSON.stringify(exportObject);
 };
 
 export default exportJson;

@@ -79,4 +79,32 @@ impl Tilemap {
             None => println!("Layer with id {} not found", layer_id),
         }
     }
+
+    pub fn layer_width(&self, layer_id: u32) -> u32 {
+        match self.layers.get(&layer_id) {
+            Some(layer) => layer.width(),
+            None => 0,
+        }
+    }
+
+    pub fn layer_height(&self, layer_id: u32) -> u32 {
+        match self.layers.get(&layer_id) {
+            Some(layer) => layer.height(),
+            None => 0,
+        }
+    }
+
+    pub fn layer_x(&self, layer_id: u32) -> i32 {
+        match self.layers.get(&layer_id) {
+            Some(layer) => layer.x(),
+            None => -1,
+        }
+    }
+
+    pub fn layer_y(&self, layer_id: u32) -> i32 {
+        match self.layers.get(&layer_id) {
+            Some(layer) => layer.y(),
+            None => -1,
+        }
+    }
 }

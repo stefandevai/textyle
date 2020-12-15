@@ -1,4 +1,3 @@
-pub mod dump;
 pub mod layer;
 pub mod tilemap;
 mod utils;
