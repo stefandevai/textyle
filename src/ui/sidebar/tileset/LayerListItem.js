@@ -26,7 +26,7 @@ const LayerItem = ({ layer, index, isSelected }) => {
   // Render
   // ====================================
   const icon = layer.visible ? mdiEye : mdiEyeOffOutline;
-  const selectedClassName = isSelected ? 'bg-gray-700' : 'bg-gray-800 hover:bg-gray-900';
+  const selectedClassName = isSelected ? 'bg-gray-700 hover:text-white' : 'bg-gray-800 hover:bg-gray-900';
   const visibilityTestId = layer.visible ? testIds.LAYER_VISIBLE : testIds.LAYER_HIDDEN;
 
   return (
@@ -49,7 +49,7 @@ const LayerItem = ({ layer, index, isSelected }) => {
             <span className='flex-1 pl-4 py-1' onClick={handleLayerClick}>
               {layer.name}
             </span>
-            <span onClick={handleEyeClick} className='cursor-pointer pr-4 py-1' data-testid={testIds.HIDE_LAYER_BUTTON}>
+            <span onClick={handleEyeClick} className='cursor-pointer pr-4 py-1 hover:text-white' data-testid={testIds.HIDE_LAYER_BUTTON}>
               <Icon path={icon} size={0.6} />
             </span>
           </li>);

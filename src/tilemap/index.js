@@ -1,3 +1,6 @@
+import * as formats from 'ui/sidebar/export/formats';
+import { dumpJson } from 'utils/dump';
+
 class Tilemap {
   constructor() {
     console.log('DEBUG: CONSTRUCTING GRID');
@@ -53,8 +56,12 @@ class Tilemap {
   }
 
   dump = (format) => {
-    // TODO: Implement dump for whole map
-    //return this.grid.dump(format);
+    switch (format) {
+      case formats.FORMAT_JSON:
+        return dumpJson();
+      default:
+        return null;
+    }
   }
 }
 

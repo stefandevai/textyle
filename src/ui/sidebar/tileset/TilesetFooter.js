@@ -25,10 +25,10 @@ const TilesetFooter = ({ selectedTileset }) => {
   // ====================================
   return (
     <div className='flex items-center justify-start'>
-      <button onClick={handleSettingsClick}>
+      <button onClick={handleSettingsClick} className='hover:text-white'>
         <Icon path={mdiCog} size={0.6} />
       </button>
-      <button onClick={handleDeleteClick}>
+      <button onClick={handleDeleteClick} className='hover:text-white'>
         <Icon path={mdiDelete} size={0.65} />
       </button>
     </div>

@@ -26,10 +26,10 @@ const LayerListFooter = ({ selectedLayer }) => {
   // ====================================
   return (
     <div className='flex items-center justify-start mt-1'>
-      <button onClick={handleAddClick} data-testid={testIds.ADD_LAYER_BUTTON}>
+      <button onClick={handleAddClick} data-testid={testIds.ADD_LAYER_BUTTON} className='hover:text-white'>
         <Icon path={mdiPlaylistPlus} size={0.7} />
       </button>
-      <button onClick={handleDeleteClick} data-testid={testIds.DELETE_LAYER_BUTTON}>
+      <button onClick={handleDeleteClick} data-testid={testIds.DELETE_LAYER_BUTTON} className='hover:text-white'>
         <Icon path={mdiDelete} size={0.65} />
       </button>
     </div>
