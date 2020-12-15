@@ -14,7 +14,7 @@ The project is in its initial stages of development, expect great improvements t
 
 Textyle UI is simple. Check the [wiki](https://github.com/stefandevai/textyle/wiki) for tutorials on how to start making your maps. However, you are encouraged to explore the application and leave the mouse on any term or box as almost everything has a [tooltip](https://en.wikipedia.org/wiki/Tooltip) indicating its use.
 
-# Integrating a Textyle map in your project
+# Integrating a Textyle map to your project
 
 Currently Textyle exports to JSON. It's a simple and widely used format in game development, you can use any JSON parser to get you tilemap data to your game; check the details [here](https://github.com/stefandevai/textyle/wiki). One of the priorities, however, is to allow multiple export targets so it will be a lot easier to integrate your map to the most common game engines.
 
