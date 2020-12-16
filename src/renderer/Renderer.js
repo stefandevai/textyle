@@ -41,13 +41,9 @@ class Renderer {
     this.gl.clearColor(r, g, b, a);
   };
 
-  //updateViewport = (width, height) => {
-  //this.gl.viewport(0, 0, width, height);
-  //const projectionMatrix = mat4.create();
-  //mat4.ortho(projectionMatrix, 0, width, height, 0, 0.1, 100.0);
-  //this.shaderProgram.use();
-  //this.shaderProgram.setMat4(UNIFORM_PROJECTION, projectionMatrix);
-  //}
+  updateViewport = (width, height) => {
+    this.camera.updateViewport(width, height);
+  }
 
   render = () => {
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);

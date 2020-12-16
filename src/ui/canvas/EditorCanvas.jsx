@@ -26,6 +26,15 @@ const EditorCanvas = () => {
       return;
     }
 
+    // Update viewport on resize
+    window.addEventListener('resize', () => {
+      if (!refElement) {
+        return;
+      }
+
+      RendererInstance.updateViewport(refElement.clientWidth, refElement.clientHeight);
+    });
+
     editingCanvasRef.current.width = refElement.clientWidth;
     editingCanvasRef.current.height = refElement.clientHeight;
 

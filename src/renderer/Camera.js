@@ -94,16 +94,22 @@ class Camera {
       this.far
     );
 
-    //mat4.ortho(this.projection,
-    //(this.width - this.perceivedWidth) + this.position[0] / zoomLevels[this.zoomLevel],
-    //this.perceivedWidth + this.position[0] / zoomLevels[this.zoomLevel],
-    //this.perceivedHeight + this.position[1] / zoomLevels[this.zoomLevel],
-    //(this.height - this.perceivedHeight) + this.position[1] / zoomLevels[this.zoomLevel],
-    //this.near,
-    //this.far);
-
     mat4.multiply(this.mvp, this.projection, this.modelView);
   };
+
+  /**
+   * Updates viewport given new dimensions.
+   *
+   * @param {number} width - width of the new viewport.
+   * @param {number} height - height of the new viewport.
+   */
+  updateViewport = (width, height) => {
+    this.width = width;
+    this.height = height;
+    this.perceivedWidth = this.width / zoomLevels[this.zoomLevel];
+    this.perceivedHeight = this.height / zoomLevels[this.zoomLevel];
+    this.calculateMvp();
+  }
 }
 
 export default Camera;
