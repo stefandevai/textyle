@@ -1,5 +1,6 @@
 /**
- * @file Prepares and renders tile batches.
+ * Prepares and renders tile batches.
+ * @module Batch2D
  */
 
 import TextureManager from "renderer/TextureManager";
@@ -43,8 +44,8 @@ export default class Batch2D {
   /**
    * Creates a Batch2D.
    *
-   * @param {WebGLContext} WebGL Context to use the WebGL API.
-   * @param {Shader} shaderProgram shader program to use with the batch vertices.
+   * @param {WebGLContext} gl - WebGL Context to use the WebGL API.
+   * @param {Shader} shaderProgram - shader program to use with the batch vertices.
    */
   constructor(gl, shaderProgram) {
     this.gl = gl;

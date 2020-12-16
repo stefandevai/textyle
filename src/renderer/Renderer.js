@@ -1,8 +1,9 @@
 /**
- * @file A WebGL renderer that consumes 2D sprites and renders them using batches.
+ * A WebGL renderer that consumes 2D sprites and renders them using batches.
+ * @module Renderer
  */
 
-import store from "redux/store";
+import reduxStore from "redux/store";
 import TilemapInstance from "tilemap";
 import ShaderProgram from "renderer/Shader";
 import Batch2D from "renderer/Batch2D";
@@ -13,9 +14,15 @@ import { UNIFORM_MVP, BATCH_VERTEX_SHADER_SOURCE, BATCH_FRAGMENT_SHADER_SOURCE }
 // TODO: Provide a method to change tile size per layer
 const tileSize = [32, 32];
 
+/** A class that handles WebGL rendering of tiles using a Batch2D. */
 class Renderer {
   hasInitialized = false;
 
+  /**
+   * Creates a Renderer.
+   *
+   * @param {WebGLContext} gl - WebGL Context from a canvas.
+   */
   init = (gl) => {
     this.gl = gl;
     if (!this.gl) {
@@ -37,37 +44,57 @@ class Renderer {
     this.hasInitialized = true;
   };
 
+  /**
+   * Sets a color to clear the screen each frame. In this case, it sets the canvas background color.
+   *
+   * @param {number} r - Red component of the color in the range [0.0, 1.0].
+   * @param {number} g - Green component of the color in the range [0.0, 1.0].
+   * @param {number} b - Blue component of the color in the range [0.0, 1.0].
+   * @param {number} a - Alpha component of the color in the range [0.0, 1.0].
+   */
   setClearColor = (r, g, b, a) => {
     this.gl.clearColor(r, g, b, a);
   };
 
+  /**
+   * Updates the camera viewport.
+   *
+   * @param {number} width - New viewport's width.
+   * @param {number} height - New viewport's height.
+   */
   updateViewport = (width, height) => {
     this.camera.updateViewport(width, height);
   }
 
+  /**
+   * Main render loop.
+   */
   render = () => {
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
-    this.renderGrid();
+    this.renderTilemap();
     window.requestAnimationFrame(this.render);
   };
 
-  renderGrid = () => {
-    // Return early if the wasm module hasn't loaded yet
+  /**
+   * Batches tiles and renders tilemap.
+   */
+  renderTilemap = () => {
+    // Abort rendering process if the wasm module hasn't been loaded yet
     if (!TilemapInstance.hasInitialized) {
       return;
     }
 
     this.shaderProgram.use();
 
-    // TODO: Get offset and zoom from camera
-    // to get the actual tiles to render from rust
     const canvasWidth = this.gl.canvas.width;
     const canvasHeight = this.gl.canvas.height;
-    const layersState = store.getState().layers;
+    const layersState = reduxStore.getState().layers;
     this.shaderProgram.setMat4(UNIFORM_MVP, this.camera.getMvp());
 
     this.batch.begin();
 
+    // Iterates through layer names from the redux reduxStore,
+    // gets the corresponding tiles and renders them in order.
     for (const layerName of layersState.names) {
       const layer = layersState.layers[layerName];
       if (!layer.visible) {
