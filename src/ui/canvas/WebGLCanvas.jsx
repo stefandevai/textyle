@@ -9,15 +9,9 @@ import { TILEMAP_CANVAS_ID } from "ui/constants";
 const tileSize = [32, 32];
 
 const WebGLCanvas = () => {
-  // ====================================
-  // Initialize
-  // ====================================
   const dispatch = useDispatch();
   const tilesCanvasRef = useRef();
 
-  // ====================================
-  // Logic
-  // ====================================
   useEffect(() => {
     if (!tilesCanvasRef.current) {
       return;
@@ -50,9 +44,6 @@ const WebGLCanvas = () => {
     }
   }, [dispatch]);
 
-  // ====================================
-  // Render
-  // ====================================
   return (
     <canvas id={TILEMAP_CANVAS_ID} ref={tilesCanvasRef} className="col-span-full row-span-full z-0 w-full h-full" />
   );

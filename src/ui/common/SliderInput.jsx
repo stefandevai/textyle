@@ -1,7 +1,4 @@
 export default function SliderInput(props) {
-  // ====================================
-  // Render
-  // ====================================
   return (
     <div>
       <p>

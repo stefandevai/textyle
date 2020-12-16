@@ -5,15 +5,9 @@ import { LOCAL_STORAGE_LAST_SELECTED_TILESET } from "ui/constants";
 import Select from "ui/common/Select";
 
 const TilesetSelector = () => {
-  // ====================================
-  // Initialize
-  // ====================================
   const dispatch = useDispatch();
   const { selectedTileset, tilesetNames } = useSelector((state) => state.tileset);
 
-  // ====================================
-  // Logic
-  // ====================================
   // Get last tileset used from localStorage
   useEffect(() => {
     const lastSelectedTileset = localStorage.getItem(LOCAL_STORAGE_LAST_SELECTED_TILESET);
@@ -32,9 +26,6 @@ const TilesetSelector = () => {
     dispatch(selectTileset(name));
   };
 
-  // ====================================
-  // Render
-  // ====================================
   const options = [];
   for (const value of tilesetNames) {
     options.push(

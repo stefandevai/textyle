@@ -3,9 +3,6 @@ import WebGLCanvas from "ui/canvas/WebGLCanvas";
 import EditorCanvas from "ui/canvas/EditorCanvas";
 
 const Canvas = () => {
-  // ====================================
-  // Render
-  // ====================================
   return (
     <div className="col-span-3 flex flex-col">
       <Toolbar />

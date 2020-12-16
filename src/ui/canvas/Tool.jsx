@@ -7,22 +7,13 @@ import * as testIds from "resources/testIds";
 import { TOOLTIP_DELAY, TOOLBAR_ICON_SIZE } from "ui/constants";
 
 const Tool = ({ iconPath, tool }) => {
-  // ====================================
-  // Initialize
-  // ====================================
   const dispatch = useDispatch();
   const selectedTool = useSelector((state) => state.canvas.selectedTool);
 
-  // ====================================
-  // Logic
-  // ====================================
   const handleOnClick = () => {
     dispatch(selectTool(tool));
   };
 
-  // ====================================
-  // Render
-  // ====================================
   const iconClasses =
     tool === selectedTool ? "text-indigo-400 hover:text-indigo-500" : "hover:text-indigo-500 cursor-pointer";
   return (

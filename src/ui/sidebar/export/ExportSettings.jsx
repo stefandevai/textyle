@@ -6,14 +6,8 @@ import FormatSelector from "ui/sidebar/export/FormatSelector";
 import Button from "ui/common/Button";
 
 const ExportSettings = () => {
-  // ====================================
-  // Initialize
-  // ====================================
   const [format, setFormat] = useState(formats.FORMAT_JSON);
 
-  // ====================================
-  // Logic
-  // ====================================
   const onOptionSelected = (e) => {
     setFormat(e.target.value);
   };
@@ -29,9 +23,6 @@ const ExportSettings = () => {
     a.click();
   };
 
-  // ====================================
-  // Render
-  // ====================================
   return (
     <Tab title="Export Map">
       <FormatSelector format={format} onOptionSelected={onOptionSelected} />

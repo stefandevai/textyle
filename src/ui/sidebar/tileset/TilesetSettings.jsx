@@ -11,16 +11,10 @@ import FileInput from "ui/common/FileInput";
 import { ADD_TILESET_TITLE } from "ui/constants";
 
 const TilesetManager = () => {
-  // ====================================
-  // Initialize
-  // ====================================
   const dispatch = useDispatch();
   const tilesetNames = useSelector((state) => state.tileset.tilesetNames);
   const hasLoadedTextures = useSelector((state) => state.tileset.hasLoadedTextures);
 
-  // ====================================
-  // Logic
-  // ====================================
   // Load existing tilesets
   useEffect(() => {
     getTextureNames().then((textures) => {
@@ -37,9 +31,6 @@ const TilesetManager = () => {
     dispatch(addTileset(event.target.files[0].name, event.target.files[0]));
   };
 
-  // ====================================
-  // Render
-  // ====================================
   return (
     <CollapseSection title="Tileset">
       {hasLoadedTextures ? (

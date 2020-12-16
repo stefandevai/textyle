@@ -11,9 +11,6 @@ import * as tools from "resources/tools";
 const tileSize = [32, 32];
 
 const EditorCanvas = () => {
-  // ====================================
-  // Initialize
-  // ====================================
   const dispatch = useDispatch();
   const editingCanvasRef = useRef();
   const { selectedLayer, layers } = useSelector((state) => ({
@@ -23,9 +20,6 @@ const EditorCanvas = () => {
   const selectedTile = useSelector((state) => state.tileset.selectedTile);
   const selectedTool = useSelector((state) => state.canvas.selectedTool);
 
-  // ====================================
-  // Logic
-  // ====================================
   useEffect(() => {
     const refElement = editingCanvasRef.current;
     if (!refElement) {
@@ -143,9 +137,6 @@ const EditorCanvas = () => {
     RendererInstance.camera.applyZoom(e.deltaY);
   };
 
-  // ====================================
-  // Render
-  // ====================================
   return (
     <canvas
       id={EDITOR_CANVAS_ID}

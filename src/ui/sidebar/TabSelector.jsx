@@ -8,9 +8,6 @@ import { mdiMap, mdiViewModule, mdiContentSave, mdiUpload, mdiHelpCircleOutline,
 import { ReactComponent as Logo } from 'resources/logo.svg';
 
 const TabSelector = () => {
-  // ====================================
-  // Render
-  // ====================================
   const sectionsData = [
     { path: tabs.TAB_TILES, icon: mdiViewModule },
     { path: tabs.TAB_MAP, icon: mdiMap },

@@ -7,14 +7,8 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { selectLayer, moveLayer } from "redux/actions";
 
 const LayerList = () => {
-  // ====================================
-  // Initialize
-  // ====================================
   const dispatch = useDispatch();
 
-  // ====================================
-  // Logic
-  // ====================================
   const { selectedLayer, layers } = useSelector((state) => ({
     selectedLayer: state.layers.selected,
     layers: getLayersByAddedTime(state),
@@ -28,9 +22,6 @@ const LayerList = () => {
     dispatch(moveLayer(e.draggableId, layers.length - e.destination.index - 1));
   };
 
-  // ====================================
-  // Render
-  // ====================================
   const layerComponents = layers.map((l, i) => (
     <LayerListItem key={l.name} index={i} layer={l} isSelected={l.name === selectedLayer} />
   ));

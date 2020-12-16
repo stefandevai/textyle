@@ -5,14 +5,8 @@ import Icon from "@mdi/react";
 import * as testIds from "resources/testIds";
 
 const LayerListFooter = ({ selectedLayer }) => {
-  // ====================================
-  // Initialize
-  // ====================================
   const dispatch = useDispatch();
 
-  // ====================================
-  // Logic
-  // ====================================
   const handleAddClick = () => {
     dispatch(addLayer());
   };
@@ -21,9 +15,6 @@ const LayerListFooter = ({ selectedLayer }) => {
     dispatch(deleteLayer(selectedLayer));
   };
 
-  // ====================================
-  // Render
-  // ====================================
   return (
     <div className="flex items-center justify-start mt-1">
       <button onClick={handleAddClick} data-testid={testIds.ADD_LAYER_BUTTON} className="hover:text-white">

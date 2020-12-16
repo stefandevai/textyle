@@ -1,9 +1,6 @@
 import Button from "ui/common/Button";
 
 const FileInput = ({ title, onUpload }) => {
-  // ====================================
-  // Render
-  // ====================================
   return (
     <div>
       <input

@@ -5,9 +5,6 @@ import { mdiPencil, mdiPail, mdiSelect, mdiCursorDefaultOutline, mdiCursorMove }
 import * as tools from "resources/tools";
 
 const Toolbar = () => {
-  // ====================================
-  // Render
-  // ====================================
   return (
     <nav className={`flex flex-row items-stretch bg-black border-b border-r ${dividerBorderColor} ${toolbarHeight}`}>
       <div className="flex flex-row justify-start items-center flex-grow">

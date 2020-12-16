@@ -31,9 +31,6 @@ const drawGridLines = (canvas, tileDimensions) => {
 };
 
 const TilesetPreview = () => {
-  // ====================================
-  // Initialize
-  // ====================================
   const dispatch = useDispatch();
   const selectedTileset = useSelector((state) => state.tileset.selectedTileset);
   const [selectedTile, setSelectedTile] = useState([-1, -1]);
@@ -41,9 +38,6 @@ const TilesetPreview = () => {
   const tilegridCanvasRef = useRef(null);
   const tilesetCanvasRef = useRef(null);
 
-  // ====================================
-  // Logic
-  // ====================================
   // Load a new tileset to the preview
   useEffect(() => {
     if (!selectedTileset || selectedTileset === "" || !tilegridCanvasRef.current || !tilesetCanvasRef.current) {
@@ -103,9 +97,6 @@ const TilesetPreview = () => {
     setSelectedTile(tilePos);
   };
 
-  // ====================================
-  // Render
-  // ====================================
   const tilesetPreview =
     selectedTileset === "" ? (
       <div />
