@@ -1,5 +1,6 @@
 /**
- * @file Manages 2D othographic camera operations such as movement and zoom.
+ * Manages 2D othographic camera operations such as movement and zoom.
+ * @module Camera
  */
 
 import { mat4 } from "gl-matrix";
@@ -70,6 +71,26 @@ class Camera {
     this.zoom = 0;
     this.calculateMvp();
   };
+
+  /**
+   * Increments, if possible, zoom level by 1.
+   */
+  incrementZoom = () => {
+    this.zoomLevel = Math.min(zoomLevels.length - 1, this.zoomLevel + 1);
+    this.perceivedWidth = this.width / zoomLevels[this.zoomLevel];
+    this.perceivedHeight = this.height / zoomLevels[this.zoomLevel];
+    this.calculateMvp();
+  }
+
+  /**
+   * Decrements, if possible, zoom level by 1.
+   */
+  decrementZoom = () => {
+    this.zoomLevel = Math.max(0, this.zoomLevel - 1);
+    this.perceivedWidth = this.width / zoomLevels[this.zoomLevel];
+    this.perceivedHeight = this.height / zoomLevels[this.zoomLevel];
+    this.calculateMvp();
+  }
 
   getMvp = () => {
     return this.mvp;
