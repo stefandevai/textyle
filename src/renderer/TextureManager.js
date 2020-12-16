@@ -1,3 +1,7 @@
+/**
+ * @file Manages multiple textures loaded with string keys.
+ */
+
 import Texture from "renderer/Texture";
 
 class TextureManager {

@@ -1,3 +1,7 @@
+/**
+ * @file Code, uniforms and attributes used in WebGL shader programs.
+ */
+
 export const UNIFORM_PROJECTION = "uProjectionMatrix";
 export const UNIFORM_MVP = "uMVP";
 export const UNIFORM_SAMPLERS = "uSamplers";

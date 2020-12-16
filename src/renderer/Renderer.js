@@ -1,3 +1,7 @@
+/**
+ * @file A WebGL renderer that consumes 2D sprites and renders them using batches.
+ */
+
 import store from "redux/store";
 import TilemapInstance from "tilemap";
 import ShaderProgram from "renderer/Shader";
@@ -25,11 +29,11 @@ class Renderer {
     this.shaderProgram.use();
 
     this.camera = new Camera(this.gl.canvas.width, this.gl.canvas.height);
-    //this.camera.setPosition(100, 100);
 
     this.shaderProgram.setMat4(UNIFORM_MVP, this.camera.getMvp());
 
     this.batch = new Batch2D(this.gl, this.shaderProgram);
+
     this.hasInitialized = true;
   };
 
@@ -88,7 +92,7 @@ class Renderer {
     }
 
     this.batch.flush();
-    this.batch.render(this.shaderProgram);
+    this.batch.render();
   };
 }
 

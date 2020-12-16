@@ -1,3 +1,7 @@
+/**
+ * @file Manages 2D othographic camera operations such as movement and zoom.
+ */
+
 import { mat4 } from "gl-matrix";
 
 const ZOOM_MAX = 5.0;

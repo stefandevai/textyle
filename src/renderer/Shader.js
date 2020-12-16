@@ -1,3 +1,7 @@
+/**
+ * @file Handles Shader Programs initialization and manipulation.
+ */
+
 function createShader(gl, source, type) {
   const shader = gl.createShader(type);
   gl.shaderSource(shader, source);

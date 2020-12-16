@@ -1,3 +1,7 @@
+/**
+ * @file Manges tile data for the rendering process.
+ */
+
 import { getImageBitmap } from "utils/file";
 import { getTileUV } from "utils/tile";
 

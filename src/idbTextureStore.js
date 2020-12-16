@@ -7,7 +7,6 @@ import { completeTextureLoading } from "redux/actions";
 
 const textureStore = new Store("textures-store", "textures");
 
-// Gets all texture names available
 export const getTextureNames = async () => {
   try {
     const textureNames = await keys(textureStore);
