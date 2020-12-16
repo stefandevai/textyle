@@ -1,6 +1,8 @@
 {
   "plugins": ["react-hooks"],
   "rules": {
+    "react/no-multi-comp": "warn",
+    "react/jsx-filename-extension": "warn",
     "jsx-a11y/anchor-is-valid": "off",
     "jsx-a11y/anchor-has-content": "off",
     "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
