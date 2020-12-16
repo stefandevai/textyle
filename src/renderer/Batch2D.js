@@ -1,3 +1,8 @@
+/**
+ * Prepares and renders tile batches.
+ * @module Batch2D
+ */
+
 import TextureManager from "renderer/TextureManager";
 import TileManagerInstance from "renderer/TileManager";
 import {
@@ -8,6 +13,13 @@ import {
   UNIFORM_SAMPLERS,
 } from "renderer/constants";
 
+/**
+ * Creates quads indices to use in an Element Array Buffer.
+ *
+ * @param {number} indicesSize total number of indices to create.
+ *
+ * @returns Uint16Array array containing indices values.
+ */
 const createIndices = (indicesSize) => {
   let offset = 0;
   let indices = new Uint16Array(indicesSize);
@@ -27,16 +39,25 @@ const createIndices = (indicesSize) => {
   return indices;
 };
 
+/** A class to hold tiles' data and rendering them in batches. */
 export default class Batch2D {
+  /**
+   * Creates a Batch2D.
+   *
+   * @param {WebGLContext} gl - WebGL Context to use the WebGL API.
+   * @param {Shader} shaderProgram - shader program to use with the batch vertices.
+   */
   constructor(gl, shaderProgram) {
     this.gl = gl;
     this.shaderProgram = shaderProgram;
-    this.textures = [];
     this.textureManager = new TextureManager();
-    this.create();
+    this.initialize();
   }
 
-  create = () => {
+  /**
+   * Initializes WebGL buffers used when rendering.
+   */
+  initialize = () => {
     const maxSprites = 10000;
     const floatsPerVertex = 9;
     const bytesPerVertex = 4 * floatsPerVertex;
@@ -86,10 +107,26 @@ export default class Batch2D {
     this.indexCount = 0;
   };
 
+  /**
+   * Begins process of emplacing tile data to the batch.
+   */
   begin = () => {
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.VBO);
   };
 
+  /**
+   * Emplaces a single tile to the batch.
+   *
+   * @param {number} tileValue - numeric representation of a particular tile.
+   * @param {number[]} position - world coordinates of the tile.
+   * @param {number} position[0] - world x coordinate of the tile.
+   * @param {number} position[1] - world y coordinate of the tile.
+   * @param {Object} [color] - RGBA color representation for the tile.
+   * @param {number} [color.r] - Red RGBA color part.
+   * @param {number} [color.g] - Green RGBA color part.
+   * @param {number} [color.b] - Blue RGBA color part.
+   * @param {number} [color.a] - Alpha RGBA color part.
+   */
   emplace = (tileValue, position, color) => {
     const tileData = TileManagerInstance.get(tileValue);
     if (!tileData) {
@@ -165,12 +202,18 @@ export default class Batch2D {
     this.indexCount += 6;
   };
 
+  /**
+   * Finalizes process of emplacing tile data and write it to the WebGL buffer.
+   */
   flush = () => {
     this.gl.bufferSubData(this.gl.ARRAY_BUFFER, 0, this.vertices.subarray(0, this.vertexIndex));
     this.vertexIndex = 0;
   };
 
-  render = (shader) => {
+  /**
+   * Renders the tile batch and activate textures in the shader program.
+   */
+  render = () => {
     if (this.indexCount === 0) {
       return;
     }

@@ -7,7 +7,6 @@ import { completeTextureLoading } from "redux/actions";
 
 const textureStore = new Store("textures-store", "textures");
 
-// Gets all texture names available
 export const getTextureNames = async () => {
   try {
     const textureNames = await keys(textureStore);
@@ -32,7 +31,7 @@ export const setTextureData = async (name, data) => {
   // TODO: If the texture already exists, choose a new name
   try {
     await set(name, { file: data, tilesetIndex: TileManagerInstance.lastId }, textureStore);
-    await TileManagerInstance.addTilesFromTileset(name, [32, 32]);
+    await TileManagerInstance.addTiles(name, [32, 32]);
     localStorage.setItem(LOCAL_STORAGE_LAST_SELECTED_TILESET, name);
   } catch (err) {
     console.error(err);
@@ -76,7 +75,7 @@ export const loadTilesFromExistingTilesets = async (tilesets) => {
         continue;
       }
 
-      const tilesetIndex = await TileManagerInstance.addTilesFromTileset(tileset, [32, 32]);
+      const tilesetIndex = await TileManagerInstance.addTiles(tileset, [32, 32]);
 
       // Update idb texture with the new index
       const data = await get(tileset, textureStore);

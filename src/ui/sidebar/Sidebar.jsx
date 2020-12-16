@@ -10,9 +10,6 @@ import { dividerBorderColor } from "resources/styles";
 import * as tabs from "resources/tabs";
 
 const Sidebar = () => {
-  // ====================================
-  // Render
-  // ====================================
   return (
     <aside className={`flex flex-row bg-gray-900 border-r border-b ${dividerBorderColor}`}>
       <TabSelector />

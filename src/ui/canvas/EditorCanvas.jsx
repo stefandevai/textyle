@@ -11,9 +11,6 @@ import * as tools from "resources/tools";
 const tileSize = [32, 32];
 
 const EditorCanvas = () => {
-  // ====================================
-  // Initialize
-  // ====================================
   const dispatch = useDispatch();
   const editingCanvasRef = useRef();
   const { selectedLayer, layers } = useSelector((state) => ({
@@ -23,14 +20,20 @@ const EditorCanvas = () => {
   const selectedTile = useSelector((state) => state.tileset.selectedTile);
   const selectedTool = useSelector((state) => state.canvas.selectedTool);
 
-  // ====================================
-  // Logic
-  // ====================================
   useEffect(() => {
     const refElement = editingCanvasRef.current;
     if (!refElement) {
       return;
     }
+
+    // Update viewport on resize
+    window.addEventListener('resize', () => {
+      if (!refElement) {
+        return;
+      }
+
+      RendererInstance.updateViewport(refElement.clientWidth, refElement.clientHeight);
+    });
 
     editingCanvasRef.current.width = refElement.clientWidth;
     editingCanvasRef.current.height = refElement.clientHeight;
@@ -86,6 +89,15 @@ const EditorCanvas = () => {
         break;
       }
 
+      case tools.MAGNIFY_TOOL: {
+        if (e.altKey) {
+          RendererInstance.camera.decrementZoom();
+        }
+        else {
+          RendererInstance.camera.incrementZoom();
+        }
+      }
+
       default:
         break;
     }
@@ -112,6 +124,11 @@ const EditorCanvas = () => {
         break;
       }
 
+      case tools.ERASER_TOOL: {
+        TilemapInstance.set(...position, -1, layerId);
+        break;
+      }
+
       case tools.PAN_TOOL: {
         if (e.clientX == 0 || e.clientY == 0) {
           break;
@@ -127,11 +144,21 @@ const EditorCanvas = () => {
   };
 
   const handleMouseDown = (e) => {
+    // Abort handling tool if no layer is selected
+    if (!selectedLayer || !layers[selectedLayer]) {
+      return;
+    }
+
     handleOneTimeTools(e);
     handleContinuousTools(e);
   };
 
   const handleDrag = (e) => {
+    // Abort handling tool if no layer is selected
+    if (!selectedLayer || !layers[selectedLayer]) {
+      return;
+    }
+
     handleContinuousTools(e);
   };
 
@@ -143,9 +170,6 @@ const EditorCanvas = () => {
     RendererInstance.camera.applyZoom(e.deltaY);
   };
 
-  // ====================================
-  // Render
-  // ====================================
   return (
     <canvas
       id={EDITOR_CANVAS_ID}

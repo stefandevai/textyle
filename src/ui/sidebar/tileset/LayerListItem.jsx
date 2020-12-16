@@ -6,14 +6,8 @@ import Icon from "@mdi/react";
 import * as testIds from "resources/testIds";
 
 const LayerItem = ({ layer, index, isSelected }) => {
-  // ====================================
-  // Initialize
-  // ====================================
   const dispatch = useDispatch();
 
-  // ====================================
-  // Logic
-  // ====================================
   const handleLayerClick = () => {
     dispatch(selectLayer(layer.name));
   };
@@ -22,9 +16,6 @@ const LayerItem = ({ layer, index, isSelected }) => {
     dispatch(toggleLayerVisibility(layer.name));
   };
 
-  // ====================================
-  // Render
-  // ====================================
   const icon = layer.visible ? mdiEye : mdiEyeOffOutline;
   const selectedClassName = isSelected ? "bg-gray-700 hover:text-white" : "bg-gray-800 hover:bg-gray-900";
   const visibilityTestId = layer.visible ? testIds.LAYER_VISIBLE : testIds.LAYER_HIDDEN;

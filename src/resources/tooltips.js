@@ -5,8 +5,10 @@ const tooltips = new Map();
 
 tooltips.set(tools.DEFAULT_TOOL, "default tool");
 tooltips.set(tools.PLACEMENT_TOOL, "placement tool");
+tooltips.set(tools.ERASER_TOOL, "erase tool");
 tooltips.set(tools.FILL_TOOL, "fill tool");
-tooltips.set(tools.MOVE_TOOL, "move tool");
+tooltips.set(tools.PAN_TOOL, "pan tool");
+tooltips.set(tools.MAGNIFY_TOOL, "zoom");
 
 tooltips.set(tabs.TAB_TILES, "tab tiles");
 tooltips.set(tabs.TAB_MAP, "tab map");

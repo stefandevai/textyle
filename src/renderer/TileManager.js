@@ -1,15 +1,33 @@
+/**
+ * Manges tile data for the rendering process.
+ * @module TileManager
+ */
+
 import { getImageBitmap } from "utils/file";
 import { getTileUV } from "utils/tile";
 
+/** A class that manages the data for single tiles. */
 class TileManager {
+  /**
+   * Creates a TileManager.
+   */
   constructor() {
     this.tiles = [];
     this.lastId = 0;
   }
 
-  // Add tiles to local tileset and returns the tile index
-  addTilesFromTileset = async (texture, tileSize) => {
-    const bitmap = await getImageBitmap(texture);
+  /**
+   * Adds tiles to this.tiles from a tileset.
+   *
+   * @param {string} textureKey - Idb key of the texture containing the tiles.
+   * @param {number[]} tileSize - dimensions of the tile in the texture.
+   * @param {number} tileSize[0] - width of the tile.
+   * @param {number} tileSize[1] - height of the tile.
+   *
+   * @returns {number} - The index in this.tiles of the first tile of the provided texture. This allows getting the remaining indices for a specific texture.
+   */
+  addTiles = async (textureKey, tileSize) => {
+    const bitmap = await getImageBitmap(textureKey);
     const hFrames = Math.floor(bitmap.width / tileSize[0]);
     const vFrames = Math.floor(bitmap.height / tileSize[1]);
     const tileIndex = this.lastId;
@@ -20,7 +38,7 @@ class TileManager {
         const uv = getTileUV(idx, tileSize, [bitmap.width, bitmap.height]);
         this.tiles[this.lastId] = {
           size: tileSize,
-          tileset: texture,
+          tileset: textureKey,
           uv: uv,
         };
         ++this.lastId;
@@ -30,8 +48,14 @@ class TileManager {
     return tileIndex;
   };
 
+  /**
+   * Gets tile data for a specific tile.
+   *
+   * @param {number} tile - Index of the tile in this.tiles to access the data object.
+   *
+   * @returns {Object} - Object containing the tile size, the uv coordinates in the texture and the texture key in the idb store.
+   */
   get = (tile) => {
-    // Bound checking
     if (tile < 0 || tile >= this.tiles.length) {
       return null;
     }

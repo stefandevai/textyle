@@ -5,16 +5,10 @@ import { mdiMenuDown, mdiMenuRight } from "@mdi/js";
 import { dividerBorderColor, titleBarHeight } from "resources/styles.js";
 
 const CollapseSection = ({ title, children }) => {
-  // ====================================
-  // Initialize
-  // ====================================
   const [open, setOpen] = useState(true);
   const icon = open ? mdiMenuDown : mdiMenuRight;
   const sectionClass = open ? `border-b ${dividerBorderColor}` : "";
 
-  // ====================================
-  // Render
-  // ====================================
   return (
     <div className={sectionClass}>
       <div

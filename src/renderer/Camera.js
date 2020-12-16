@@ -1,3 +1,8 @@
+/**
+ * Manages 2D othographic camera operations such as movement and zoom.
+ * @module Camera
+ */
+
 import { mat4 } from "gl-matrix";
 
 const ZOOM_MAX = 5.0;
@@ -67,6 +72,26 @@ class Camera {
     this.calculateMvp();
   };
 
+  /**
+   * Increments, if possible, zoom level by 1.
+   */
+  incrementZoom = () => {
+    this.zoomLevel = Math.min(zoomLevels.length - 1, this.zoomLevel + 1);
+    this.perceivedWidth = this.width / zoomLevels[this.zoomLevel];
+    this.perceivedHeight = this.height / zoomLevels[this.zoomLevel];
+    this.calculateMvp();
+  }
+
+  /**
+   * Decrements, if possible, zoom level by 1.
+   */
+  decrementZoom = () => {
+    this.zoomLevel = Math.max(0, this.zoomLevel - 1);
+    this.perceivedWidth = this.width / zoomLevels[this.zoomLevel];
+    this.perceivedHeight = this.height / zoomLevels[this.zoomLevel];
+    this.calculateMvp();
+  }
+
   getMvp = () => {
     return this.mvp;
   };
@@ -90,16 +115,22 @@ class Camera {
       this.far
     );
 
-    //mat4.ortho(this.projection,
-    //(this.width - this.perceivedWidth) + this.position[0] / zoomLevels[this.zoomLevel],
-    //this.perceivedWidth + this.position[0] / zoomLevels[this.zoomLevel],
-    //this.perceivedHeight + this.position[1] / zoomLevels[this.zoomLevel],
-    //(this.height - this.perceivedHeight) + this.position[1] / zoomLevels[this.zoomLevel],
-    //this.near,
-    //this.far);
-
     mat4.multiply(this.mvp, this.projection, this.modelView);
   };
+
+  /**
+   * Updates viewport given new dimensions.
+   *
+   * @param {number} width - width of the new viewport.
+   * @param {number} height - height of the new viewport.
+   */
+  updateViewport = (width, height) => {
+    this.width = width;
+    this.height = height;
+    this.perceivedWidth = this.width / zoomLevels[this.zoomLevel];
+    this.perceivedHeight = this.height / zoomLevels[this.zoomLevel];
+    this.calculateMvp();
+  }
 }
 
 export default Camera;
