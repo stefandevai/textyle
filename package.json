@@ -1,7 +1,7 @@
 {
   "name": "textyle",
   "version": "0.1.0",
-  "homepage": "https://stefandevai.github.io/textyle",
+  "homepage": "https://textyle.app/edit",
   "private": true,
   "dependencies": {
     "@mdi/js": "^5.8.55",
