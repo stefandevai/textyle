@@ -2,13 +2,12 @@ import { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { deleteTileset } from "redux/actions";
 import { mdiDelete, mdiCog } from "@mdi/js";
-import Modal from 'ui/common/Modal';
+import TilesetSettingsModal from 'ui/sidebar/tileset/TilesetSettingsModal';
 import Icon from "@mdi/react";
 import * as testIds from "resources/testIds";
 
 const TilesetFooter = ({ selectedTileset }) => {
   const dispatch = useDispatch();
-
   const [showTilesetSettings, setShowTilesetSettings] = useState(false);
 
   const handleSettingsClick = () => {
@@ -34,8 +33,7 @@ const TilesetFooter = ({ selectedTileset }) => {
         </button>
       </div>
 
-      <Modal title='Tileset Settings' open={showTilesetSettings} onClose={handleSettingsClose}>
-      </Modal>
+      <TilesetSettingsModal open={showTilesetSettings} onClose={handleSettingsClose} />
     </>
   );
 };
