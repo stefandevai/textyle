@@ -1,1 +1,0 @@
-{"version":3,"sources":["tilemap/pkg/tilemap.js"],"names":[],"mappings":"mGAAA","file":"static/js/4.4141d1ad.chunk.js","sourcesContent":["import * as wasm from \"./tilemap_bg.wasm\";\nexport * from \"./tilemap_bg.js\";"],"sourceRoot":""}
