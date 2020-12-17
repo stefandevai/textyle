@@ -176,7 +176,7 @@ const EditorCanvas = () => {
       ref={editingCanvasRef}
       onWheel={handleWheel}
       onMouseDown={handleMouseDown}
-      onDrag={handleContinuousTools}
+      onDragOver={handleDrag}
       draggable="true"
       className="col-span-full row-span-full z-10 w-full h-full"
     />
