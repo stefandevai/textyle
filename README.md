@@ -1,4 +1,4 @@
-![Textyle logo](./assets/logo-typography.png)
+![Textyle logo](./assets/banner.png)
 
 ![ci badge](https://github.com/stefandevai/textyle/workflows/CI/badge.svg?branch=main)
 
