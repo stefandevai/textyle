@@ -6,7 +6,7 @@ import * as tools from "resources/tools";
 
 const Toolbar = () => {
   return (
-    <nav className={`flex flex-row items-stretch border-b border-r ${toolbarColor} ${dividerBorderColor} ${toolbarHeight}`}>
+    <nav className={`flex flex-row items-stretch border-b border-r bg-almost-black ${dividerBorderColor} ${toolbarHeight}`}>
       <div className="flex flex-row justify-start items-center flex-grow">
         <Tool iconPath={mdiCursorDefaultOutline} tool={tools.DEFAULT_TOOL} />
         <Tool iconPath={mdiPencil} tool={tools.PLACEMENT_TOOL} />
