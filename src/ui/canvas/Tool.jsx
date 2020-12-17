@@ -15,10 +15,10 @@ const Tool = ({ iconPath, tool }) => {
   };
 
   const iconClasses =
-    tool === selectedTool ? "text-indigo-400 hover:text-indigo-500" : "hover:text-indigo-500 cursor-pointer";
+    tool === selectedTool ? "text-green-400 hover:text-green-500" : "hover:text-green-500 cursor-pointer";
   return (
     <button
-      className="px-4 py-2 cursor-default"
+      className="px-3 py-2 cursor-default"
       role="button"
       data-testid={tool === selectedTool ? testIds.SELECTED_TOOL : ""}
     >

@@ -2,7 +2,11 @@ module.exports = {
   purge: ["./src/ui/**/*.{js,jsx}",  "./src/resources/**/*.{js,jsx}", "./src/*.{js,jsx}", "./public/index.html"],
   darkMode: false,
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'almost-black': '#0a0913'
+      }
+    },
   },
   variants: {
     extend: {

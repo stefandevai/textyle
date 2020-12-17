@@ -3,10 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getTextureData, hasTexture } from "idbTextureStore";
 import { selectTile } from "redux/actions";
 import { getTilePositionOnClick } from "utils/tile";
-import TilesetFooter from "ui/sidebar/tileset/TilesetFooter";
 import { GRID_COLOR, GRID_CANVAS_ID, TILESET_CANVAS_ID, SELECTED_TILE_COLOR_OVERLAY } from "ui/constants";
-
-const tileSize = [32, 32];
 
 const drawGridLines = (canvas, tileDimensions) => {
   const context = canvas.getContext("2d");
@@ -30,7 +27,7 @@ const drawGridLines = (canvas, tileDimensions) => {
   }
 };
 
-const TilesetPreview = () => {
+const TilesetPreview = ({ selectable, tileSize }) => {
   const dispatch = useDispatch();
   const selectedTileset = useSelector((state) => state.tileset.selectedTileset);
   const [selectedTile, setSelectedTile] = useState([-1, -1]);
@@ -69,7 +66,7 @@ const TilesetPreview = () => {
       };
       reader.readAsDataURL(data.file);
     });
-  }, [selectedTileset]);
+  }, [selectedTileset, tileSize]);
 
   // Draw highlight on selected tile
   useEffect(() => {
@@ -88,9 +85,13 @@ const TilesetPreview = () => {
       tileSize[0] - 1,
       tileSize[1] - 1
     );
-  }, [selectedTile]);
+  }, [selectedTile, tileSize]);
 
   const onSelectTile = (e) => {
+    if (!selectable) {
+      return;
+    }
+
     const tilePos = getTilePositionOnClick(e, tileSize);
     const tileIndex = tilesetIndex + tilePos[1] * Math.floor(e.target.width / tileSize[0]) + tilePos[0];
     dispatch(selectTile(tileIndex));
@@ -117,7 +118,6 @@ const TilesetPreview = () => {
             />
           </div>
         </div>
-        <TilesetFooter selectedTileset={selectedTileset} />
       </>
     );
 

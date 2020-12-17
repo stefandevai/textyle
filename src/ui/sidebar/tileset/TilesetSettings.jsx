@@ -8,12 +8,16 @@ import TilesetSelector from "ui/sidebar/tileset/TilesetSelector";
 import TileManagerInstance from "renderer/TileManager";
 import CollapseSection from "ui/common/CollapseTab";
 import FileInput from "ui/common/FileInput";
+import TilesetFooter from "ui/sidebar/tileset/TilesetFooter";
 import { ADD_TILESET_TITLE } from "ui/constants";
+
+const tileSize = [32, 32];
 
 const TilesetManager = () => {
   const dispatch = useDispatch();
   const tilesetNames = useSelector((state) => state.tileset.tilesetNames);
   const hasLoadedTextures = useSelector((state) => state.tileset.hasLoadedTextures);
+  const selectedTileset = useSelector((state) => state.tileset.selectedTileset);
 
   // Load existing tilesets
   useEffect(() => {
@@ -39,7 +43,11 @@ const TilesetManager = () => {
           <div className="mt-2">
             <FileInput title={ADD_TILESET_TITLE} onUpload={(e) => onTilesetUpload(e)} />
           </div>
-          <TilesetPreview />
+          <TilesetPreview
+            selectable={true}
+            tileSize={tileSize}
+          />
+          {selectedTileset && <TilesetFooter selectedTileset={selectedTileset} />}
         </>
       ) : (
         <div />

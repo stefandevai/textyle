@@ -30,3 +30,11 @@ button:focus {
 .ReactCollapse--collapse {
   transition: height 200ms;
 }
+
+input[type=number] {
+  background-color: rgb(31, 41, 55);
+  border: 1px solid rgb(55, 65, 81);
+  border-radius: 0.125rem;
+  color: rgb(156, 163, 175);
+  padding: 0 0 0 0.25rem;
+}
