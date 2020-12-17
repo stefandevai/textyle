@@ -2,7 +2,7 @@ import ReactTooltip from "react-tooltip";
 import TabButton from "ui/sidebar/TabButton";
 import tooltips from "resources/tooltips";
 import * as tabs from "resources/tabs";
-import { dividerBorderColor } from "resources/styles";
+import { tabbarColor, dividerBorderColor } from "resources/styles";
 import { TOOLTIP_DELAY } from "ui/constants";
 import { mdiMap, mdiViewModule, mdiContentSave, mdiUpload, mdiHelpCircleOutline, mdiCog } from "@mdi/js";
 import { ReactComponent as Logo } from 'resources/logo.svg';
@@ -27,9 +27,9 @@ const TabSelector = () => {
   ));
 
   return (
-    <div className={`flex flex-col justify-end bg-black border-r ${dividerBorderColor}`}>
-      <div className='w-full flex-1'>
-        <div className='w-full px-2 py-4'>
+    <div className={`w-10 flex flex-col justify-end ${tabbarColor} border-r ${dividerBorderColor}`}>
+      <div className='flex-1 flex flex-col justify-start'>
+        <div className='py-3 px-0.5'>
           <Logo />
         </div>
       </div>
