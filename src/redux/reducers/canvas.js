@@ -1,9 +1,9 @@
-import { SELECT_TOOL } from "redux/actionTypes";
-
+import { SELECT_TOOL, DIPLAY_SIDEBAR } from "redux/actionTypes";
 import { DEFAULT_TOOL } from "resources/tools";
 
 const initialState = {
   selectedTool: DEFAULT_TOOL,
+  showSidebar: false,
 };
 
 export default function (state = initialState, action) {
@@ -13,6 +13,14 @@ export default function (state = initialState, action) {
       return {
         ...state,
         selectedTool: tool,
+      };
+    }
+
+    case DIPLAY_SIDEBAR: {
+      const { state } = action.payload;
+      return {
+        ...state,
+        showSidebar: state,
       };
     }
 

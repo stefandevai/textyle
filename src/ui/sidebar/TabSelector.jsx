@@ -27,7 +27,9 @@ const TabSelector = () => {
   ));
 
   return (
-    <div className={`w-10 flex flex-col justify-end bg-almost-black border-r ${dividerBorderColor}`}>
+    <div
+      className={`flex flex-col justify-end bg-almost-black border-r ${dividerBorderColor}`}
+    >
       <div className='flex-1 flex flex-col justify-start'>
         <div className='py-3 px-0.5'>
           <Logo />

@@ -6,6 +6,7 @@ export const DELETE_TILESET = "[TILESET] Delete";
 export const SELECT_TILE = "[TILE] Select";
 
 export const SELECT_TOOL = "[TOOL] Select";
+export const DIPLAY_SIDEBAR = "[SIDEBAR] Display";
 
 export const ADD_LAYER = "[LAYER] Add one";
 export const DELETE_LAYER = "[LAYER] Delete";

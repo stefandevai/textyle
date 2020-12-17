@@ -6,6 +6,7 @@ import {
   DELETE_TILESET,
   SELECT_TILE,
   SELECT_TOOL,
+  DIPLAY_SIDEBAR,
   ADD_LAYER,
   DELETE_LAYER,
   SELECT_LAYER,
@@ -46,6 +47,11 @@ export const selectTile = (value) => ({
 export const selectTool = (tool) => ({
   type: SELECT_TOOL,
   payload: { tool },
+});
+
+export const displaySidebar = (state) => ({
+  type: DIPLAY_SIDEBAR,
+  payload: { state },
 });
 
 export const addLayer = (name, x, y, width, height) => ({

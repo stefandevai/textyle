@@ -5,7 +5,10 @@ module.exports = {
     extend: {
       colors: {
         'almost-black': '#0a0913'
-      }
+      },
+      transitionProperty: {
+        'width': 'width',
+      },
     },
   },
   variants: {
