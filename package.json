@@ -9,8 +9,10 @@
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.2.2",
+    "autoprefixer": "^9",
     "gl-matrix": "^3.3.0",
     "idb-keyval": "^3.2.0",
+    "postcss": "^7",
     "react": "^17.0.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-collapse": "^5.1.0",
@@ -20,6 +22,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-tooltip": "^4.2.11",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -52,11 +55,8 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^9.8.6",
     "customize-cra": "^1.0.0",
-    "postcss": "^7.0.35",
     "prettier": "2.2.1",
-    "react-app-rewired": "^2.1.6",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1"
+    "react-app-rewired": "^2.1.6"
   }
 }
