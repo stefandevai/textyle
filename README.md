@@ -56,7 +56,7 @@ Textyle is built using React JS for the UI, WebGL for rendering graphics and Rus
 
 # Browser support
 
-Textyle has been tested on Firefox and Chrome. Currently it doesn't run on Safari because it lacks WebGL2 support.
+Textyle has been tested on Firefox and Chrome. Currently it doesn't run on Safari because it needs WebGL2 support, which Safari lacks. There are plans, however, to port the code to WebGL1.
 
 # Contributing
 
