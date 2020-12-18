@@ -3,7 +3,7 @@ import Modal from 'ui/common/Modal';
 import Button from 'ui/common/Button';
 import TilesetPreview from 'ui/sidebar/tileset/TilesetPreview';
 
-const TilesetSettingsModal = ({ open, onClose }) => {
+const TilesetSettingsModal = ({ tilesetName, open, onClose }) => {
   const [tileWidth, setTileWidth] = useState(32);
   const [tileHeight, setTileHeight] = useState(32);
 
@@ -35,6 +35,7 @@ const TilesetSettingsModal = ({ open, onClose }) => {
       </form>
 
       <TilesetPreview
+        tilesetName={tilesetName}
         selectable={false}
         tileSize={[parseInt(tileWidth), parseInt(tileHeight)]}
       />

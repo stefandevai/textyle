@@ -1,16 +1,16 @@
 import { useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addLayer } from "redux/actions";
 import RendererInstance from "renderer/Renderer";
 import TilemapInstance from "tilemap";
 import { TILEMAP_CANVAS_ID } from "ui/constants";
 
-// TODO: Provide a method to change tile size per layer
-const tileSize = [32, 32];
+//const tileSize = [32, 32];
 
 const WebGLCanvas = () => {
   const dispatch = useDispatch();
   const tilesCanvasRef = useRef();
+  const tileSize = useSelector((state) => state.canvas.tileSize);
 
   useEffect(() => {
     if (!tilesCanvasRef.current) {
@@ -25,13 +25,14 @@ const WebGLCanvas = () => {
       // TODO: Remove dispatch from here and add a layer only if there isn't any
       TilemapInstance.init().then(() => {
         dispatch(
-          addLayer(
-            null,
-            0,
-            0,
-            Math.floor(tilesCanvasRef.current.width / tileSize[0]) + 1,
-            Math.floor(tilesCanvasRef.current.height / tileSize[1]) + 1
-          )
+          addLayer({
+            name: '',
+            tileSize: tileSize,
+            x: 0,
+            y: 0,
+            width: Math.floor(tilesCanvasRef.current.width / tileSize[0]) + 1,
+            height: Math.floor(tilesCanvasRef.current.height / tileSize[1]) + 1
+          })
         );
       });
     }
@@ -42,7 +43,7 @@ const WebGLCanvas = () => {
       RendererInstance.setClearColor(31.0 / 255.0, 41.0 / 255.0, 55.0 / 255.0, 1.0);
       window.requestAnimationFrame(RendererInstance.render);
     }
-  }, [dispatch]);
+  }, [tileSize, dispatch]);
 
   return (
     <canvas id={TILEMAP_CANVAS_ID} ref={tilesCanvasRef} className="col-span-full row-span-full z-0 w-full h-full" />

@@ -65,10 +65,17 @@ it("should create an action and add a layer", () => {
   const name = "Layer 1";
   const expectedAction = {
     type: types.ADD_LAYER,
-    payload: { name },
+    payload: { 
+      name: name,
+      width: undefined,
+      height: undefined,
+      tileSize: undefined,
+      x: undefined,
+      y: undefined,
+    },
   };
 
-  expect(actions.addLayer(name)).toEqual(expectedAction);
+  expect(actions.addLayer({ name: name })).toEqual(expectedAction);
 });
 
 it("should create an action and delete a layer", () => {

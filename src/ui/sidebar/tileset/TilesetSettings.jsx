@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTileset, loadExistingTilesets } from "redux/actions";
-import { setTextureData, getTextureNames, hasTexture } from "idbTextureStore";
+import { getTextureNames, hasTexture } from "idbTextureStore";
 import LayerList from "ui/sidebar/tileset/LayerList";
 import TilesetPreview from "ui/sidebar/tileset/TilesetPreview";
 import TilesetSelector from "ui/sidebar/tileset/TilesetSelector";
@@ -11,13 +11,14 @@ import FileInput from "ui/common/FileInput";
 import TilesetFooter from "ui/sidebar/tileset/TilesetFooter";
 import { ADD_TILESET_TITLE } from "ui/constants";
 
-const tileSize = [32, 32];
+//const tileSize = [32, 32];
 
 const TilesetManager = () => {
   const dispatch = useDispatch();
   const tilesetNames = useSelector((state) => state.tileset.tilesetNames);
   const hasLoadedTextures = useSelector((state) => state.tileset.hasLoadedTextures);
   const selectedTileset = useSelector((state) => state.tileset.selectedTileset);
+  const tileSize = useSelector((state) => state.canvas.tileSize);
 
   // Load existing tilesets
   useEffect(() => {
@@ -32,7 +33,7 @@ const TilesetManager = () => {
       return;
     }
 
-    dispatch(addTileset(event.target.files[0].name, event.target.files[0]));
+    dispatch(addTileset(event.target.files[0].name, tileSize, event.target.files[0]));
   };
 
   return (
@@ -40,13 +41,16 @@ const TilesetManager = () => {
       {hasLoadedTextures ? (
         <>
           <TilesetSelector />
+
           <div className="mt-2">
             <FileInput title={ADD_TILESET_TITLE} onUpload={(e) => onTilesetUpload(e)} />
           </div>
+
           <TilesetPreview
+            tilesetName={selectedTileset}
             selectable={true}
-            tileSize={tileSize}
           />
+
           {selectedTileset && <TilesetFooter selectedTileset={selectedTileset} />}
         </>
       ) : (

@@ -5,8 +5,8 @@ import { ADD_TILESET, DELETE_TILESET, LOAD_EXISTING_TILESETS, ADD_LAYER, DELETE_
 export const idbReduxMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case ADD_TILESET: {
-      const { name, data } = action.payload || {};
-      setTextureData(name, data);
+      const { name, tileSize, data } = action.payload || {};
+      setTextureData(name, tileSize, data);
       break;
     }
 

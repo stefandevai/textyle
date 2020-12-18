@@ -7,6 +7,7 @@ import {
   SELECT_TILE,
   SELECT_TOOL,
   DIPLAY_SIDEBAR,
+  SET_TILE_SIZE,
   ADD_LAYER,
   DELETE_LAYER,
   SELECT_LAYER,
@@ -14,9 +15,9 @@ import {
   TOGGLE_LAYER_VISIBILITY,
 } from "redux/actionTypes";
 
-export const addTileset = (name, data) => ({
+export const addTileset = (name, tileSize, data) => ({
   type: ADD_TILESET,
-  payload: { name, data },
+  payload: { name, tileSize, data },
 });
 
 export const loadExistingTilesets = (names) => ({
@@ -49,15 +50,24 @@ export const selectTool = (tool) => ({
   payload: { tool },
 });
 
-export const displaySidebar = (state) => ({
+export const displaySidebar = (display) => ({
   type: DIPLAY_SIDEBAR,
-  payload: { state },
+  payload: { display },
 });
 
-export const addLayer = (name, x, y, width, height) => ({
-  type: ADD_LAYER,
-  payload: { name, x, y, width, height },
+export const setTileSize = (size) => ({
+  type: SET_TILE_SIZE,
+  payload: { size },
 });
+
+export const addLayer = (obj) => {
+  const { name, tileSize, x, y, width, height } = obj || {};
+
+  return ({
+    type: ADD_LAYER,
+    payload: { name, tileSize, x, y, width, height },
+  });
+}
 
 export const deleteLayer = (name) => ({
   type: DELETE_LAYER,

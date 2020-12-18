@@ -1,9 +1,11 @@
-import { SELECT_TOOL, DIPLAY_SIDEBAR } from "redux/actionTypes";
+import { SELECT_TOOL, DIPLAY_SIDEBAR, SET_TILE_SIZE } from "redux/actionTypes";
 import { DEFAULT_TOOL } from "resources/tools";
 
+// TODO: Change way of dealing with tile sizes
 const initialState = {
   selectedTool: DEFAULT_TOOL,
   showSidebar: false,
+  tileSize: [32, 32],
 };
 
 export default function (state = initialState, action) {
@@ -17,10 +19,23 @@ export default function (state = initialState, action) {
     }
 
     case DIPLAY_SIDEBAR: {
-      const { state } = action.payload;
+      const { display } = action.payload;
       return {
         ...state,
-        showSidebar: state,
+        showSidebar: display,
+      };
+    }
+
+    case SET_TILE_SIZE: {
+      const { size } = action.payload;
+
+      if (!size) {
+        return state;
+      }
+
+      return {
+        ...state,
+        tileSize: size,
       };
     }
 

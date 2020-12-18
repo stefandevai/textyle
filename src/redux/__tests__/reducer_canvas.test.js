@@ -6,6 +6,7 @@ it("should return the initial state", () => {
   expect(reducer(undefined, {})).toEqual({
     selectedTool: DEFAULT_TOOL,
     showSidebar: false,
+    tileSize: [32, 32],
   });
 });
 

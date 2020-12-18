@@ -11,7 +11,7 @@ const drawGridLines = (canvas, tileDimensions) => {
   context.lineWidth = 1;
 
   // Draw horizontal lines
-  for (let j = tileDimensions[0]; j < canvas.height; j += tileDimensions[0]) {
+  for (let j = tileDimensions[1]; j < canvas.height; j += tileDimensions[1]) {
     context.beginPath();
     context.moveTo(0, j + 0.5);
     context.lineTo(canvas.width, j + 0.5);
@@ -19,7 +19,7 @@ const drawGridLines = (canvas, tileDimensions) => {
   }
 
   // Draw vertical lines
-  for (let i = tileDimensions[1]; i < canvas.width; i += tileDimensions[1]) {
+  for (let i = tileDimensions[0]; i < canvas.width; i += tileDimensions[0]) {
     context.beginPath();
     context.moveTo(i + 0.5, 0);
     context.lineTo(i + 0.5, canvas.height);
@@ -27,17 +27,17 @@ const drawGridLines = (canvas, tileDimensions) => {
   }
 };
 
-const TilesetPreview = ({ selectable, tileSize }) => {
+const TilesetPreview = ({ tilesetName, selectable, tileSize }) => {
   const dispatch = useDispatch();
-  const selectedTileset = useSelector((state) => state.tileset.selectedTileset);
   const [selectedTile, setSelectedTile] = useState([-1, -1]);
   const [tilesetIndex, setTilesetIndex] = useState(0);
   const tilegridCanvasRef = useRef(null);
   const tilesetCanvasRef = useRef(null);
+  const tileSizeRef = useRef(tileSize);
 
   // Load a new tileset to the preview
   useEffect(() => {
-    if (!selectedTileset || selectedTileset === "" || !tilegridCanvasRef.current || !tilesetCanvasRef.current) {
+    if (!tilesetName || tilesetName === "" || !tilegridCanvasRef.current || !tilesetCanvasRef.current) {
       return;
     }
 
@@ -45,7 +45,11 @@ const TilesetPreview = ({ selectable, tileSize }) => {
     const tilegridCanvas = tilegridCanvasRef.current;
 
     // Add image to canvas
-    getTextureData(selectedTileset).then((data) => {
+    getTextureData(tilesetName).then((data) => {
+      if (tileSizeRef.current !== data.tileSize) {
+        tileSizeRef.current = data.tileSize;
+      }
+
       const reader = new FileReader();
 
       reader.onload = (e) => {
@@ -59,18 +63,18 @@ const TilesetPreview = ({ selectable, tileSize }) => {
 
           const tilesetContext = tilesetCanvas.getContext("2d");
           tilesetContext.drawImage(image, 0, 0);
-          drawGridLines(tilesetCanvas, tileSize);
+          drawGridLines(tilesetCanvas, tileSizeRef.current);
           setTilesetIndex(data.tilesetIndex);
         };
         image.src = e.target.result;
       };
       reader.readAsDataURL(data.file);
     });
-  }, [selectedTileset, tileSize]);
+  }, [tilesetName, tileSize]);
 
   // Draw highlight on selected tile
   useEffect(() => {
-    if (!tilegridCanvasRef.current) {
+    if (!tilegridCanvasRef.current || !tileSizeRef.current) {
       return;
     }
 
@@ -80,26 +84,26 @@ const TilesetPreview = ({ selectable, tileSize }) => {
     context.fillStyle = SELECTED_TILE_COLOR_OVERLAY;
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.fillRect(
-      selectedTile[0] * tileSize[0] + 1,
-      selectedTile[1] * tileSize[1] + 1,
-      tileSize[0] - 1,
-      tileSize[1] - 1
+      selectedTile[0] * tileSizeRef.current[0] + 1,
+      selectedTile[1] * tileSizeRef.current[1] + 1,
+      tileSizeRef.current[0] - 1,
+      tileSizeRef.current[1] - 1
     );
   }, [selectedTile, tileSize]);
 
   const onSelectTile = (e) => {
-    if (!selectable) {
+    if (!selectable || !tileSizeRef.current) {
       return;
     }
 
-    const tilePos = getTilePositionOnClick(e, tileSize);
-    const tileIndex = tilesetIndex + tilePos[1] * Math.floor(e.target.width / tileSize[0]) + tilePos[0];
+    const tilePos = getTilePositionOnClick(e, tileSizeRef.current);
+    const tileIndex = tilesetIndex + tilePos[1] * Math.floor(e.target.width / tileSizeRef.current[0]) + tilePos[0];
     dispatch(selectTile(tileIndex));
     setSelectedTile(tilePos);
   };
 
   const tilesetPreview =
-    selectedTileset === "" ? (
+    tilesetName === "" ? (
       <div />
     ) : (
       <>
