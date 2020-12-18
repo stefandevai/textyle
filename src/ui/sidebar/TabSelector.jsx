@@ -18,7 +18,7 @@ const TabSelector = () => {
   ];
 
   const sections = sectionsData.map((section) => (
-    <div key={section.path} className="flex" data-testid={section.path}>
+    <div key={section.path} className="flex">
       <TabButton routerPath={section.path} iconPath={section.icon} />
       <ReactTooltip id={section.path} place="right" effect="solid" delayShow={TOOLTIP_DELAY}>
         {tooltips.get(section.path)}

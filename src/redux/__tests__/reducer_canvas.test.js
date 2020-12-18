@@ -5,6 +5,7 @@ import { DEFAULT_TOOL, FILL_TOOL } from "resources/tools";
 it("should return the initial state", () => {
   expect(reducer(undefined, {})).toEqual({
     selectedTool: DEFAULT_TOOL,
+    showSidebar: false,
   });
 });
 

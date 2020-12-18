@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, fireEvent, screen } from "utils/test/testRender";
 import TabSelector from "../TabSelector";
 import { HashRouter } from "react-router-dom";
 import * as tabs from "resources/tabs";
@@ -29,3 +29,4 @@ it("should display sidebar tabs", () => {
   button = screen.getByTestId(tabs.TAB_HELP);
   expect(button).toBeInTheDocument();
 });
+

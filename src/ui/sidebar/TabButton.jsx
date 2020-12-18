@@ -19,6 +19,7 @@ const TabButton = ({ iconPath, routerPath }) => {
     if (clickOnSameLink) {
       dispatch(displaySidebar(!showSidebar));
     }
+
     else if (!showSidebar) {
       dispatch(displaySidebar(true));
     }
@@ -29,8 +30,20 @@ const TabButton = ({ iconPath, routerPath }) => {
   }
 
   return (
-    <NavLink replace={sameLink} to={routerPath} className='w-full' activeClassName={`${accentColor} ${accentTextColor}`} isActive={isActive} >
-      <button className={`w-full py-3 flex justify-center ${accentHoverColor} ${accentTextHoverColor}`} onClick={handleClick} data-tip data-for={routerPath}>
+    <NavLink
+      replace={sameLink}
+      to={routerPath}
+      className='w-full'
+      activeClassName={`${accentColor} ${accentTextColor}`} isActive={isActive}
+    >
+      <button
+        className={`w-full py-3 flex justify-center ${accentHoverColor} ${accentTextHoverColor}`}
+        onClick={handleClick}
+        data-tip
+        data-for={routerPath}
+        data-testid={routerPath}
+      >
+
         <Icon path={iconPath} size={1.0} />
       </button>
     </NavLink>
