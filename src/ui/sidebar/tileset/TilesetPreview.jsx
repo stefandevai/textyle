@@ -2,8 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { getTextureData, hasTexture } from "idbTextureStore";
 import { selectTile } from "redux/actions";
-import { getTilePositionOnClick, drawGridLines, drawTilePlaceholder } from "utils/tile";
-import { GRID_CANVAS_ID, TILESET_CANVAS_ID, SELECTED_TILE_COLOR_OVERLAY } from "ui/constants";
+import { getTilePositionOnClick, drawGrid, drawTilePlaceholder } from "utils/tile";
+import { GRID_CANVAS_ID, TILESET_CANVAS_ID, TILESET_GRID_COLOR, SELECTED_TILE_COLOR_OVERLAY } from "ui/constants";
 
 const TilesetPreview = ({ tilesetName, selectable, tileSize, tilesetIndex }) => {
   const dispatch = useDispatch();
@@ -66,13 +66,21 @@ const TilesetPreview = ({ tilesetName, selectable, tileSize, tilesetIndex }) => 
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    drawGridLines(canvas, currentTileSize);
+    drawGrid({
+      canvas: canvas,
+      tileSize: currentTileSize,
+      color: TILESET_GRID_COLOR,
+    });
 
     if (!selectedTile) {
       return;
     }
 
-    drawTilePlaceholder(canvas, selectedTile, currentTileSize);
+    drawTilePlaceholder({
+      canvas: canvas,
+      position: selectedTile,
+      tileSize: currentTileSize,
+    });
   }, [currentTileSize, selectedTile]);
 
   // Select a tile on click

@@ -1,8 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectTool } from "redux/actions";
-import { getTilePositionOnClick, drawGridLines } from "utils/tile";
-import { EDITOR_CANVAS_ID } from "ui/constants";
+import { getTilePositionOnClick, drawGrid, drawOutline } from "utils/tile";
+import { EDITOR_CANVAS_ID, EDITOR_GRID_COLOR } from "ui/constants";
 import RendererInstance from "renderer/Renderer";
 import TilemapInstance from "tilemap";
 import * as tools from "resources/tools";
@@ -10,6 +10,7 @@ import * as tools from "resources/tools";
 const EditorCanvas = () => {
   const dispatch = useDispatch();
   const editingCanvasRef = useRef();
+  const [offset, setOffset] = useState([0, 0]);
   const { selectedLayer, layers } = useSelector((state) => ({
     selectedLayer: {name: state.layers.selected, ...state.layers.layers[state.layers.selected]},
     layers: state.layers.layers,
@@ -77,8 +78,22 @@ const EditorCanvas = () => {
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    drawGridLines(canvas, selectedLayer.tileSize);
-  }, [selectedLayer]);
+
+    drawOutline({
+      canvas: canvas,
+      color: EDITOR_GRID_COLOR,
+      dashed: true,
+      offset: offset,
+    });
+
+    drawGrid({
+      canvas: canvas,
+      color: EDITOR_GRID_COLOR,
+      tileSize: selectedLayer.tileSize,
+      dashed: true,
+      offset: offset,
+    });
+  }, [selectedLayer, offset]);
 
 
   const handleOneTimeTools = (e) => {
@@ -146,6 +161,7 @@ const EditorCanvas = () => {
         }
 
         RendererInstance.camera.moveTo(e.clientX, e.clientY);
+        setOffset([-RendererInstance.camera.position[0], -RendererInstance.camera.position[1]]);
         break;
       }
 

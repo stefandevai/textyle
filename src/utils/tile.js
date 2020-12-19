@@ -1,4 +1,4 @@
-import { GRID_COLOR, SELECTED_TILE_COLOR_OVERLAY } from "ui/constants";
+import { SELECTED_TILE_COLOR_OVERLAY } from "ui/constants";
 
 export const getTilePositionOnClick = (e, tileSize, offset) => {
   offset = offset || [0.0, 0.0];
@@ -42,37 +42,73 @@ export const getTileUV = (frame, frameSize, textureSize) => {
   ];
 };
 
-export const drawGridLines = (canvas, tileDimensions) => {
+export const drawOutline = ({ canvas, color, dashed = false, offset = [0, 0] }) => {
   const context = canvas.getContext("2d");
-  context.strokeStyle = GRID_COLOR;
+  context.strokeStyle = color;
   context.lineWidth = 1;
+  if (dashed) {
+    context.setLineDash([4, 2]);
+  }
+
+  // Top
+  context.beginPath();
+  context.moveTo(offset[0], offset[1] + 0.5);
+  context.lineTo(canvas.width + offset[0], offset[1] + 0.5);
+  context.stroke();
+
+  // Bottom
+  context.beginPath();
+  context.moveTo(offset[0], canvas.height + offset[1] + 0.5);
+  context.lineTo(canvas.width + offset[0], canvas.height + offset[1] + 0.5);
+  context.stroke();
+
+  // Left
+  context.beginPath();
+  context.moveTo(offset[0] + 0.5, offset[1]);
+  context.lineTo(offset[0] + 0.5, canvas.height + offset[1]);
+  context.stroke();
+
+  // Right
+  context.beginPath();
+  context.moveTo(canvas.width + offset[0] + 0.5, offset[1]);
+  context.lineTo(canvas.width + offset[0] + 0.5, canvas.height + offset[1]);
+  context.stroke();
+}
+
+export const drawGrid = ({ canvas, tileSize, color, dashed = false, offset = [0, 0] }) => {
+  const context = canvas.getContext("2d");
+  context.strokeStyle = color;
+  context.lineWidth = 1;
+  if (dashed) {
+    context.setLineDash([4, 2]);
+  }
 
   // Draw horizontal lines
-  for (let j = tileDimensions[1]; j < canvas.height; j += tileDimensions[1]) {
+  for (let j = tileSize[1] + offset[1]; j < canvas.height + offset[1]; j += tileSize[1]) {
     context.beginPath();
-    context.moveTo(0, j + 0.5);
-    context.lineTo(canvas.width, j + 0.5);
+    context.moveTo(offset[0], j + 0.5);
+    context.lineTo(canvas.width + offset[0], j + 0.5);
     context.stroke();
   }
 
   // Draw vertical lines
-  for (let i = tileDimensions[0]; i < canvas.width; i += tileDimensions[0]) {
+  for (let i = tileSize[0] + offset[0]; i < canvas.width + offset[0]; i += tileSize[0]) {
     context.beginPath();
-    context.moveTo(i + 0.5, 0);
-    context.lineTo(i + 0.5, canvas.height);
+    context.moveTo(i + 0.5, offset[1]);
+    context.lineTo(i + 0.5, canvas.height + offset[1]);
     context.stroke();
   }
 };
 
-export const drawTilePlaceholder = (canvas, tilePosition, tileDimensions) => {
+export const drawTilePlaceholder = ({ canvas, position, tileSize }) => {
   const context = canvas.getContext("2d");
 
   // Draw square on selected tile
   context.fillStyle = SELECTED_TILE_COLOR_OVERLAY;
   context.fillRect(
-    tilePosition[0] * tileDimensions[0] + 1,
-    tilePosition[1] * tileDimensions[1] + 1,
-    tileDimensions[0] - 1,
-    tileDimensions[1] - 1
+    position[0] * tileSize[0] + 1,
+    position[1] * tileSize[1] + 1,
+    tileSize[0] - 1,
+    tileSize[1] - 1
   );
 };

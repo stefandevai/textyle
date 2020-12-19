@@ -14,7 +14,7 @@ const FileInput = ({ title, onUpload }) => {
         style={{ width: "0.1px", height: "0.1px", opacity: 0, overflow: "hidden", position: "absolute", zIndex: "-1" }}
       />
       <label htmlFor="tilesetFile" className="block ">
-        <Button text="Choose a file..." />
+        <Button text={title} />
       </label>
     </div>
   );
