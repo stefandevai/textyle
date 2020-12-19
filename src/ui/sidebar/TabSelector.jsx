@@ -10,9 +10,8 @@ import { ReactComponent as Logo } from 'resources/logo.svg';
 const TabSelector = () => {
   const sectionsData = [
     { path: tabs.TAB_TILES, icon: mdiViewModule },
-    { path: tabs.TAB_MAP, icon: mdiMap },
-    { path: tabs.TAB_IMPORT, icon: mdiUpload },
     { path: tabs.TAB_EXPORT, icon: mdiContentSave },
+    { path: tabs.TAB_IMPORT, icon: mdiUpload },
     { path: tabs.TAB_SETTINGS, icon: mdiCog },
     { path: tabs.TAB_HELP, icon: mdiHelpCircleOutline },
   ];

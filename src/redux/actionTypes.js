@@ -2,6 +2,7 @@ export const ADD_TILESET = "[TILESET] Add one";
 export const LOAD_EXISTING_TILESETS = "[TILESET] Load existing textures";
 export const COMPLETE_TEXTURE_LOADING = "[TILESET] Texture loading complete";
 export const SELECT_TILESET = "[TILESET] Select";
+export const UPDATE_TILESET = "[TILESET] Update";
 export const DELETE_TILESET = "[TILESET] Delete";
 export const SELECT_TILE = "[TILE] Select";
 

@@ -3,6 +3,7 @@ import {
   LOAD_EXISTING_TILESETS,
   COMPLETE_TEXTURE_LOADING,
   SELECT_TILESET,
+  UPDATE_TILESET,
   DELETE_TILESET,
   SELECT_TILE,
   SELECT_TOOL,
@@ -33,6 +34,11 @@ export const completeTextureLoading = (names) => ({
 export const selectTileset = (name) => ({
   type: SELECT_TILESET,
   payload: { name },
+});
+
+export const updateTileset = (name, tileSize, data) => ({
+  type: UPDATE_TILESET,
+  payload: { name, tileSize, data },
 });
 
 export const deleteTileset = (name) => ({

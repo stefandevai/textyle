@@ -1,3 +1,5 @@
+import { GRID_COLOR, SELECTED_TILE_COLOR_OVERLAY } from "ui/constants";
+
 export const getTilePositionOnClick = (e, tileSize, offset) => {
   offset = offset || [0.0, 0.0];
   const bounds = e.target.getBoundingClientRect();
@@ -39,3 +41,39 @@ export const getTileUV = (frame, frameSize, textureSize) => {
     [topLeftX, topLeftY + frameHeight], // bottom-left
   ];
 };
+
+export const drawGridLines = (canvas, tileDimensions) => {
+  const context = canvas.getContext("2d");
+  context.strokeStyle = GRID_COLOR;
+  context.lineWidth = 1;
+
+  // Draw horizontal lines
+  for (let j = tileDimensions[1]; j < canvas.height; j += tileDimensions[1]) {
+    context.beginPath();
+    context.moveTo(0, j + 0.5);
+    context.lineTo(canvas.width, j + 0.5);
+    context.stroke();
+  }
+
+  // Draw vertical lines
+  for (let i = tileDimensions[0]; i < canvas.width; i += tileDimensions[0]) {
+    context.beginPath();
+    context.moveTo(i + 0.5, 0);
+    context.lineTo(i + 0.5, canvas.height);
+    context.stroke();
+  }
+};
+
+export const drawTilePlaceholder = (canvas, tilePosition, tileDimensions) => {
+  const context = canvas.getContext("2d");
+
+  // Draw square on selected tile
+  context.fillStyle = SELECTED_TILE_COLOR_OVERLAY;
+  context.fillRect(
+    tilePosition[0] * tileDimensions[0] + 1,
+    tilePosition[1] * tileDimensions[1] + 1,
+    tileDimensions[0] - 1,
+    tileDimensions[1] - 1
+  );
+}
+

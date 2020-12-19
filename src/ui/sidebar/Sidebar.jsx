@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { displaySidebar } from 'redux/actions';
 import TabSelector from "ui/sidebar/TabSelector";
 import Edit from "ui/sidebar/tileset/Edit";
-import MapSettings from "ui/sidebar/map/MapSettings";
 import ImportSettings from "ui/sidebar/import/ImportSettings";
 import ExportSettings from "ui/sidebar/export/ExportSettings";
 import ProjectSettings from "ui/sidebar/project/ProjectSettings";
@@ -48,10 +47,6 @@ const Sidebar = () => {
         <Switch>
           <Route path={`/${tabs.TAB_TILES}`}>
             <Edit />
-          </Route>
-
-          <Route path={`/${tabs.TAB_MAP}`}>
-            <MapSettings />
           </Route>
 
           <Route path={`/${tabs.TAB_IMPORT}`}>

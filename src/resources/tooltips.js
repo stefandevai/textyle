@@ -11,7 +11,6 @@ tooltips.set(tools.PAN_TOOL, "pan tool");
 tooltips.set(tools.MAGNIFY_TOOL, "zoom");
 
 tooltips.set(tabs.TAB_TILES, "tab tiles");
-tooltips.set(tabs.TAB_MAP, "tab map");
 tooltips.set(tabs.TAB_IMPORT, "tab import");
 tooltips.set(tabs.TAB_EXPORT, "tab export");
 tooltips.set(tabs.TAB_SETTINGS, "settings tab");

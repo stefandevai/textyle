@@ -1,9 +1,9 @@
 import { SELECT_TOOL, DIPLAY_SIDEBAR, SET_TILE_SIZE } from "redux/actionTypes";
-import { DEFAULT_TOOL } from "resources/tools";
+import { PLACEMENT_TOOL } from "resources/tools";
 
 // TODO: Change way of dealing with tile sizes
 const initialState = {
-  selectedTool: DEFAULT_TOOL,
+  selectedTool: PLACEMENT_TOOL,
   showSidebar: false,
   tileSize: [32, 32],
 };
