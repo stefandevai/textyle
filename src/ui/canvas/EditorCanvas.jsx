@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectTool } from "redux/actions";
-import { getTilePositionOnClick, drawGridLines } from "utils/tile";
+import { getTilePositionOnClick, drawGrid, drawOutline } from "utils/tile";
 import { EDITOR_CANVAS_ID, EDITOR_GRID_COLOR } from "ui/constants";
 import RendererInstance from "renderer/Renderer";
 import TilemapInstance from "tilemap";
@@ -78,13 +78,19 @@ const EditorCanvas = () => {
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    //console.log(RendererInstance.camera.position);
 
-    drawGridLines({
+    drawOutline({
       canvas: canvas,
+      color: EDITOR_GRID_COLOR,
+      dashed: true,
+      offset: offset,
+    });
+
+    drawGrid({
+      canvas: canvas,
+      color: EDITOR_GRID_COLOR,
       tileSize: selectedLayer.tileSize,
       dashed: true,
-      color: EDITOR_GRID_COLOR,
       offset: offset,
     });
   }, [selectedLayer, offset]);

@@ -42,15 +42,46 @@ export const getTileUV = (frame, frameSize, textureSize) => {
   ];
 };
 
-export const drawGridLines = ({ canvas, tileSize, color, dashed = false, offset = [0, 0] }) => {
+export const drawOutline = ({ canvas, color, dashed = false, offset = [0, 0] }) => {
   const context = canvas.getContext("2d");
   context.strokeStyle = color;
-
+  context.lineWidth = 1;
   if (dashed) {
     context.setLineDash([4, 2]);
   }
 
+  // Top
+  context.beginPath();
+  context.moveTo(offset[0], offset[1] + 0.5);
+  context.lineTo(canvas.width + offset[0], offset[1] + 0.5);
+  context.stroke();
+
+  // Bottom
+  context.beginPath();
+  context.moveTo(offset[0], canvas.height + offset[1] + 0.5);
+  context.lineTo(canvas.width + offset[0], canvas.height + offset[1] + 0.5);
+  context.stroke();
+
+  // Left
+  context.beginPath();
+  context.moveTo(offset[0] + 0.5, offset[1]);
+  context.lineTo(offset[0] + 0.5, canvas.height + offset[1]);
+  context.stroke();
+
+  // Right
+  context.beginPath();
+  context.moveTo(canvas.width + offset[0] + 0.5, offset[1]);
+  context.lineTo(canvas.width + offset[0] + 0.5, canvas.height + offset[1]);
+  context.stroke();
+}
+
+export const drawGrid = ({ canvas, tileSize, color, dashed = false, offset = [0, 0] }) => {
+  const context = canvas.getContext("2d");
+  context.strokeStyle = color;
   context.lineWidth = 1;
+  if (dashed) {
+    context.setLineDash([4, 2]);
+  }
 
   // Draw horizontal lines
   for (let j = tileSize[1] + offset[1]; j < canvas.height + offset[1]; j += tileSize[1]) {
