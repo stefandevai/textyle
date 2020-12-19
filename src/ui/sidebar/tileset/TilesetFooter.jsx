@@ -28,12 +28,17 @@ const TilesetFooter = ({ selectedTileset }) => {
         <button onClick={handleSettingsClick} className="hover:text-white">
           <Icon path={mdiCog} size={0.6} />
         </button>
-        <button onClick={handleDeleteClick} className="hover:text-white">
+        <button onClick={handleDeleteClick} className="hover:text-white" data-testid={testIds.TILESET_FOOTER_DELETE_BUTTON}>
           <Icon path={mdiDelete} size={0.65} />
         </button>
       </div>
 
-      <TilesetSettingsModal open={showTilesetSettings} onClose={handleSettingsClose} />
+      {showTilesetSettings &&
+        <TilesetSettingsModal
+          tilesetName={selectedTileset}
+          open={showTilesetSettings}
+          onClose={handleSettingsClose}
+        />}
     </>
   );
 };

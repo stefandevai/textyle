@@ -1,6 +1,7 @@
 import {
   ADD_TILESET,
-  LOAD_EXISTING_TILESETS,
+  LOAD_EXISTING_TILESET,
+  UPDATE_TILESET,
   COMPLETE_TEXTURE_LOADING,
   SELECT_TILESET,
   DELETE_TILESET,
@@ -9,6 +10,7 @@ import {
 
 const initialState = {
   tilesetNames: [],
+  tilesets: {},
   selectedTileset: "",
   selectedTile: -1,
   hasLoadedTextures: false,
@@ -16,12 +18,33 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case LOAD_EXISTING_TILESETS: {
-      const { names } = action.payload;
+    case LOAD_EXISTING_TILESET:
+    case ADD_TILESET: {
+      const { name, tileSize } = action.payload;
+      return {
+        ...state,
+        tilesetNames: [...state.tilesetNames, name],
+        tilesets: {
+          ...state.tilesets,
+          [name]: { tileSize },
+        },
+        selectedTileset: name,
+      };
+    }
+
+    case UPDATE_TILESET: {
+      const { name, tileSize } = action.payload;
+
+      if (!state.tilesetNames.includes(name)) {
+        return state;
+      }
 
       return {
         ...state,
-        tilesetNames: names,
+        tilesets: {
+          ...state.tilesets,
+          [name]: { tileSize },
+        },
       };
     }
 
@@ -29,15 +52,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         hasLoadedTextures: true,
-      };
-    }
-
-    case ADD_TILESET: {
-      const { name } = action.payload;
-      return {
-        ...state,
-        tilesetNames: [...state.tilesetNames, name],
-        selectedTileset: name,
       };
     }
 
@@ -52,6 +66,7 @@ export default function (state = initialState, action) {
     case DELETE_TILESET: {
       const { name } = action.payload;
       const newTilesetNames = state.tilesetNames.filter((n) => n !== name);
+      const { [name]: value, ...newTilesets } = state.tilesets;
 
       let newSelected = state.selectedTileset;
 
@@ -68,6 +83,7 @@ export default function (state = initialState, action) {
         ...state,
         selectedTileset: newSelected,
         tilesetNames: newTilesetNames,
+        tilesets: newTilesets,
       };
     }
 

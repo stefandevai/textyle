@@ -27,12 +27,34 @@ export const getTextureData = async (name) => {
   }
 };
 
-export const setTextureData = async (name, data) => {
+export const setTextureData = async (name, tileSize, data) => {
   // TODO: If the texture already exists, choose a new name
   try {
-    await set(name, { file: data, tilesetIndex: TileManagerInstance.lastId }, textureStore);
-    await TileManagerInstance.addTiles(name, [32, 32]);
+    await set(name, { file: data, tileSize: tileSize, tilesetIndex: TileManagerInstance.lastId }, textureStore);
+    await TileManagerInstance.addTiles(name, tileSize);
     localStorage.setItem(LOCAL_STORAGE_LAST_SELECTED_TILESET, name);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const updateTextureData = async (name, tileSize, data) => {
+  // TODO: If the texture already exists, choose a new name
+  try {
+    const exists = await hasTexture(name);
+
+    if (!exists) {
+      return;
+    }
+
+    const oldData = await get(name, textureStore);
+
+    await set(name, {
+      file: data || oldData.file,
+      tileSize: tileSize || oldData.tileSize,
+      tilesetIndex: oldData.tilesetIndex,
+    }, textureStore);
+
   } catch (err) {
     console.error(err);
   }
@@ -60,30 +82,29 @@ export const hasTexture = async (name) => {
   }
 };
 
-export const loadTilesFromExistingTilesets = async (tilesets) => {
+export const loadTilesFromExistingTileset = async (tileset, tileSize) => {
   // Return if tiles where already loaded
   if (TileManagerInstance.lastId > 0) {
     return;
   }
-  // Create tiles from textures
+
+  // Create tiles from texture
   // Respects order of creation
-  // TODO: replace hardcoded 32 x 32 tile size with a user defined one
-  for (const tileset of tilesets) {
-    try {
-      const textureExists = await hasTexture(tileset);
-      if (!textureExists) {
-        continue;
-      }
-
-      const tilesetIndex = await TileManagerInstance.addTiles(tileset, [32, 32]);
-
-      // Update idb texture with the new index
-      const data = await get(tileset, textureStore);
-      data.tilesetIndex = tilesetIndex;
-      await set(tileset, data, textureStore);
-    } catch (err) {
-      console.error(err);
+  try {
+    const textureExists = await hasTexture(tileset);
+    if (!textureExists) {
+      return;
     }
+
+
+    const tilesetIndex = await TileManagerInstance.addTiles(tileset, tileSize);
+
+    // Update idb texture with the new index
+    const data = await get(tileset, textureStore);
+    data.tilesetIndex = tilesetIndex;
+    await set(tileset, data, textureStore);
+  } catch (err) {
+    console.error(err);
   }
 
   reduxStore.dispatch(completeTextureLoading());

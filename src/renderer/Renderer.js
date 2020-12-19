@@ -102,8 +102,8 @@ class Renderer {
       }
 
       if (layer.id >= 0) {
-        for (let i = 0, y = 0; y < canvasHeight; i++, y += tileSize[1]) {
-          for (let j = 0, x = 0; x < canvasWidth; j++, x += tileSize[0]) {
+        for (let i = 0, y = 0; y < canvasHeight; i++, y += layer.tileSize[1]) {
+          for (let j = 0, x = 0; x < canvasWidth; j++, x += layer.tileSize[0]) {
             const value = TilemapInstance.get(j, i, layer.id);
 
             if (value != -1) {

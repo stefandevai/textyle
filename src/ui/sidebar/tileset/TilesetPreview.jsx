@@ -1,43 +1,25 @@
 import { useEffect, useState, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getTextureData, hasTexture } from "idbTextureStore";
 import { selectTile } from "redux/actions";
-import { getTilePositionOnClick } from "utils/tile";
-import { GRID_COLOR, GRID_CANVAS_ID, TILESET_CANVAS_ID, SELECTED_TILE_COLOR_OVERLAY } from "ui/constants";
+import { getTilePositionOnClick, drawGridLines, drawTilePlaceholder } from "utils/tile";
+import { GRID_CANVAS_ID, TILESET_CANVAS_ID, SELECTED_TILE_COLOR_OVERLAY } from "ui/constants";
 
-const drawGridLines = (canvas, tileDimensions) => {
-  const context = canvas.getContext("2d");
-  context.strokeStyle = GRID_COLOR;
-  context.lineWidth = 1;
-
-  // Draw horizontal lines
-  for (let j = tileDimensions[0]; j < canvas.height; j += tileDimensions[0]) {
-    context.beginPath();
-    context.moveTo(0, j + 0.5);
-    context.lineTo(canvas.width, j + 0.5);
-    context.stroke();
-  }
-
-  // Draw vertical lines
-  for (let i = tileDimensions[1]; i < canvas.width; i += tileDimensions[1]) {
-    context.beginPath();
-    context.moveTo(i + 0.5, 0);
-    context.lineTo(i + 0.5, canvas.height);
-    context.stroke();
-  }
-};
-
-const TilesetPreview = ({ selectable, tileSize }) => {
+const TilesetPreview = ({ tilesetName, selectable, tileSize }) => {
   const dispatch = useDispatch();
-  const selectedTileset = useSelector((state) => state.tileset.selectedTileset);
-  const [selectedTile, setSelectedTile] = useState([-1, -1]);
+  const [selectedTile, setSelectedTile] = useState(null);
   const [tilesetIndex, setTilesetIndex] = useState(0);
+  const [currentTileSize, setCurrentTileSize] = useState(tileSize);
   const tilegridCanvasRef = useRef(null);
   const tilesetCanvasRef = useRef(null);
 
-  // Load a new tileset to the preview
   useEffect(() => {
-    if (!selectedTileset || selectedTileset === "" || !tilegridCanvasRef.current || !tilesetCanvasRef.current) {
+    setCurrentTileSize(tileSize);
+  }, [tileSize]);
+
+  // Draw the tileset image to the canvas
+  useEffect(() => {
+    if (!tilesetName || tilesetName === "" || !tilegridCanvasRef.current || !tilesetCanvasRef.current) {
       return;
     }
 
@@ -45,12 +27,14 @@ const TilesetPreview = ({ selectable, tileSize }) => {
     const tilegridCanvas = tilegridCanvasRef.current;
 
     // Add image to canvas
-    getTextureData(selectedTileset).then((data) => {
+    getTextureData(tilesetName).then((data) => {
       const reader = new FileReader();
+      const image = new Image();
 
       reader.onload = (e) => {
-        const image = new Image();
         image.onload = () => {
+          setCurrentTileSize(data.tileSize);
+
           tilesetCanvas.width = image.width;
           tilesetCanvas.height = image.height;
 
@@ -59,47 +43,48 @@ const TilesetPreview = ({ selectable, tileSize }) => {
 
           const tilesetContext = tilesetCanvas.getContext("2d");
           tilesetContext.drawImage(image, 0, 0);
-          drawGridLines(tilesetCanvas, tileSize);
           setTilesetIndex(data.tilesetIndex);
         };
         image.src = e.target.result;
       };
       reader.readAsDataURL(data.file);
     });
-  }, [selectedTileset, tileSize]);
+  }, [tilesetName]);
 
-  // Draw highlight on selected tile
+  // Draw grid and selected tile
   useEffect(() => {
-    if (!tilegridCanvasRef.current) {
-      return;
-    }
-
     const canvas = tilegridCanvasRef.current;
-    const context = canvas.getContext("2d");
-    // Draw square on selected tile
-    context.fillStyle = SELECTED_TILE_COLOR_OVERLAY;
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.fillRect(
-      selectedTile[0] * tileSize[0] + 1,
-      selectedTile[1] * tileSize[1] + 1,
-      tileSize[0] - 1,
-      tileSize[1] - 1
-    );
-  }, [selectedTile, tileSize]);
 
-  const onSelectTile = (e) => {
-    if (!selectable) {
+    if (!canvas || !currentTileSize) {
       return;
     }
 
-    const tilePos = getTilePositionOnClick(e, tileSize);
-    const tileIndex = tilesetIndex + tilePos[1] * Math.floor(e.target.width / tileSize[0]) + tilePos[0];
+    const context = canvas.getContext("2d");
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    drawGridLines(canvas, currentTileSize);
+
+    if (!selectedTile) {
+      return;
+    }
+
+    drawTilePlaceholder(canvas, selectedTile, currentTileSize);
+  }, [currentTileSize, selectedTile]);
+
+  // Select a tile on click
+  const onSelectTile = (e) => {
+    if (!selectable || !currentTileSize) {
+      return;
+    }
+
+    const tilePos = getTilePositionOnClick(e, currentTileSize);
+    const tileIndex = tilesetIndex + tilePos[1] * Math.floor(e.target.width / currentTileSize[0]) + tilePos[0];
     dispatch(selectTile(tileIndex));
     setSelectedTile(tilePos);
   };
 
   const tilesetPreview =
-    selectedTileset === "" ? (
+    tilesetName === "" ? (
       <div />
     ) : (
       <>

@@ -1,11 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateTileset } from 'redux/actions';
+import { getTextureData } from "idbTextureStore";
 import Modal from 'ui/common/Modal';
 import Button from 'ui/common/Button';
 import TilesetPreview from 'ui/sidebar/tileset/TilesetPreview';
 
-const TilesetSettingsModal = ({ open, onClose }) => {
-  const [tileWidth, setTileWidth] = useState(32);
-  const [tileHeight, setTileHeight] = useState(32);
+const TilesetSettingsModal = ({ tilesetName, open, onClose }) => {
+  const dispatch = useDispatch();
+  const [tileWidth, setTileWidth] = useState(0);
+  const [tileHeight, setTileHeight] = useState(0);
+  const oldTileSize = useSelector(state => state.tileset.tilesets[tilesetName].tileSize);
+
+  useEffect(() => {
+    if (!oldTileSize) {
+      return;
+    }
+
+    setTileWidth(oldTileSize[0]);
+    setTileHeight(oldTileSize[1]);
+  }, [oldTileSize]);
 
   const changeGridWidth = (e) => {
     setTileWidth(e.target.value);
@@ -15,8 +29,9 @@ const TilesetSettingsModal = ({ open, onClose }) => {
     setTileHeight(e.target.value);
   }
 
-  const updateTileset = () => {
-    // TODO: Update tileset dimensions
+  const handleClick = () => {
+    dispatch(updateTileset(tilesetName, [parseInt(tileWidth), parseInt(tileHeight)]));
+
     if (onClose) {
       onClose();
     }
@@ -34,14 +49,16 @@ const TilesetSettingsModal = ({ open, onClose }) => {
         </div>
       </form>
 
-      <TilesetPreview
-        selectable={false}
-        tileSize={[parseInt(tileWidth), parseInt(tileHeight)]}
-      />
+      {tileWidth > 0 && tileHeight > 0 &&
+        <TilesetPreview
+          tilesetName={tilesetName}
+          selectable={false}
+          tileSize={[parseInt(tileWidth), parseInt(tileHeight)]}
+        />}
 
       <div className='flex mt-2'>
         <span className='w-full mr-1'>
-          <Button text='Update' onClick={updateTileset} />
+          <Button text='Update' onClick={handleClick} />
         </span>
         <span className='w-full ml-1'>
           <Button text='Cancel' onClick={onClose} />
@@ -52,4 +69,3 @@ const TilesetSettingsModal = ({ open, onClose }) => {
 };
 
 export default TilesetSettingsModal;
-

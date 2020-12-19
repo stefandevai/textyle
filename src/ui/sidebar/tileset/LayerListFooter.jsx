@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addLayer, deleteLayer } from "redux/actions";
 import { mdiDelete, mdiPlaylistPlus, mdiCog } from "@mdi/js";
 import Icon from "@mdi/react";
@@ -6,9 +6,10 @@ import * as testIds from "resources/testIds";
 
 const LayerListFooter = ({ selectedLayer }) => {
   const dispatch = useDispatch();
+  const tileSize = useSelector(state => state.canvas.tileSize);
 
   const handleAddClick = () => {
-    dispatch(addLayer());
+    dispatch(addLayer({ tileSize: tileSize }));
   };
 
   const handleSettingsClick = () => {

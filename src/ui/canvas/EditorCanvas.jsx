@@ -8,7 +8,7 @@ import TilemapInstance from "tilemap";
 import * as tools from "resources/tools";
 
 // TODO: Provide a method to change tile size per layer
-const tileSize = [32, 32];
+//const tileSize = [32, 32];
 
 const EditorCanvas = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const EditorCanvas = () => {
     layers: state.layers.layers,
   }));
   const selectedTile = useSelector((state) => state.tileset.selectedTile);
-  const selectedTool = useSelector((state) => state.canvas.selectedTool);
+  const { selectedTool, tileSize } = useSelector((state) => state.canvas);
 
   useEffect(() => {
     const refElement = editingCanvasRef.current;

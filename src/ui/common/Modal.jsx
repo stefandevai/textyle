@@ -10,7 +10,7 @@ const Modal = ({ children, open, title, onClose }) => {
       style={{
         overlay: {
           backgroundColor: 'rgba(0,0,0,0.6)',
-          zIndex: '19',
+          zIndex: '29',
         },
 
         content: {
@@ -23,7 +23,7 @@ const Modal = ({ children, open, title, onClose }) => {
           right: '0',
           bottom: '0',
           transform: 'translate(-50%, -50%)',
-          zIndex: '20',
+          zIndex: '30',
           padding: '1rem',
           height: 'max-content',
           width: 'max-content',

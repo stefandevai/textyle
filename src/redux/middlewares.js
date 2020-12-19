@@ -1,18 +1,24 @@
 import TilemapInstance from "tilemap";
-import { setTextureData, deleteTextureData, loadTilesFromExistingTilesets } from "idbTextureStore";
-import { ADD_TILESET, DELETE_TILESET, LOAD_EXISTING_TILESETS, ADD_LAYER, DELETE_LAYER } from "redux/actionTypes";
+import { setTextureData, updateTextureData, deleteTextureData, loadTilesFromExistingTileset } from "idbTextureStore";
+import { ADD_TILESET, UPDATE_TILESET, DELETE_TILESET, LOAD_EXISTING_TILESET, ADD_LAYER, DELETE_LAYER } from "redux/actionTypes";
 
 export const idbReduxMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case ADD_TILESET: {
-      const { name, data } = action.payload || {};
-      setTextureData(name, data);
+      const { name, tileSize, data } = action.payload || {};
+      setTextureData(name, tileSize, data);
       break;
     }
 
-    case LOAD_EXISTING_TILESETS: {
-      const { names } = action.payload || {};
-      loadTilesFromExistingTilesets(names);
+    case LOAD_EXISTING_TILESET: {
+      const { name, tileSize } = action.payload || {};
+      loadTilesFromExistingTileset(name, tileSize);
+      break;
+    }
+
+    case UPDATE_TILESET: {
+      const { name, tileSize, data } = action.payload || {};
+      updateTextureData(name, tileSize, data);
       break;
     }
 

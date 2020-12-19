@@ -10,10 +10,10 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case ADD_LAYER: {
-      let { name } = action.payload;
+      let { name, tileSize } = action.payload;
 
       // If name is not provided, add a default one
-      if (!name) {
+      if (!name || name === '') {
         name = `Layer ${state.lastIdx + 1}`;
       }
 
@@ -24,6 +24,7 @@ export default function (state = initialState, action) {
           ...state.layers,
           [name]: {
             id: state.lastIdx,
+            tileSize: tileSize,
             visible: true,
           },
         },
