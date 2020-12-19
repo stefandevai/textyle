@@ -8,14 +8,14 @@ import * as testIds from "resources/testIds";
 
 const TilesetFooter = ({ selectedTileset }) => {
   const dispatch = useDispatch();
-  const [showTilesetSettings, setShowTilesetSettings] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
 
   const handleSettingsClick = () => {
-    setShowTilesetSettings(true);
+    setShowSettingsModal(true);
   };
 
   const handleSettingsClose = () => {
-    setShowTilesetSettings(false);
+    setShowSettingsModal(false);
   };
 
   const handleDeleteClick = () => {
@@ -37,8 +37,8 @@ const TilesetFooter = ({ selectedTileset }) => {
         </button>
       </div>
 
-      {showTilesetSettings && (
-        <TilesetSettingsModal tilesetName={selectedTileset} open={showTilesetSettings} onClose={handleSettingsClose} />
+      {showSettingsModal && (
+        <TilesetSettingsModal tilesetName={selectedTileset} open={showSettingsModal} onClose={handleSettingsClose} />
       )}
     </>
   );

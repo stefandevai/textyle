@@ -10,6 +10,7 @@ import {
   DIPLAY_SIDEBAR,
   SET_TILE_SIZE,
   ADD_LAYER,
+  UPDATE_LAYER,
   DELETE_LAYER,
   SELECT_LAYER,
   MOVE_LAYER,
@@ -74,6 +75,11 @@ export const addLayer = (obj) => {
     payload: { name, tileSize, x, y, width, height },
   };
 };
+
+export const updateLayer = (name, tileSize) => ({
+  type: UPDATE_LAYER,
+  payload: { name, tileSize },
+});
 
 export const deleteLayer = (name) => ({
   type: DELETE_LAYER,

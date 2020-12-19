@@ -1,24 +1,21 @@
 import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectTool } from "redux/actions";
-import { getTilePositionOnClick } from "utils/tile";
+import { getTilePositionOnClick, drawGridLines } from "utils/tile";
 import { EDITOR_CANVAS_ID } from "ui/constants";
 import RendererInstance from "renderer/Renderer";
 import TilemapInstance from "tilemap";
 import * as tools from "resources/tools";
 
-// TODO: Provide a method to change tile size per layer
-//const tileSize = [32, 32];
-
 const EditorCanvas = () => {
   const dispatch = useDispatch();
   const editingCanvasRef = useRef();
   const { selectedLayer, layers } = useSelector((state) => ({
-    selectedLayer: state.layers.selected,
+    selectedLayer: {name: state.layers.selected, ...state.layers.layers[state.layers.selected]},
     layers: state.layers.layers,
   }));
   const selectedTile = useSelector((state) => state.tileset.selectedTile);
-  const { selectedTool, tileSize } = useSelector((state) => state.canvas);
+  const { selectedTool } = useSelector((state) => state.canvas);
 
   useEffect(() => {
     const refElement = editingCanvasRef.current;
@@ -69,16 +66,31 @@ const EditorCanvas = () => {
     };
   }, [dispatch]);
 
+
+  useEffect(() => {
+    const canvas = editingCanvasRef.current;
+
+    if (!selectedLayer.tileSize || !canvas) {
+      return;
+    }
+
+    const context = canvas.getContext("2d");
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    drawGridLines(canvas, selectedLayer.tileSize);
+  }, [selectedLayer]);
+
+
   const handleOneTimeTools = (e) => {
     switch (selectedTool) {
       case tools.FILL_TOOL: {
         const zoomLevel = RendererInstance.camera.getZoomLevel();
         const position = getTilePositionOnClick(
           e,
-          [tileSize[0] * zoomLevel, tileSize[1] * zoomLevel],
+          [selectedLayer.tileSize[0] * zoomLevel, selectedLayer.tileSize[1] * zoomLevel],
           RendererInstance.camera.position
         );
-        const layerId = layers[selectedLayer].id;
+        const layerId = selectedLayer.id;
 
         TilemapInstance.fill(...position, selectedTile, layerId);
         break;
@@ -106,10 +118,10 @@ const EditorCanvas = () => {
     const zoomLevel = RendererInstance.camera.getZoomLevel();
     const position = getTilePositionOnClick(
       e,
-      [tileSize[0] * zoomLevel, tileSize[1] * zoomLevel],
+      [selectedLayer.tileSize[0] * zoomLevel, selectedLayer.tileSize[1] * zoomLevel],
       RendererInstance.camera.position
     );
-    const layerId = layers[selectedLayer].id;
+    const layerId = selectedLayer.id;
 
     switch (selectedTool) {
       case tools.DEFAULT_TOOL: {
@@ -144,7 +156,7 @@ const EditorCanvas = () => {
 
   const handleMouseDown = (e) => {
     // Abort handling tool if no layer is selected
-    if (!selectedLayer || !layers[selectedLayer]) {
+    if (!selectedLayer.name || !layers[selectedLayer.name]) {
       return;
     }
 
@@ -152,9 +164,16 @@ const EditorCanvas = () => {
     handleContinuousTools(e);
   };
 
+  const handleDragStart = (e) => {
+    // Hide drag image with a 1x1 transparent pixel image
+    const pixel = document.createElement('img');
+    pixel.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+    e.dataTransfer.setDragImage(pixel, 0, 0);
+  }
+
   const handleDrag = (e) => {
     // Abort handling tool if no layer is selected
-    if (!selectedLayer || !layers[selectedLayer]) {
+    if (!selectedLayer.name || !layers[selectedLayer.name]) {
       return;
     }
 
@@ -176,8 +195,9 @@ const EditorCanvas = () => {
       onWheel={handleWheel}
       onMouseDown={handleMouseDown}
       onDragOver={handleDrag}
-      draggable="true"
+      onDragStart={handleDragStart}
       className="col-span-full row-span-full z-10 w-full h-full"
+      draggable='true'
     />
   );
 };

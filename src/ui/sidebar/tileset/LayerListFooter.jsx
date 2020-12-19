@@ -1,21 +1,30 @@
+import { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { addLayer, deleteLayer } from "redux/actions";
 import { mdiDelete, mdiPlaylistPlus, mdiCog } from "@mdi/js";
+import LayerSettingsModal from "ui/sidebar/tileset/LayerSettingsModal";
 import Icon from "@mdi/react";
 import * as testIds from "resources/testIds";
 
 const LayerListFooter = ({ selectedLayer }) => {
   const dispatch = useDispatch();
   const tileSize = useSelector((state) => state.canvas.tileSize);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
 
   const handleAddClick = () => {
     dispatch(addLayer({ tileSize: tileSize }));
   };
 
-  const handleSettingsClick = () => {};
-
   const handleDeleteClick = () => {
     dispatch(deleteLayer(selectedLayer));
+  };
+
+  const handleSettingsClick = () => {
+    setShowSettingsModal(true);
+  };
+
+  const handleSettingsClose = () => {
+    setShowSettingsModal(false);
   };
 
   return (
@@ -31,6 +40,10 @@ const LayerListFooter = ({ selectedLayer }) => {
           <Icon path={mdiDelete} size={0.65} />
         </button>
       </div>
+
+      {showSettingsModal && (
+        <LayerSettingsModal layerName={selectedLayer} open={showSettingsModal} onClose={handleSettingsClose} />
+      )}
     </>
   );
 };
