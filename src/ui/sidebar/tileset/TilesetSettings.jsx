@@ -22,14 +22,18 @@ const TilesetManager = () => {
 
   // Load existing tilesets
   useEffect(() => {
+    if (hasLoadedTextures) {
+      return;
+    }
+
     getTextureNames().then(async (textures) => {
       for (const textureName of textures) {
         const data = await getTextureData(textureName);
-        dispatch(loadExistingTileset(textureName, data.tileSize));
+        dispatch(loadExistingTileset(textureName, data.tileSize, data.tilesetIndex));
       }
       dispatch(completeTextureLoading());
-    }); // eslint-disable-next-line
-  }, []);
+    });
+  }, [dispatch, hasLoadedTextures]);
 
   const onTilesetUpload = async (event) => {
     // Return if file is invalid
@@ -37,7 +41,7 @@ const TilesetManager = () => {
       return;
     }
 
-    dispatch(addTileset(event.target.files[0].name, tileSize, event.target.files[0]));
+    dispatch(addTileset(event.target.files[0].name, tileSize, TileManagerInstance.lastId, event.target.files[0]));
   };
 
   return (
@@ -51,7 +55,7 @@ const TilesetManager = () => {
           </div>
 
           {tilesetData && (
-            <TilesetPreview tilesetName={selectedTileset} selectable={true} tileSize={tilesetData.tileSize} />
+            <TilesetPreview tilesetName={selectedTileset} selectable={true} tileSize={tilesetData.tileSize} tilesetIndex={tilesetData.tilesetIndex} />
           )}
 
           {selectedTileset && <TilesetFooter selectedTileset={selectedTileset} />}

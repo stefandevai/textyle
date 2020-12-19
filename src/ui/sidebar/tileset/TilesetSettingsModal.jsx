@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateTileset } from "redux/actions";
 import { getTextureData } from "idbTextureStore";
+import TileManagerInstance from "renderer/TileManager";
 import Modal from "ui/common/Modal";
 import Button from "ui/common/Button";
 import TilesetPreview from "ui/sidebar/tileset/TilesetPreview";
@@ -29,8 +30,11 @@ const TilesetSettingsModal = ({ tilesetName, open, onClose }) => {
     setTileHeight(e.target.value);
   };
 
-  const handleClick = () => {
-    dispatch(updateTileset(tilesetName, [parseInt(tileWidth), parseInt(tileHeight)]));
+  const handleClick = async () => {
+    // Recreate tiles with new size
+    const tileSize = [parseInt(tileWidth), parseInt(tileHeight)];
+    const tilesetIndex = await TileManagerInstance.addTiles(tilesetName, tileSize);
+    dispatch(updateTileset(tilesetName, tileSize, tilesetIndex));
 
     if (onClose) {
       onClose();

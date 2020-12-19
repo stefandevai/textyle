@@ -16,14 +16,14 @@ import {
   TOGGLE_LAYER_VISIBILITY,
 } from "redux/actionTypes";
 
-export const addTileset = (name, tileSize, data) => ({
+export const addTileset = (name, tileSize, tilesetIndex, data) => ({
   type: ADD_TILESET,
-  payload: { name, tileSize, data },
+  payload: { name, tileSize, tilesetIndex, data },
 });
 
-export const loadExistingTileset = (name, tileSize) => ({
+export const loadExistingTileset = (name, tileSize, tilesetIndex) => ({
   type: LOAD_EXISTING_TILESET,
-  payload: { name, tileSize },
+  payload: { name, tileSize, tilesetIndex },
 });
 
 export const completeTextureLoading = (names) => ({
@@ -36,9 +36,9 @@ export const selectTileset = (name) => ({
   payload: { name },
 });
 
-export const updateTileset = (name, tileSize, data) => ({
+export const updateTileset = (name, tileSize, tilesetIndex) => ({
   type: UPDATE_TILESET,
-  payload: { name, tileSize, data },
+  payload: { name, tileSize, tilesetIndex },
 });
 
 export const deleteTileset = (name) => ({

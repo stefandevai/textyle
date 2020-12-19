@@ -20,30 +20,33 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case LOAD_EXISTING_TILESET:
     case ADD_TILESET: {
-      const { name, tileSize } = action.payload;
+      const { name, tileSize, tilesetIndex } = action.payload;
       return {
         ...state,
         tilesetNames: [...state.tilesetNames, name],
         tilesets: {
           ...state.tilesets,
-          [name]: { tileSize },
+          [name]: { tileSize, tilesetIndex },
         },
         selectedTileset: name,
       };
     }
 
     case UPDATE_TILESET: {
-      const { name, tileSize } = action.payload;
+      const { name, tileSize, tilesetIndex } = action.payload;
 
       if (!state.tilesetNames.includes(name)) {
         return state;
       }
 
+      const newTileSize = tileSize || state.tilesets[name].tileSize;
+      const newTilesetIndex = tilesetIndex || state.tilesets[name].tilesetIndex;
+
       return {
         ...state,
         tilesets: {
           ...state.tilesets,
-          [name]: { tileSize },
+          [name]: { tileSize: newTileSize, tilesetIndex: newTilesetIndex },
         },
       };
     }

@@ -24,8 +24,8 @@ export const idbReduxMiddleware = (store) => (next) => (action) => {
     }
 
     case UPDATE_TILESET: {
-      const { name, tileSize, data } = action.payload || {};
-      updateTextureData(name, tileSize, data);
+      const { name, tileSize, tilesetIndex } = action.payload || {};
+      updateTextureData(name, tileSize, tilesetIndex);
       break;
     }
 

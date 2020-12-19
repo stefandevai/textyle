@@ -38,7 +38,7 @@ export const setTextureData = async (name, tileSize, data) => {
   }
 };
 
-export const updateTextureData = async (name, tileSize, data) => {
+export const updateTextureData = async (name, tileSize, tilesetIndex) => {
   // TODO: If the texture already exists, choose a new name
   try {
     const exists = await hasTexture(name);
@@ -52,9 +52,9 @@ export const updateTextureData = async (name, tileSize, data) => {
     await set(
       name,
       {
-        file: data || oldData.file,
+        file: oldData.file,
         tileSize: tileSize || oldData.tileSize,
-        tilesetIndex: oldData.tilesetIndex,
+        tilesetIndex: tilesetIndex || oldData.tilesetIndex,
       },
       textureStore
     );
