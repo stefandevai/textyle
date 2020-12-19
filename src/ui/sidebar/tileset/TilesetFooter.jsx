@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteTileset } from "redux/actions";
 import { mdiDelete, mdiCog } from "@mdi/js";
-import TilesetSettingsModal from 'ui/sidebar/tileset/TilesetSettingsModal';
+import TilesetSettingsModal from "ui/sidebar/tileset/TilesetSettingsModal";
 import Icon from "@mdi/react";
 import * as testIds from "resources/testIds";
 
@@ -16,7 +16,7 @@ const TilesetFooter = ({ selectedTileset }) => {
 
   const handleSettingsClose = () => {
     setShowTilesetSettings(false);
-  }
+  };
 
   const handleDeleteClick = () => {
     dispatch(deleteTileset(selectedTileset));
@@ -28,17 +28,18 @@ const TilesetFooter = ({ selectedTileset }) => {
         <button onClick={handleSettingsClick} className="hover:text-white">
           <Icon path={mdiCog} size={0.6} />
         </button>
-        <button onClick={handleDeleteClick} className="hover:text-white" data-testid={testIds.TILESET_FOOTER_DELETE_BUTTON}>
+        <button
+          onClick={handleDeleteClick}
+          className="hover:text-white"
+          data-testid={testIds.TILESET_FOOTER_DELETE_BUTTON}
+        >
           <Icon path={mdiDelete} size={0.65} />
         </button>
       </div>
 
-      {showTilesetSettings &&
-        <TilesetSettingsModal
-          tilesetName={selectedTileset}
-          open={showTilesetSettings}
-          onClose={handleSettingsClose}
-        />}
+      {showTilesetSettings && (
+        <TilesetSettingsModal tilesetName={selectedTileset} open={showTilesetSettings} onClose={handleSettingsClose} />
+      )}
     </>
   );
 };

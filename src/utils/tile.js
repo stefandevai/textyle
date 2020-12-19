@@ -75,5 +75,4 @@ export const drawTilePlaceholder = (canvas, tilePosition, tileDimensions) => {
     tileDimensions[0] - 1,
     tileDimensions[1] - 1
   );
-}
-
+};

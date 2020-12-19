@@ -13,7 +13,7 @@ export default function (state = initialState, action) {
       let { name, tileSize } = action.payload;
 
       // If name is not provided, add a default one
-      if (!name || name === '') {
+      if (!name || name === "") {
         name = `Layer ${state.lastIdx + 1}`;
       }
 

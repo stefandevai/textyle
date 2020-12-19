@@ -7,3 +7,4 @@ export const LAYER_VISIBLE = "layer-visible";
 export const LAYER_HIDDEN = "layer-hidden";
 export const SIDEBAR_ELEMENT = "sidebar-element";
 export const TILESET_FOOTER_DELETE_BUTTON = "tileset-footer-delete-button";
+export const TILESET_FILE_INPUT = "tileset-file-input";

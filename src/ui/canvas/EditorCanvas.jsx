@@ -27,7 +27,7 @@ const EditorCanvas = () => {
     }
 
     // Update viewport on resize
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       if (!refElement) {
         return;
       }
@@ -92,8 +92,7 @@ const EditorCanvas = () => {
       case tools.MAGNIFY_TOOL: {
         if (e.altKey) {
           RendererInstance.camera.decrementZoom();
-        }
-        else {
+        } else {
           RendererInstance.camera.incrementZoom();
         }
       }

@@ -64,7 +64,7 @@ it("should create an action and add a layer", () => {
   const name = "Layer 1";
   const expectedAction = {
     type: types.ADD_LAYER,
-    payload: { 
+    payload: {
       name: name,
       width: undefined,
       height: undefined,

@@ -69,11 +69,11 @@ export const setTileSize = (size) => ({
 export const addLayer = (obj) => {
   const { name, tileSize, x, y, width, height } = obj || {};
 
-  return ({
+  return {
     type: ADD_LAYER,
     payload: { name, tileSize, x, y, width, height },
-  });
-}
+  };
+};
 
 export const deleteLayer = (name) => ({
   type: DELETE_LAYER,

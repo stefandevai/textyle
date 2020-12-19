@@ -6,15 +6,13 @@ import * as testIds from "resources/testIds";
 
 const LayerListFooter = ({ selectedLayer }) => {
   const dispatch = useDispatch();
-  const tileSize = useSelector(state => state.canvas.tileSize);
+  const tileSize = useSelector((state) => state.canvas.tileSize);
 
   const handleAddClick = () => {
     dispatch(addLayer({ tileSize: tileSize }));
   };
 
-  const handleSettingsClick = () => {
-
-  };
+  const handleSettingsClick = () => {};
 
   const handleDeleteClick = () => {
     dispatch(deleteLayer(selectedLayer));

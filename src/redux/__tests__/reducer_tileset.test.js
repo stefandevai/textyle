@@ -7,7 +7,7 @@ it("should handle ADD_TILESET", () => {
     payload: { name: "tileset1", tileSize: [16, 16] },
   });
   expect(state.selectedTileset).toEqual("tileset1");
-  expect(state.tilesets).toEqual({ "tileset1": { tileSize: [16, 16] } });
+  expect(state.tilesets).toEqual({ tileset1: { tileSize: [16, 16] } });
   expect(state.tilesetNames).toEqual(["tileset1"]);
 
   state = reducer(state, {
@@ -15,7 +15,7 @@ it("should handle ADD_TILESET", () => {
     payload: { name: "tileset2", tileSize: [32, 32] },
   });
   expect(state.selectedTileset).toEqual("tileset2");
-  expect(state.tilesets).toEqual({ "tileset1": { tileSize: [16, 16] }, "tileset2": { tileSize: [32, 32] }});
+  expect(state.tilesets).toEqual({ tileset1: { tileSize: [16, 16] }, tileset2: { tileSize: [32, 32] } });
   expect(state.tilesetNames).toEqual(["tileset1", "tileset2"]);
 });
 
@@ -26,7 +26,7 @@ it("should handle LOAD_EXISTING_TILESET", () => {
   });
   expect(state.selectedTileset).toEqual("tileset1");
   expect(state.tilesetNames).toEqual(["tileset1"]);
-  expect(state.tilesets).toEqual({"tileset1": {tileSize: [32, 32]}});
+  expect(state.tilesets).toEqual({ tileset1: { tileSize: [32, 32] } });
 });
 
 it("should handle COMPLETE_TEXTURE_LOADING", () => {
@@ -61,7 +61,7 @@ it("should handle DELETE_TILESET", () => {
   let state = reducer(
     {
       tilesetNames: ["tileset1", "tileset2"],
-      tilesets: { "tileset1": { tileSize: [16, 16] }, "tileset2": { tileSize: [32, 32] }},
+      tilesets: { tileset1: { tileSize: [16, 16] }, tileset2: { tileSize: [32, 32] } },
       selectedTileset: "tileset2",
     },
     {
@@ -71,7 +71,7 @@ it("should handle DELETE_TILESET", () => {
   );
 
   expect(state.tilesetNames).toEqual(["tileset1"]);
-  expect(state.tilesets).toEqual({ "tileset1": { tileSize: [16, 16] } });
+  expect(state.tilesets).toEqual({ tileset1: { tileSize: [16, 16] } });
   expect(state.selectedTileset).toEqual("tileset1");
 
   state = reducer(state, {

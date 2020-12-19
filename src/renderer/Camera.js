@@ -80,7 +80,7 @@ class Camera {
     this.perceivedWidth = this.width / zoomLevels[this.zoomLevel];
     this.perceivedHeight = this.height / zoomLevels[this.zoomLevel];
     this.calculateMvp();
-  }
+  };
 
   /**
    * Decrements, if possible, zoom level by 1.
@@ -90,7 +90,7 @@ class Camera {
     this.perceivedWidth = this.width / zoomLevels[this.zoomLevel];
     this.perceivedHeight = this.height / zoomLevels[this.zoomLevel];
     this.calculateMvp();
-  }
+  };
 
   getMvp = () => {
     return this.mvp;
@@ -130,7 +130,7 @@ class Camera {
     this.perceivedWidth = this.width / zoomLevels[this.zoomLevel];
     this.perceivedHeight = this.height / zoomLevels[this.zoomLevel];
     this.calculateMvp();
-  }
+  };
 }
 
 export default Camera;

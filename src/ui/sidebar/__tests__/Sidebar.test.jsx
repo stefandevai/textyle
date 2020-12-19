@@ -17,7 +17,7 @@ it("should show and hide the sidebar on multiple clicks", () => {
 
   let sidebar = screen.queryByTestId(testIds.SIDEBAR_ELEMENT);
   expect(sidebar).not.toBeInTheDocument();
-  
+
   let button = screen.getByTestId(tabs.TAB_TILES);
   fireEvent.click(button);
 
@@ -34,7 +34,7 @@ it("should show and hide the sidebar on multiple clicks", () => {
 
   sidebar = screen.queryByTestId(testIds.SIDEBAR_ELEMENT);
   expect(sidebar).toBeInTheDocument();
-  
+
   button = screen.getByTestId(tabs.TAB_IMPORT);
   fireEvent.click(button);
 

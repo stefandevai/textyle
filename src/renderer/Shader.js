@@ -55,7 +55,7 @@ class ShaderProgram {
     }
 
     return shader;
-  }
+  };
 
   /**
    * Uses the shader program.
