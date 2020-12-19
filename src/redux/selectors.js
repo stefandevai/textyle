@@ -13,4 +13,3 @@ export const getVisibleLayers = (state) => {
   const layersState = getLayersState(state);
   return layersState.names.filter((name) => layersState.layers[name].visible).reverse();
 };
-

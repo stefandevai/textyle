@@ -5,10 +5,10 @@ import { selectTile } from "redux/actions";
 import { getTilePositionOnClick, drawGridLines, drawTilePlaceholder } from "utils/tile";
 import { GRID_CANVAS_ID, TILESET_CANVAS_ID, SELECTED_TILE_COLOR_OVERLAY } from "ui/constants";
 
-const TilesetPreview = ({ tilesetName, selectable, tileSize }) => {
+const TilesetPreview = ({ tilesetName, selectable, tileSize, tilesetIndex }) => {
   const dispatch = useDispatch();
   const [selectedTile, setSelectedTile] = useState(null);
-  const [tilesetIndex, setTilesetIndex] = useState(0);
+  const [currentTilesetIndex, setCurrentTilesetIndex] = useState(tilesetIndex);
   const [currentTileSize, setCurrentTileSize] = useState(tileSize);
   const tilegridCanvasRef = useRef(null);
   const tilesetCanvasRef = useRef(null);
@@ -16,6 +16,10 @@ const TilesetPreview = ({ tilesetName, selectable, tileSize }) => {
   useEffect(() => {
     setCurrentTileSize(tileSize);
   }, [tileSize]);
+
+  useEffect(() => {
+    setCurrentTilesetIndex(tilesetIndex);
+  }, [tilesetIndex]);
 
   // Draw the tileset image to the canvas
   useEffect(() => {
@@ -43,7 +47,7 @@ const TilesetPreview = ({ tilesetName, selectable, tileSize }) => {
 
           const tilesetContext = tilesetCanvas.getContext("2d");
           tilesetContext.drawImage(image, 0, 0);
-          setTilesetIndex(data.tilesetIndex);
+          setCurrentTilesetIndex(data.tilesetIndex);
         };
         image.src = e.target.result;
       };
@@ -78,7 +82,7 @@ const TilesetPreview = ({ tilesetName, selectable, tileSize }) => {
     }
 
     const tilePos = getTilePositionOnClick(e, currentTileSize);
-    const tileIndex = tilesetIndex + tilePos[1] * Math.floor(e.target.width / currentTileSize[0]) + tilePos[0];
+    const tileIndex = currentTilesetIndex + tilePos[1] * Math.floor(e.target.width / currentTileSize[0]) + tilePos[0];
     dispatch(selectTile(tileIndex));
     setSelectedTile(tilePos);
   };

@@ -10,20 +10,21 @@ import {
   DIPLAY_SIDEBAR,
   SET_TILE_SIZE,
   ADD_LAYER,
+  UPDATE_LAYER,
   DELETE_LAYER,
   SELECT_LAYER,
   MOVE_LAYER,
   TOGGLE_LAYER_VISIBILITY,
 } from "redux/actionTypes";
 
-export const addTileset = (name, tileSize, data) => ({
+export const addTileset = (name, tileSize, tilesetIndex, data) => ({
   type: ADD_TILESET,
-  payload: { name, tileSize, data },
+  payload: { name, tileSize, tilesetIndex, data },
 });
 
-export const loadExistingTileset = (name, tileSize) => ({
+export const loadExistingTileset = (name, tileSize, tilesetIndex) => ({
   type: LOAD_EXISTING_TILESET,
-  payload: { name, tileSize },
+  payload: { name, tileSize, tilesetIndex },
 });
 
 export const completeTextureLoading = (names) => ({
@@ -36,9 +37,9 @@ export const selectTileset = (name) => ({
   payload: { name },
 });
 
-export const updateTileset = (name, tileSize, data) => ({
+export const updateTileset = (name, tileSize, tilesetIndex) => ({
   type: UPDATE_TILESET,
-  payload: { name, tileSize, data },
+  payload: { name, tileSize, tilesetIndex },
 });
 
 export const deleteTileset = (name) => ({
@@ -69,11 +70,16 @@ export const setTileSize = (size) => ({
 export const addLayer = (obj) => {
   const { name, tileSize, x, y, width, height } = obj || {};
 
-  return ({
+  return {
     type: ADD_LAYER,
     payload: { name, tileSize, x, y, width, height },
-  });
-}
+  };
+};
+
+export const updateLayer = (name, tileSize) => ({
+  type: UPDATE_LAYER,
+  payload: { name, tileSize },
+});
 
 export const deleteLayer = (name) => ({
   type: DELETE_LAYER,

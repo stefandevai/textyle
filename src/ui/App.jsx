@@ -12,12 +12,12 @@ const App = () => {
       <main
         className="flex-1 grid grid-cols-4"
         style={{
-          gridTemplateRows: '1.75rem 1fr',
-          gridTemplateColumns: 'auto 1fr 1fr 1fr',
+          gridTemplateRows: "1.75rem 1fr",
+          gridTemplateColumns: "auto 1fr 1fr 1fr",
         }}
       >
-        <div className='col-start-1 col-end-2 row-start-1 row-end-3 z-20 flex'>
-          <HashRouter className='flex-1'>
+        <div className="col-start-1 col-end-2 row-start-1 row-end-3 z-20 flex">
+          <HashRouter className="flex-1">
             <Sidebar />
           </HashRouter>
         </div>

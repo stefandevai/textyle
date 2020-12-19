@@ -31,6 +31,38 @@ it("should handle ADD_LAYER", () => {
   expect(state.selected).toEqual("Layer 4");
 });
 
+it("should handle UPDATE_LAYER", () => {
+  let state = reducer(
+    {
+      selected: "Layer 1",
+      names: ["Layer 1", "Layer 2", "Layer 3"],
+      layers: {
+        "Layer 1": { visible: true, tileSize: [10, 12] },
+        "Layer 2": { visible: true, tileSize: [32, 32] },
+        "Layer 3": { visible: false, tileSize: [24, 56] },
+      },
+    },
+    {
+      type: types.UPDATE_LAYER,
+      payload: { name: "Layer 2", tileSize: [2, 5] },
+    }
+  );
+
+  expect(state.layers["Layer 2"].tileSize).toEqual([2, 5]);
+  expect(state.layers["Layer 2"].visible).toEqual(true);
+
+  state = reducer(
+    state,
+    {
+      type: types.UPDATE_LAYER,
+      payload: { name: "Layer 3", tileSize: [16, 19] },
+    }
+  );
+
+  expect(state.layers["Layer 3"].tileSize).toEqual([16, 19]);
+  expect(state.layers["Layer 3"].visible).toEqual(false);
+});
+
 it("should handle DELETE_LAYER", () => {
   let state = reducer(
     {

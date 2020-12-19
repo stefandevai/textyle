@@ -38,7 +38,7 @@ export const setTextureData = async (name, tileSize, data) => {
   }
 };
 
-export const updateTextureData = async (name, tileSize, data) => {
+export const updateTextureData = async (name, tileSize, tilesetIndex) => {
   // TODO: If the texture already exists, choose a new name
   try {
     const exists = await hasTexture(name);
@@ -49,12 +49,15 @@ export const updateTextureData = async (name, tileSize, data) => {
 
     const oldData = await get(name, textureStore);
 
-    await set(name, {
-      file: data || oldData.file,
-      tileSize: tileSize || oldData.tileSize,
-      tilesetIndex: oldData.tilesetIndex,
-    }, textureStore);
-
+    await set(
+      name,
+      {
+        file: oldData.file,
+        tileSize: tileSize || oldData.tileSize,
+        tilesetIndex: tilesetIndex || oldData.tilesetIndex,
+      },
+      textureStore
+    );
   } catch (err) {
     console.error(err);
   }
@@ -96,7 +99,6 @@ export const loadTilesFromExistingTileset = async (tileset, tileSize) => {
       return;
     }
 
-
     const tilesetIndex = await TileManagerInstance.addTiles(tileset, tileSize);
 
     // Update idb texture with the new index
@@ -106,6 +108,4 @@ export const loadTilesFromExistingTileset = async (tileset, tileSize) => {
   } catch (err) {
     console.error(err);
   }
-
-  reduxStore.dispatch(completeTextureLoading());
 };

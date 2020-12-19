@@ -26,4 +26,3 @@ it("should display sidebar tabs", () => {
   button = screen.getByTestId(tabs.TAB_HELP);
   expect(button).toBeInTheDocument();
 });
-

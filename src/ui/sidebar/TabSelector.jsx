@@ -5,7 +5,7 @@ import * as tabs from "resources/tabs";
 import { tabbarColor, dividerBorderColor } from "resources/styles";
 import { TOOLTIP_DELAY } from "ui/constants";
 import { mdiMap, mdiViewModule, mdiContentSave, mdiUpload, mdiHelpCircleOutline, mdiCog } from "@mdi/js";
-import { ReactComponent as Logo } from 'resources/logo.svg';
+import { ReactComponent as Logo } from "resources/logo.svg";
 
 const TabSelector = () => {
   const sectionsData = [
@@ -26,16 +26,15 @@ const TabSelector = () => {
   ));
 
   return (
-    <div
-      className={`flex flex-col justify-end bg-almost-black border-r ${dividerBorderColor}`}
-    >
-      <div className='flex-1 flex flex-col justify-start'>
-        <div className='py-3 px-0.5'>
+    <div className={`flex flex-col justify-end bg-almost-black border-r ${dividerBorderColor}`}>
+      <div className="flex-1 flex flex-col justify-start">
+        <div className="py-3 px-0.5">
           <Logo />
         </div>
       </div>
       {sections}
-    </div>);
+    </div>
+  );
 };
 
 export default TabSelector;

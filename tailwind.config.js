@@ -1,13 +1,13 @@
 module.exports = {
-  purge: ["./src/ui/**/*.{js,jsx}",  "./src/resources/**/*.{js,jsx}", "./src/*.{js,jsx}", "./public/index.html"],
+  purge: ["./src/ui/**/*.{js,jsx}", "./src/resources/**/*.{js,jsx}", "./src/*.{js,jsx}", "./public/index.html"],
   darkMode: false,
   theme: {
     extend: {
       colors: {
-        'almost-black': '#0a0913'
+        "almost-black": "#0a0913",
       },
       transitionProperty: {
-        'width': 'width',
+        width: "width",
       },
     },
   },

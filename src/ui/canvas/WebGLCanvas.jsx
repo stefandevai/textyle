@@ -26,12 +26,12 @@ const WebGLCanvas = () => {
       TilemapInstance.init().then(() => {
         dispatch(
           addLayer({
-            name: '',
+            name: "",
             tileSize: tileSize,
             x: 0,
             y: 0,
             width: Math.floor(tilesCanvasRef.current.width / tileSize[0]) + 1,
-            height: Math.floor(tilesCanvasRef.current.height / tileSize[1]) + 1
+            height: Math.floor(tilesCanvasRef.current.height / tileSize[1]) + 1,
           })
         );
       });

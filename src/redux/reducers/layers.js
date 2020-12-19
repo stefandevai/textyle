@@ -1,4 +1,4 @@
-import { ADD_LAYER, DELETE_LAYER, SELECT_LAYER, MOVE_LAYER, TOGGLE_LAYER_VISIBILITY } from "redux/actionTypes";
+import { ADD_LAYER, UPDATE_LAYER, DELETE_LAYER, SELECT_LAYER, MOVE_LAYER, TOGGLE_LAYER_VISIBILITY } from "redux/actionTypes";
 
 const initialState = {
   selected: "",
@@ -13,7 +13,7 @@ export default function (state = initialState, action) {
       let { name, tileSize } = action.payload;
 
       // If name is not provided, add a default one
-      if (!name || name === '') {
+      if (!name || name === "") {
         name = `Layer ${state.lastIdx + 1}`;
       }
 
@@ -30,6 +30,28 @@ export default function (state = initialState, action) {
         },
         selected: name,
         lastIdx: state.lastIdx + 1,
+      };
+    }
+
+    case UPDATE_LAYER: {
+      let { name, tileSize } = action.payload;
+
+      if (!name || name === "" || !state.names.includes(name)) {
+        return state;
+      }
+
+      const oldLayer = state.layers[name];
+
+      return {
+        ...state,
+        layers: {
+          ...state.layers,
+          [name]: {
+            id: oldLayer.id,
+            tileSize: tileSize || oldLayer.tileSize,
+            visible: oldLayer.visible,
+          },
+        },
       };
     }
 

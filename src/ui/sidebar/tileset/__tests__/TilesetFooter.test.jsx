@@ -14,7 +14,7 @@ it("should delete a tileset", () => {
   const initialState = {
     tileset: {
       selectedTileset: tilesetName,
-    }
+    },
   };
 
   const store = createStore(rootReducer, initialState);

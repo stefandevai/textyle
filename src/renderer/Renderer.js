@@ -64,7 +64,7 @@ class Renderer {
    */
   updateViewport = (width, height) => {
     this.camera.updateViewport(width, height);
-  }
+  };
 
   /**
    * Main render loop.
