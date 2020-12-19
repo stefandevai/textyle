@@ -1,6 +1,6 @@
 import {
   ADD_TILESET,
-  LOAD_EXISTING_TILESETS,
+  LOAD_EXISTING_TILESET,
   COMPLETE_TEXTURE_LOADING,
   SELECT_TILESET,
   UPDATE_TILESET,
@@ -21,9 +21,9 @@ export const addTileset = (name, tileSize, data) => ({
   payload: { name, tileSize, data },
 });
 
-export const loadExistingTilesets = (names) => ({
-  type: LOAD_EXISTING_TILESETS,
-  payload: { names },
+export const loadExistingTileset = (name, tileSize) => ({
+  type: LOAD_EXISTING_TILESET,
+  payload: { name, tileSize },
 });
 
 export const completeTextureLoading = (names) => ({

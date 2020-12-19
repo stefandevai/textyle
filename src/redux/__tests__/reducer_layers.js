@@ -1,15 +1,6 @@
 import * as types from "../actionTypes";
 import reducer from "../reducers/layers";
 
-it("should return the initial state", () => {
-  expect(reducer(undefined, {})).toEqual({
-    names: [],
-    layers: {},
-    selected: "",
-    lastIdx: 0,
-  });
-});
-
 it("should handle ADD_LAYER", () => {
   let state = reducer(undefined, {
     type: types.ADD_LAYER,

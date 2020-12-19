@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getTextureData, hasTexture } from "idbTextureStore";
 import { selectTile } from "redux/actions";
 import { getTilePositionOnClick, drawGridLines, drawTilePlaceholder } from "utils/tile";

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTileset, loadExistingTilesets } from "redux/actions";
-import { getTextureNames, hasTexture } from "idbTextureStore";
+import { addTileset, loadExistingTileset } from "redux/actions";
+import { getTextureNames, getTextureData, hasTexture } from "idbTextureStore";
 import LayerList from "ui/sidebar/tileset/LayerList";
 import TilesetPreview from "ui/sidebar/tileset/TilesetPreview";
 import TilesetSelector from "ui/sidebar/tileset/TilesetSelector";
@@ -11,19 +11,21 @@ import FileInput from "ui/common/FileInput";
 import TilesetFooter from "ui/sidebar/tileset/TilesetFooter";
 import { ADD_TILESET_TITLE } from "ui/constants";
 
-//const tileSize = [32, 32];
-
 const TilesetManager = () => {
   const dispatch = useDispatch();
   const tilesetNames = useSelector((state) => state.tileset.tilesetNames);
   const hasLoadedTextures = useSelector((state) => state.tileset.hasLoadedTextures);
   const selectedTileset = useSelector((state) => state.tileset.selectedTileset);
   const tileSize = useSelector((state) => state.canvas.tileSize);
+  const tilesetData = useSelector(state => state.tileset.tilesets[selectedTileset]);
 
   // Load existing tilesets
   useEffect(() => {
-    getTextureNames().then((textures) => {
-      dispatch(loadExistingTilesets(textures));
+    getTextureNames().then(async (textures) => {
+      for (const textureName of textures) {
+        const data = await getTextureData(textureName);
+        dispatch(loadExistingTileset(textureName, data.tileSize));
+      }
     }); // eslint-disable-next-line
   }, []);
 
@@ -46,10 +48,12 @@ const TilesetManager = () => {
             <FileInput title={ADD_TILESET_TITLE} onUpload={(e) => onTilesetUpload(e)} />
           </div>
 
-          <TilesetPreview
-            tilesetName={selectedTileset}
-            selectable={true}
-          />
+          {tilesetData && 
+            <TilesetPreview
+              tilesetName={selectedTileset}
+              selectable={true}
+              tileSize={tilesetData.tileSize}
+            />}
 
           {selectedTileset && <TilesetFooter selectedTileset={selectedTileset} />}
         </>

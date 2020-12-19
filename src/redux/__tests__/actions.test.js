@@ -12,13 +12,12 @@ it("should create an action an add a tileset", () => {
 });
 
 it("should create an action an add multiple tilesets", () => {
-  const names = ["tileset1", "tileset2", "tileset3"];
   const expectedAction = {
-    type: types.LOAD_EXISTING_TILESETS,
-    payload: { names },
+    type: types.LOAD_EXISTING_TILESET,
+    payload: { name: "tileset1", tileSize: [32, 32] },
   };
 
-  expect(actions.loadExistingTilesets(names)).toEqual(expectedAction);
+  expect(actions.loadExistingTileset("tileset1", [32, 32])).toEqual(expectedAction);
 });
 
 it("should create an action an add complete loading textures", () => {

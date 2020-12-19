@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateTileset } from 'redux/actions';
 import { getTextureData } from "idbTextureStore";
 import Modal from 'ui/common/Modal';
@@ -10,13 +10,16 @@ const TilesetSettingsModal = ({ tilesetName, open, onClose }) => {
   const dispatch = useDispatch();
   const [tileWidth, setTileWidth] = useState(0);
   const [tileHeight, setTileHeight] = useState(0);
+  const oldTileSize = useSelector(state => state.tileset.tilesets[tilesetName].tileSize);
 
   useEffect(() => {
-    getTextureData(tilesetName).then((data) => {
-      setTileWidth(data.tileSize[0]);
-      setTileHeight(data.tileSize[1]);
-    });
-  }, [tilesetName]);
+    if (!oldTileSize) {
+      return;
+    }
+
+    setTileWidth(oldTileSize[0]);
+    setTileHeight(oldTileSize[1]);
+  }, [oldTileSize]);
 
   const changeGridWidth = (e) => {
     setTileWidth(e.target.value);
