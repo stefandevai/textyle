@@ -27,11 +27,11 @@ class Tilemap {
   }
 
   widthInPixels = () => {
-    return 0;
+    return this.map.layer_width_in_pixels();
   }
 
   heightInPixels = () => {
-    return 0;
+    return this.map.layer_height_in_pixels();
   }
 
   addLayer = (x, y, width, height, tileSize) => {
