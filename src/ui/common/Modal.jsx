@@ -30,7 +30,9 @@ const Modal = ({ children, open, title, onClose }) => {
         },
       }}
     >
-      <h1><strong>{title}</strong></h1>
+      <h1>
+        <strong>{title}</strong>
+      </h1>
       <div className="text-xs">{children}</div>
     </ReactModal>
   );

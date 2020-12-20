@@ -73,7 +73,15 @@ impl Tilemap {
     }
 
     // Add a new layer and return it's index in the own HashMap
-    pub fn add_layer(&mut self, x: i32, y: i32, width: u32, height: u32, tile_width: u32, tile_size: u32) -> u32 {
+    pub fn add_layer(
+        &mut self,
+        x: i32,
+        y: i32,
+        width: u32,
+        height: u32,
+        tile_width: u32,
+        tile_size: u32,
+    ) -> u32 {
         let layer = Layer::new(x, y, width, height, tile_width, tile_size);
         let last_id = self.next_id;
 

@@ -27,7 +27,7 @@ const ExportSettings = () => {
   return (
     <Tab title="Export Map">
       <TabContent>
-        <div className='mb-2'>
+        <div className="mb-2">
           <FormatSelector format={format} onOptionSelected={onOptionSelected} />
         </div>
         <Button text="Export" onClick={handleExport} />

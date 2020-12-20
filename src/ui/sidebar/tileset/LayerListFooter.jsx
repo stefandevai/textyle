@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addLayer, deleteLayer } from "redux/actions";
 import { mdiDelete, mdiPlaylistPlus, mdiCog } from "@mdi/js";

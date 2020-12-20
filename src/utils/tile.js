@@ -73,7 +73,7 @@ export const drawOutline = ({ context, width, height, color, dashed = false, off
   context.moveTo(width + offset[0] + 0.5, offset[1]);
   context.lineTo(width + offset[0] + 0.5, height + offset[1]);
   context.stroke();
-}
+};
 
 export const drawGrid = ({ context, width, height, tileSize, color, dashed = false, offset = [0, 0] }) => {
   //const context = canvas.getContext("2d");
@@ -105,10 +105,5 @@ export const drawTilePlaceholder = ({ canvas, position, tileSize }) => {
 
   // Draw square on selected tile
   context.fillStyle = SELECTED_TILE_COLOR_OVERLAY;
-  context.fillRect(
-    position[0] * tileSize[0] + 1,
-    position[1] * tileSize[1] + 1,
-    tileSize[0] - 1,
-    tileSize[1] - 1
-  );
+  context.fillRect(position[0] * tileSize[0] + 1, position[1] * tileSize[1] + 1, tileSize[0] - 1, tileSize[1] - 1);
 };

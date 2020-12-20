@@ -36,8 +36,8 @@ const ProjectSettings = () => {
             <input type="number" value={tileHeight} onChange={changeTileHeight} className="w-14 ml-1" />
           </div>
 
-          <div className='mb-2 flex items-center'>
-            <input type="checkbox" name="apply-globally" className='mr-2 bg-green-500' />
+          <div className="mb-2 flex items-center">
+            <input type="checkbox" name="apply-globally" className="mr-2 bg-green-500" />
             <label htmlFor="apply-globally">Apply to existing layers and tilesets</label>
           </div>
 

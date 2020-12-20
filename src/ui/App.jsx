@@ -3,7 +3,7 @@ import Sidebar from "ui/sidebar/Sidebar";
 import Toolbar from "ui/canvas/Toolbar";
 import { dividerBorderColor } from "resources/styles";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 const App = () => {
   return (

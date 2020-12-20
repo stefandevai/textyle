@@ -91,7 +91,11 @@ class Renderer {
     this.batch.begin();
 
     // Emplace a background with solid color
-    this.batch.emplaceQuad([0, 0], [TilemapInstance.widthInPixels(), TilemapInstance.heightInPixels()], [0.12157, 0.16078, 0.21569, 1.0]);
+    this.batch.emplaceQuad(
+      [0, 0],
+      [TilemapInstance.widthInPixels(), TilemapInstance.heightInPixels()],
+      [0.12157, 0.16078, 0.21569, 1.0]
+    );
 
     // Iterates through layer names from the redux reduxStore,
     // gets the corresponding tiles and renders them in order.

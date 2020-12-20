@@ -8,7 +8,7 @@ import * as testIds from "resources/testIds";
 
 it("should show and hide the sidebar on multiple clicks", () => {
   console.warn = jest.fn();
-  localStorage.setItem('welcomed', 'true');
+  localStorage.setItem("welcomed", "true");
 
   render(
     <HashRouter>

@@ -22,7 +22,14 @@ pub struct Layer {
 
 #[wasm_bindgen]
 impl Layer {
-    pub fn new(x: i32, y: i32, width: u32, height: u32, tile_width: u32, tile_height: u32) -> Layer {
+    pub fn new(
+        x: i32,
+        y: i32,
+        width: u32,
+        height: u32,
+        tile_width: u32,
+        tile_height: u32,
+    ) -> Layer {
         let tiles = vec![-1; (width * height) as usize];
 
         Layer {

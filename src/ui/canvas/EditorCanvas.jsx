@@ -13,12 +13,12 @@ const EditorCanvas = () => {
   const [offset, setOffset] = useState([0, 0]);
   const [zoomLevel, setZoomLevel] = useState(1.0);
   const { selectedLayer, layers } = useSelector((state) => ({
-    selectedLayer: {name: state.layers.selected, ...state.layers.layers[state.layers.selected]},
+    selectedLayer: { name: state.layers.selected, ...state.layers.layers[state.layers.selected] },
     layers: state.layers.layers,
   }));
   const selectedTile = useSelector((state) => state.tileset.selectedTile);
   const { selectedTool } = useSelector((state) => state.canvas);
-  const showGrid = useSelector(state => state.canvas.showGrid);
+  const showGrid = useSelector((state) => state.canvas.showGrid);
 
   useEffect(() => {
     const refElement = editingCanvasRef.current;
@@ -69,7 +69,6 @@ const EditorCanvas = () => {
     };
   }, [dispatch]);
 
-
   useEffect(() => {
     const canvas = editingCanvasRef.current;
 
@@ -103,7 +102,6 @@ const EditorCanvas = () => {
       offset: offset,
     });
   }, [selectedLayer, offset, zoomLevel, showGrid]);
-
 
   const handleOneTimeTools = (e) => {
     switch (selectedTool) {
@@ -191,10 +189,10 @@ const EditorCanvas = () => {
 
   const handleDragStart = (e) => {
     // Hide drag image with a 1x1 transparent pixel image
-    const pixel = document.createElement('img');
-    pixel.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+    const pixel = document.createElement("img");
+    pixel.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
     e.dataTransfer.setDragImage(pixel, 0, 0);
-  }
+  };
 
   const handleDrag = (e) => {
     // Abort handling tool if no layer is selected
@@ -222,7 +220,7 @@ const EditorCanvas = () => {
       onDragOver={handleDrag}
       onDragStart={handleDragStart}
       className="col-span-full row-span-full z-10 w-full h-full"
-      draggable='true'
+      draggable="true"
     />
   );
 };

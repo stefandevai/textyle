@@ -4,17 +4,26 @@ import { toggleGrid } from "redux/actions";
 import Tool from "ui/canvas/Tool";
 import Toggle from "ui/canvas/Toggle";
 import { toolbarColor, dividerBorderColor, toolbarHeight } from "resources/styles";
-import { mdiPencil, mdiEraser, mdiPail, mdiCursorDefaultOutline, mdiHandRight, mdiMagnify, mdiGrid, mdiGridOff } from "@mdi/js";
+import {
+  mdiPencil,
+  mdiEraser,
+  mdiPail,
+  mdiCursorDefaultOutline,
+  mdiHandRight,
+  mdiMagnify,
+  mdiGrid,
+  mdiGridOff,
+} from "@mdi/js";
 import * as tools from "resources/tools";
 import * as toggles from "resources/toggles";
 
 const Toolbar = () => {
   const dispatch = useDispatch();
-  const showGrid = useSelector(state => state.canvas.showGrid);
+  const showGrid = useSelector((state) => state.canvas.showGrid);
 
   const toggleGridState = () => {
     dispatch(toggleGrid());
-  }
+  };
 
   return (
     <nav
@@ -29,7 +38,7 @@ const Toolbar = () => {
         <Tool iconPath={mdiMagnify} tool={tools.MAGNIFY_TOOL} />
       </div>
 
-      <div className='flex flex-row justify-end items-center flex-grow'>
+      <div className="flex flex-row justify-end items-center flex-grow">
         <Toggle
           iconOn={mdiGridOff}
           iconOff={mdiGrid}

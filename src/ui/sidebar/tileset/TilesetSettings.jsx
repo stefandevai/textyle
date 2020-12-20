@@ -55,7 +55,12 @@ const TilesetManager = () => {
           </div>
 
           {tilesetData && (
-            <TilesetPreview tilesetName={selectedTileset} selectable={true} tileSize={tilesetData.tileSize} tilesetIndex={tilesetData.tilesetIndex} />
+            <TilesetPreview
+              tilesetName={selectedTileset}
+              selectable={true}
+              tileSize={tilesetData.tileSize}
+              tilesetIndex={tilesetData.tilesetIndex}
+            />
           )}
 
           {selectedTileset && <TilesetFooter selectedTileset={selectedTileset} />}

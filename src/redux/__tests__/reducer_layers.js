@@ -51,13 +51,10 @@ it("should handle UPDATE_LAYER", () => {
   expect(state.layers["Layer 2"].tileSize).toEqual([2, 5]);
   expect(state.layers["Layer 2"].visible).toEqual(true);
 
-  state = reducer(
-    state,
-    {
-      type: types.UPDATE_LAYER,
-      payload: { name: "Layer 3", tileSize: [16, 19] },
-    }
-  );
+  state = reducer(state, {
+    type: types.UPDATE_LAYER,
+    payload: { name: "Layer 3", tileSize: [16, 19] },
+  });
 
   expect(state.layers["Layer 3"].tileSize).toEqual([16, 19]);
   expect(state.layers["Layer 3"].visible).toEqual(false);
