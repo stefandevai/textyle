@@ -12,7 +12,6 @@ import tilesetSample from 'resources/tileset_sample.png';
 const WelcomeModal = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  //const [open, setOpen] = useState(true);
   const [markdownSource, setMarkdownSource] = useState('');
   const history = useHistory();
 
@@ -23,19 +22,18 @@ const WelcomeModal = () => {
       return;
     }
 
-    setOpen(true);
     window.localStorage.setItem('welcomed', 'true');
+    setOpen(true);
   }, [])
 
   const onClose = () => {
-    //const tilesetSampleFile = dataURLtoFile(tilesetSample, 'tileset_sample.png');
-    //dispatch(addTileset('Example Tileset', [32, 32], TileManagerInstance.lastId, tilesetSampleFile));
-    //dispatch(completeTextureLoading());
+    const tilesetSampleFile = dataURLtoFile(tilesetSample, 'tileset_sample.png');
+    dispatch(addTileset('Example Tileset', [32, 32], TileManagerInstance.lastId, tilesetSampleFile));
+    dispatch(completeTextureLoading());
     dispatch(displaySidebar(true));
     setOpen(false);
     history.replace('/tiles');
   }
-    //? (<Modal title="Hello and welcome to Textyle!" open={open} onClose={onClose}>
 
   return open
     ? (<Modal open={open} onClose={onClose}>
