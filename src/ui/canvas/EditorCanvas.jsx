@@ -80,14 +80,18 @@ const EditorCanvas = () => {
 
 
     drawOutline({
-      canvas: canvas,
+      context: context,
+      width: TilemapInstance.width(),
+      height: TilemapInstance.height(),
       color: EDITOR_GRID_COLOR,
       dashed: true,
       offset: offset,
     });
 
     drawGrid({
-      canvas: canvas,
+      context: context,
+      width: TilemapInstance.width(),
+      height: TilemapInstance.height(),
       color: EDITOR_GRID_COLOR,
       tileSize: selectedLayer.tileSize,
       dashed: true,

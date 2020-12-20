@@ -5,8 +5,6 @@ import RendererInstance from "renderer/Renderer";
 import TilemapInstance from "tilemap";
 import { TILEMAP_CANVAS_ID } from "ui/constants";
 
-//const tileSize = [32, 32];
-
 const WebGLCanvas = () => {
   const dispatch = useDispatch();
   const tilesCanvasRef = useRef();
