@@ -105,6 +105,9 @@ export default class Batch2D {
 
     // Used for rendering
     this.indexCount = 0;
+
+    // Add a 1 pixel texture to avoid warnings when no textures are used
+    this.textureManager.add(this.gl);
   };
 
   /**
@@ -121,11 +124,11 @@ export default class Batch2D {
    * @param {number[]} position - world coordinates of the tile.
    * @param {number} position[0] - world x coordinate of the tile.
    * @param {number} position[1] - world y coordinate of the tile.
-   * @param {Object} [color] - RGBA color representation for the tile.
-   * @param {number} [color.r] - Red RGBA color part.
-   * @param {number} [color.g] - Green RGBA color part.
-   * @param {number} [color.b] - Blue RGBA color part.
-   * @param {number} [color.a] - Alpha RGBA color part.
+   * @param {number[]} [color] - RGBA color representation for the tile.
+   * @param {number} [color[0]] - Red RGBA color part.
+   * @param {number} [color[1]] - Green RGBA color part.
+   * @param {number} [color[2]] - Blue RGBA color part.
+   * @param {number} [color[3]] - Alpha RGBA color part.
    */
   emplace = (tileValue, position, color) => {
     const tileData = TileManagerInstance.get(tileValue);
@@ -134,19 +137,19 @@ export default class Batch2D {
       return;
     }
 
-    let r = 0.0;
-    let g = 0.0;
-    let b = 0.0;
-    let a = 0.0;
+    let r = 1.0;
+    let g = 1.0;
+    let b = 1.0;
+    let a = 1.0;
 
     if (color) {
-      r = color.r;
-      g = color.g;
-      b = color.b;
-      a = color.a;
+      r = color[0];
+      g = color[1];
+      b = color[2];
+      a = color[3];
     }
 
-    let textureIdx = 0.0;
+    let textureIdx = -1.0;
 
     if (this.textureManager.has(tileData.tileset)) {
       textureIdx = this.textureManager.getIndex(tileData.tileset);
@@ -203,6 +206,76 @@ export default class Batch2D {
   };
 
   /**
+   * Emplaces a single quad to the batch.
+   *
+   * @param {number[]} position - quad world coordinates.
+   * @param {number} position[0] - quad world x coordinate.
+   * @param {number} position[1] - quad world y coordinate.
+   * @param {number[]} size - quad dimensions.
+   * @param {number} size[0] - quad width.
+   * @param {number} size[1] - quad height.
+   * @param {number[]} [color] - RGBA color representation for the quad.
+   * @param {number} [color[0]] - Red RGBA color part.
+   * @param {number} [color[1]] - Green RGBA color part.
+   * @param {number} [color[2]] - Blue RGBA color part.
+   * @param {number} [color[3]] - Alpha RGBA color part.
+   */
+  emplaceQuad = (position, dimensions, color) => {
+    const r = color[0];
+    const g = color[1];
+    const b = color[2];
+    const a = color[3];
+
+    const textureIdx = -1.0;
+
+    // Top left
+    this.vertices[this.vertexIndex++] = position[0];
+    this.vertices[this.vertexIndex++] = position[1];
+    this.vertices[this.vertexIndex++] = 0.0;
+    this.vertices[this.vertexIndex++] = 0.0;
+    this.vertices[this.vertexIndex++] = textureIdx;
+    this.vertices[this.vertexIndex++] = r;
+    this.vertices[this.vertexIndex++] = g;
+    this.vertices[this.vertexIndex++] = b;
+    this.vertices[this.vertexIndex++] = a;
+
+    // Top right
+    this.vertices[this.vertexIndex++] = position[0] + dimensions[0];
+    this.vertices[this.vertexIndex++] = position[1];
+    this.vertices[this.vertexIndex++] = 0.0;
+    this.vertices[this.vertexIndex++] = 0.0;
+    this.vertices[this.vertexIndex++] = textureIdx;
+    this.vertices[this.vertexIndex++] = r;
+    this.vertices[this.vertexIndex++] = g;
+    this.vertices[this.vertexIndex++] = b;
+    this.vertices[this.vertexIndex++] = a;
+
+    // Bottom right
+    this.vertices[this.vertexIndex++] = position[0] + dimensions[0];
+    this.vertices[this.vertexIndex++] = position[1] + dimensions[1];
+    this.vertices[this.vertexIndex++] = 0.0;
+    this.vertices[this.vertexIndex++] = 0.0;
+    this.vertices[this.vertexIndex++] = textureIdx;
+    this.vertices[this.vertexIndex++] = r;
+    this.vertices[this.vertexIndex++] = g;
+    this.vertices[this.vertexIndex++] = b;
+    this.vertices[this.vertexIndex++] = a;
+
+    // Bottom left
+    this.vertices[this.vertexIndex++] = position[0];
+    this.vertices[this.vertexIndex++] = position[1] + dimensions[1];
+    this.vertices[this.vertexIndex++] = 0.0;
+    this.vertices[this.vertexIndex++] = 0.0;
+    this.vertices[this.vertexIndex++] = textureIdx;
+    this.vertices[this.vertexIndex++] = r;
+    this.vertices[this.vertexIndex++] = g;
+    this.vertices[this.vertexIndex++] = b;
+    this.vertices[this.vertexIndex++] = a;
+
+    this.indexCount += 6;
+  };
+
+  /**
    * Finalizes process of emplacing tile data and write it to the WebGL buffer.
    */
   flush = () => {
@@ -225,7 +298,6 @@ export default class Batch2D {
       this.shaderProgram.setInt(`${UNIFORM_SAMPLERS}[${idx}]`, idx);
       ++idx;
     });
-
     this.gl.activeTexture(this.gl.TEXTURE0);
 
     this.gl.bindVertexArray(this.VAO);
