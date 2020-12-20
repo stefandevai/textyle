@@ -11,6 +11,7 @@ const EditorCanvas = () => {
   const dispatch = useDispatch();
   const editingCanvasRef = useRef();
   const [offset, setOffset] = useState([0, 0]);
+  const [zoomLevel, setZoomLevel] = useState(1.0);
   const { selectedLayer, layers } = useSelector((state) => ({
     selectedLayer: {name: state.layers.selected, ...state.layers.layers[state.layers.selected]},
     layers: state.layers.layers,
@@ -78,11 +79,10 @@ const EditorCanvas = () => {
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-
     drawOutline({
       context: context,
-      width: TilemapInstance.width(),
-      height: TilemapInstance.height(),
+      width: TilemapInstance.width() * zoomLevel,
+      height: TilemapInstance.height() * zoomLevel,
       color: EDITOR_GRID_COLOR,
       dashed: true,
       offset: offset,
@@ -90,20 +90,19 @@ const EditorCanvas = () => {
 
     drawGrid({
       context: context,
-      width: TilemapInstance.width(),
-      height: TilemapInstance.height(),
+      width: TilemapInstance.width() * zoomLevel,
+      height: TilemapInstance.height() * zoomLevel,
       color: EDITOR_GRID_COLOR,
-      tileSize: selectedLayer.tileSize,
+      tileSize: [selectedLayer.tileSize[0] * zoomLevel, selectedLayer.tileSize[1] * zoomLevel],
       dashed: true,
       offset: offset,
     });
-  }, [selectedLayer, offset]);
+  }, [selectedLayer, offset, zoomLevel]);
 
 
   const handleOneTimeTools = (e) => {
     switch (selectedTool) {
       case tools.FILL_TOOL: {
-        const zoomLevel = RendererInstance.camera.getZoomLevel();
         const position = getTilePositionOnClick(
           e,
           [selectedLayer.tileSize[0] * zoomLevel, selectedLayer.tileSize[1] * zoomLevel],
@@ -123,8 +122,10 @@ const EditorCanvas = () => {
       case tools.MAGNIFY_TOOL: {
         if (e.altKey) {
           RendererInstance.camera.decrementZoom();
+          setZoomLevel(RendererInstance.camera.getZoomLevel());
         } else {
           RendererInstance.camera.incrementZoom();
+          setZoomLevel(RendererInstance.camera.getZoomLevel());
         }
       }
 
@@ -134,7 +135,6 @@ const EditorCanvas = () => {
   };
 
   const handleContinuousTools = (e) => {
-    const zoomLevel = RendererInstance.camera.getZoomLevel();
     const position = getTilePositionOnClick(
       e,
       [selectedLayer.tileSize[0] * zoomLevel, selectedLayer.tileSize[1] * zoomLevel],
