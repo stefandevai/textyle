@@ -8,6 +8,7 @@ import * as testIds from "resources/testIds";
 
 it("should show and hide the sidebar on multiple clicks", () => {
   console.warn = jest.fn();
+  localStorage.setItem('welcomed', 'true');
 
   render(
     <HashRouter>
@@ -35,7 +36,7 @@ it("should show and hide the sidebar on multiple clicks", () => {
   sidebar = screen.queryByTestId(testIds.SIDEBAR_ELEMENT);
   expect(sidebar).toBeInTheDocument();
 
-  button = screen.getByTestId(tabs.TAB_IMPORT);
+  button = screen.getByTestId(tabs.TAB_HELP);
   fireEvent.click(button);
 
   sidebar = screen.queryByTestId(testIds.SIDEBAR_ELEMENT);

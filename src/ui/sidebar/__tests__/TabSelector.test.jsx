@@ -17,8 +17,8 @@ it("should display sidebar tabs", () => {
   button = screen.getByTestId(tabs.TAB_EXPORT);
   expect(button).toBeInTheDocument();
 
-  button = screen.getByTestId(tabs.TAB_IMPORT);
-  expect(button).toBeInTheDocument();
+  //button = screen.getByTestId(tabs.TAB_IMPORT);
+  //expect(button).toBeInTheDocument();
 
   button = screen.getByTestId(tabs.TAB_SETTINGS);
   expect(button).toBeInTheDocument();
