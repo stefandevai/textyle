@@ -63,4 +63,3 @@ const TilesetSettingsModal = ({ layerName, open, onClose }) => {
 };
 
 export default TilesetSettingsModal;
-

@@ -15,12 +15,21 @@ pub struct Layer {
     y: i32,
     width: u32,
     height: u32,
+    tile_width: u32,
+    tile_height: u32,
     tiles: Vec<i32>,
 }
 
 #[wasm_bindgen]
 impl Layer {
-    pub fn new(x: i32, y: i32, width: u32, height: u32) -> Layer {
+    pub fn new(
+        x: i32,
+        y: i32,
+        width: u32,
+        height: u32,
+        tile_width: u32,
+        tile_height: u32,
+    ) -> Layer {
         let tiles = vec![-1; (width * height) as usize];
 
         Layer {
@@ -28,6 +37,8 @@ impl Layer {
             y: y,
             width: width,
             height: height,
+            tile_width: tile_width,
+            tile_height: tile_height,
             tiles: tiles,
         }
     }
@@ -46,6 +57,14 @@ impl Layer {
 
     pub fn height(&self) -> u32 {
         self.height
+    }
+
+    pub fn width_in_pixels(&self) -> u32 {
+        self.width * self.tile_width
+    }
+
+    pub fn height_in_pixels(&self) -> u32 {
+        self.height * self.tile_height
     }
 
     pub fn get(&self, x: i32, y: i32) -> i32 {

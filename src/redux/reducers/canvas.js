@@ -1,11 +1,12 @@
-import { SELECT_TOOL, DIPLAY_SIDEBAR, SET_TILE_SIZE } from "redux/actionTypes";
+import { SELECT_TOOL, DIPLAY_SIDEBAR, TOGGLE_GRID, SET_TILE_SIZE } from "redux/actionTypes";
 import { PLACEMENT_TOOL } from "resources/tools";
 
 // TODO: Change way of dealing with tile sizes
 const initialState = {
   selectedTool: PLACEMENT_TOOL,
-  showSidebar: false,
   tileSize: [32, 32],
+  showSidebar: false,
+  showGrid: true,
 };
 
 export default function (state = initialState, action) {
@@ -15,14 +16,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         selectedTool: tool,
-      };
-    }
-
-    case DIPLAY_SIDEBAR: {
-      const { display } = action.payload;
-      return {
-        ...state,
-        showSidebar: display,
       };
     }
 
@@ -36,6 +29,21 @@ export default function (state = initialState, action) {
       return {
         ...state,
         tileSize: size,
+      };
+    }
+
+    case DIPLAY_SIDEBAR: {
+      const { display } = action.payload;
+      return {
+        ...state,
+        showSidebar: display,
+      };
+    }
+
+    case TOGGLE_GRID: {
+      return {
+        ...state,
+        showGrid: !state.showGrid,
       };
     }
 

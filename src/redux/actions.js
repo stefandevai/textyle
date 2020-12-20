@@ -8,6 +8,7 @@ import {
   SELECT_TILE,
   SELECT_TOOL,
   DIPLAY_SIDEBAR,
+  TOGGLE_GRID,
   SET_TILE_SIZE,
   ADD_LAYER,
   UPDATE_LAYER,
@@ -60,6 +61,11 @@ export const selectTool = (tool) => ({
 export const displaySidebar = (display) => ({
   type: DIPLAY_SIDEBAR,
   payload: { display },
+});
+
+export const toggleGrid = () => ({
+  type: TOGGLE_GRID,
+  payload: {},
 });
 
 export const setTileSize = (size) => ({

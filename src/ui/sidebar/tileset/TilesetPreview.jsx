@@ -67,7 +67,9 @@ const TilesetPreview = ({ tilesetName, selectable, tileSize, tilesetIndex }) => 
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     drawGrid({
-      canvas: canvas,
+      context: context,
+      width: canvas.width,
+      height: canvas.height,
       tileSize: currentTileSize,
       color: TILESET_GRID_COLOR,
     });

@@ -1,4 +1,11 @@
-import { ADD_LAYER, UPDATE_LAYER, DELETE_LAYER, SELECT_LAYER, MOVE_LAYER, TOGGLE_LAYER_VISIBILITY } from "redux/actionTypes";
+import {
+  ADD_LAYER,
+  UPDATE_LAYER,
+  DELETE_LAYER,
+  SELECT_LAYER,
+  MOVE_LAYER,
+  TOGGLE_LAYER_VISIBILITY,
+} from "redux/actionTypes";
 
 const initialState = {
   selected: "",

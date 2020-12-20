@@ -20,4 +20,3 @@ it("it should display a file input button when mount", () => {
   let fileInput = screen.getByTestId(testIds.TILESET_FILE_INPUT);
   expect(fileInput).toBeInTheDocument();
 });
-

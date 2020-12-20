@@ -39,6 +39,11 @@ class Texture {
     const pixel = new Uint8Array([0, 0, 0, 0]);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.width, this.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
 
+    // If no idbKey was given, let the texture be a pixel
+    if (!this.idbKey) {
+      return;
+    }
+
     getImageBitmap(this.idbKey).then((bitmap) => {
       if (!bitmap) {
         return;

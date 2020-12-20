@@ -26,7 +26,15 @@ class Tilemap {
     return this.map.height();
   }
 
-  addLayer = (x, y, width, height) => {
+  widthInPixels = () => {
+    return this.map.layer_width_in_pixels();
+  }
+
+  heightInPixels = () => {
+    return this.map.layer_height_in_pixels();
+  }
+
+  addLayer = (x, y, width, height, tileSize) => {
     // Set default position to (0,0)
     if (!x || !y) {
       x = 0;
@@ -35,11 +43,11 @@ class Tilemap {
 
     // Set default size to the map size
     if (!width || !height) {
-      width = TilemapInstance.width();
+      width = TilemapInstance.width()
       height = TilemapInstance.height();
     }
 
-    this.map.add_layer(x, y, width, height);
+    this.map.add_layer(x, y, width, height, tileSize[0], tileSize[1]);
   }
 
   get = (x, y, layerId) => {

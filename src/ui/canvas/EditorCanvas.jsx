@@ -11,12 +11,14 @@ const EditorCanvas = () => {
   const dispatch = useDispatch();
   const editingCanvasRef = useRef();
   const [offset, setOffset] = useState([0, 0]);
+  const [zoomLevel, setZoomLevel] = useState(1.0);
   const { selectedLayer, layers } = useSelector((state) => ({
-    selectedLayer: {name: state.layers.selected, ...state.layers.layers[state.layers.selected]},
+    selectedLayer: { name: state.layers.selected, ...state.layers.layers[state.layers.selected] },
     layers: state.layers.layers,
   }));
   const selectedTile = useSelector((state) => state.tileset.selectedTile);
   const { selectedTool } = useSelector((state) => state.canvas);
+  const showGrid = useSelector((state) => state.canvas.showGrid);
 
   useEffect(() => {
     const refElement = editingCanvasRef.current;
@@ -67,7 +69,6 @@ const EditorCanvas = () => {
     };
   }, [dispatch]);
 
-
   useEffect(() => {
     const canvas = editingCanvasRef.current;
 
@@ -78,28 +79,33 @@ const EditorCanvas = () => {
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
 
+    if (!showGrid) {
+      return;
+    }
 
     drawOutline({
-      canvas: canvas,
+      context: context,
+      width: TilemapInstance.width() * zoomLevel,
+      height: TilemapInstance.height() * zoomLevel,
       color: EDITOR_GRID_COLOR,
       dashed: true,
       offset: offset,
     });
 
     drawGrid({
-      canvas: canvas,
+      context: context,
+      width: TilemapInstance.width() * zoomLevel,
+      height: TilemapInstance.height() * zoomLevel,
       color: EDITOR_GRID_COLOR,
-      tileSize: selectedLayer.tileSize,
+      tileSize: [selectedLayer.tileSize[0] * zoomLevel, selectedLayer.tileSize[1] * zoomLevel],
       dashed: true,
       offset: offset,
     });
-  }, [selectedLayer, offset]);
-
+  }, [selectedLayer, offset, zoomLevel, showGrid]);
 
   const handleOneTimeTools = (e) => {
     switch (selectedTool) {
       case tools.FILL_TOOL: {
-        const zoomLevel = RendererInstance.camera.getZoomLevel();
         const position = getTilePositionOnClick(
           e,
           [selectedLayer.tileSize[0] * zoomLevel, selectedLayer.tileSize[1] * zoomLevel],
@@ -119,8 +125,10 @@ const EditorCanvas = () => {
       case tools.MAGNIFY_TOOL: {
         if (e.altKey) {
           RendererInstance.camera.decrementZoom();
+          setZoomLevel(RendererInstance.camera.getZoomLevel());
         } else {
           RendererInstance.camera.incrementZoom();
+          setZoomLevel(RendererInstance.camera.getZoomLevel());
         }
       }
 
@@ -130,7 +138,6 @@ const EditorCanvas = () => {
   };
 
   const handleContinuousTools = (e) => {
-    const zoomLevel = RendererInstance.camera.getZoomLevel();
     const position = getTilePositionOnClick(
       e,
       [selectedLayer.tileSize[0] * zoomLevel, selectedLayer.tileSize[1] * zoomLevel],
@@ -182,10 +189,10 @@ const EditorCanvas = () => {
 
   const handleDragStart = (e) => {
     // Hide drag image with a 1x1 transparent pixel image
-    const pixel = document.createElement('img');
-    pixel.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+    const pixel = document.createElement("img");
+    pixel.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
     e.dataTransfer.setDragImage(pixel, 0, 0);
-  }
+  };
 
   const handleDrag = (e) => {
     // Abort handling tool if no layer is selected
@@ -213,7 +220,7 @@ const EditorCanvas = () => {
       onDragOver={handleDrag}
       onDragStart={handleDragStart}
       className="col-span-full row-span-full z-10 w-full h-full"
-      draggable='true'
+      draggable="true"
     />
   );
 };

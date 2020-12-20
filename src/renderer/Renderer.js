@@ -11,9 +11,6 @@ import Texture from "renderer/Texture";
 import Camera from "renderer/Camera";
 import { UNIFORM_MVP, BATCH_VERTEX_SHADER_SOURCE, BATCH_FRAGMENT_SHADER_SOURCE } from "renderer/constants";
 
-// TODO: Provide a method to change tile size per layer
-const tileSize = [32, 32];
-
 /** A class that handles WebGL rendering of tiles using a Batch2D. */
 class Renderer {
   hasInitialized = false;
@@ -92,6 +89,13 @@ class Renderer {
     this.shaderProgram.setMat4(UNIFORM_MVP, this.camera.getMvp());
 
     this.batch.begin();
+
+    // Emplace a background with solid color
+    this.batch.emplaceQuad(
+      [0, 0],
+      [TilemapInstance.widthInPixels(), TilemapInstance.heightInPixels()],
+      [0.12157, 0.16078, 0.21569, 1.0]
+    );
 
     // Iterates through layer names from the redux reduxStore,
     // gets the corresponding tiles and renders them in order.

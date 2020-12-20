@@ -35,7 +35,7 @@ const TilesetManager = () => {
     });
   }, [dispatch, hasLoadedTextures]);
 
-  const onTilesetUpload = async (event) => {
+  const onTilesetUpload = (event) => {
     // Return if file is invalid
     if (event.target.files.length <= 0 || !event.target.files[0]) {
       return;
@@ -55,7 +55,12 @@ const TilesetManager = () => {
           </div>
 
           {tilesetData && (
-            <TilesetPreview tilesetName={selectedTileset} selectable={true} tileSize={tilesetData.tileSize} tilesetIndex={tilesetData.tilesetIndex} />
+            <TilesetPreview
+              tilesetName={selectedTileset}
+              selectable={true}
+              tileSize={tilesetData.tileSize}
+              tilesetIndex={tilesetData.tilesetIndex}
+            />
           )}
 
           {selectedTileset && <TilesetFooter selectedTileset={selectedTileset} />}

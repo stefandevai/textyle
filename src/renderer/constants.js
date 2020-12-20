@@ -45,44 +45,49 @@ export const BATCH_FRAGMENT_SHADER_SOURCE = `#version 300 es
       uniform sampler2D ${UNIFORM_SAMPLERS}[11];
 
       void main() {
-        vec4 finalColor = vec4(0.0);
-        int tid = int(vTextureIdx + 0.5);
+        vec4 finalColor = vColor;
 
-        switch (tid)
+        if (vTextureIdx > 0.0)
         {
-          case 0:
-            finalColor = texture(${UNIFORM_SAMPLERS}[0], vTextureCoord);
-            break;
-          case 1:
-            finalColor = texture(${UNIFORM_SAMPLERS}[1], vTextureCoord);
-            break;
-          case 2:
-            finalColor = texture(${UNIFORM_SAMPLERS}[2], vTextureCoord);
-            break;
-          case 3:
-            finalColor = texture(${UNIFORM_SAMPLERS}[3], vTextureCoord);
-            break;
-          case 4:
-            finalColor = texture(${UNIFORM_SAMPLERS}[4], vTextureCoord);
-            break;
-          case 5:
-            finalColor = texture(${UNIFORM_SAMPLERS}[5], vTextureCoord);
-            break;
-          case 6:
-            finalColor = texture(${UNIFORM_SAMPLERS}[6], vTextureCoord);
-            break;
-          case 7:
-            finalColor = texture(${UNIFORM_SAMPLERS}[7], vTextureCoord);
-            break;
-          case 8:
-            finalColor = texture(${UNIFORM_SAMPLERS}[8], vTextureCoord);
-            break;
-          case 9:
-            finalColor = texture(${UNIFORM_SAMPLERS}[9], vTextureCoord);
-            break;
-          case 10:
-            finalColor = texture(${UNIFORM_SAMPLERS}[10], vTextureCoord);
-            break;
+          int tid = int(vTextureIdx + 0.5);
+          switch (tid)
+          {
+            case 0:
+              finalColor = texture(${UNIFORM_SAMPLERS}[0], vTextureCoord);
+              break;
+            case 1:
+              finalColor = texture(${UNIFORM_SAMPLERS}[1], vTextureCoord);
+              break;
+            case 2:
+              finalColor = texture(${UNIFORM_SAMPLERS}[2], vTextureCoord);
+              break;
+            case 3:
+              finalColor = texture(${UNIFORM_SAMPLERS}[3], vTextureCoord);
+              break;
+            case 4:
+              finalColor = texture(${UNIFORM_SAMPLERS}[4], vTextureCoord);
+              break;
+            case 5:
+              finalColor = texture(${UNIFORM_SAMPLERS}[5], vTextureCoord);
+              break;
+            case 6:
+              finalColor = texture(${UNIFORM_SAMPLERS}[6], vTextureCoord);
+              break;
+            case 7:
+              finalColor = texture(${UNIFORM_SAMPLERS}[7], vTextureCoord);
+              break;
+            case 8:
+              finalColor = texture(${UNIFORM_SAMPLERS}[8], vTextureCoord);
+              break;
+            case 9:
+              finalColor = texture(${UNIFORM_SAMPLERS}[9], vTextureCoord);
+              break;
+            case 10:
+              finalColor = texture(${UNIFORM_SAMPLERS}[10], vTextureCoord);
+              break;
+            default:
+              break;
+          }
         }
 
         oColor = finalColor;

@@ -1,8 +1,9 @@
 import Canvas from "ui/canvas/Canvas";
 import Sidebar from "ui/sidebar/Sidebar";
 import Toolbar from "ui/canvas/Toolbar";
-import { HashRouter } from "react-router-dom";
 import { dividerBorderColor } from "resources/styles";
+
+import { useState } from "react";
 
 const App = () => {
   return (
@@ -16,11 +17,7 @@ const App = () => {
           gridTemplateColumns: "auto 1fr 1fr 1fr",
         }}
       >
-        <div className="col-start-1 col-end-2 row-start-1 row-end-3 z-20 flex">
-          <HashRouter className="flex-1">
-            <Sidebar />
-          </HashRouter>
-        </div>
+        <Sidebar />
         <Toolbar />
         <Canvas />
       </main>

@@ -45,8 +45,8 @@ export const idbReduxMiddleware = (store) => (next) => (action) => {
 export const tilemapReduxMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case ADD_LAYER: {
-      let { x, y, width, height } = action.payload || {};
-      TilemapInstance.addLayer(x, y, width, height);
+      let { x, y, width, height, tileSize } = action.payload || {};
+      TilemapInstance.addLayer(x, y, width, height, tileSize);
       break;
     }
 
