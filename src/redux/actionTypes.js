@@ -1,14 +1,15 @@
-export const ADD_TILESET = "[TILESET] Add one";
+export const ADD_TILESET = "[TILESET] Add tileset";
 export const LOAD_EXISTING_TILESET = "[TILESET] Load existing textures";
 export const COMPLETE_TEXTURE_LOADING = "[TILESET] Texture loading complete";
-export const SELECT_TILESET = "[TILESET] Select";
-export const UPDATE_TILESET = "[TILESET] Update";
-export const DELETE_TILESET = "[TILESET] Delete";
-export const SELECT_TILE = "[TILE] Select";
+export const SELECT_TILESET = "[TILESET] Select tileset";
+export const UPDATE_TILESET = "[TILESET] Update tileset";
+export const DELETE_TILESET = "[TILESET] Delete tileset";
+export const SELECT_TILE = "[TILESET] Select tile";
 
-export const SELECT_TOOL = "[TOOL] Select";
-export const DIPLAY_SIDEBAR = "[SIDEBAR] Display";
-export const SET_TILE_SIZE = "[TILE] Set size";
+export const SELECT_TOOL = "[CANVAS] Select tool";
+export const SET_TILE_SIZE = "[CANVAS] Set tile size";
+export const DIPLAY_SIDEBAR = "[CANVAS] Display sidebar";
+export const TOGGLE_GRID = "[CANVAS] Toggle grid";
 
 export const ADD_LAYER = "[LAYER] Add one";
 export const UPDATE_LAYER = "[LAYER] Update";

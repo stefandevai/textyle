@@ -35,7 +35,7 @@ const TilesetManager = () => {
     });
   }, [dispatch, hasLoadedTextures]);
 
-  const onTilesetUpload = async (event) => {
+  const onTilesetUpload = (event) => {
     // Return if file is invalid
     if (event.target.files.length <= 0 || !event.target.files[0]) {
       return;

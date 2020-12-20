@@ -1,4 +1,4 @@
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectTool } from "redux/actions";
 import ReactTooltip from "react-tooltip";
 import Icon from "@mdi/react";

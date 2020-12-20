@@ -18,6 +18,7 @@ const EditorCanvas = () => {
   }));
   const selectedTile = useSelector((state) => state.tileset.selectedTile);
   const { selectedTool } = useSelector((state) => state.canvas);
+  const showGrid = useSelector(state => state.canvas.showGrid);
 
   useEffect(() => {
     const refElement = editingCanvasRef.current;
@@ -79,6 +80,10 @@ const EditorCanvas = () => {
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
 
+    if (!showGrid) {
+      return;
+    }
+
     drawOutline({
       context: context,
       width: TilemapInstance.width() * zoomLevel,
@@ -97,7 +102,7 @@ const EditorCanvas = () => {
       dashed: true,
       offset: offset,
     });
-  }, [selectedLayer, offset, zoomLevel]);
+  }, [selectedLayer, offset, zoomLevel, showGrid]);
 
 
   const handleOneTimeTools = (e) => {
