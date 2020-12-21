@@ -36,32 +36,30 @@ const WelcomeModal = () => {
   };
 
   return open ? (
-    <Modal open={open} onClose={onClose}>
-      <div className="flex flex-col">
-        <h1 className="text-2xl font-bold mb-4">Welcome to Textyle!</h1>
-        <div className="max-w-md text-base">
-          <p className="pb-4">
-            Textyle is a free and open source tilemap editor that is{" "}
-            <span className="underline">still in development</span>. The goal is to provide the most simple and
-            straightforward way to create 2D tilemaps.
-          </p>
-          <p className="pb-4">If you enjoy this project and want to help in its development, consider:</p>
-          <ul className="list-disc ml-8 pb-4">
-            <li>
-              Talking to us on <Anchor href="https://discord.gg/BtEPJmkacp">Discord</Anchor>
-            </li>
-            <li>
-              Contributing to the code on <Anchor href="https://github.com/stefandevai/textyle">GitHub</Anchor>
-            </li>
-            <li>
-              <Anchor href="https://textyle.app/contribute">Donating</Anchor> any amount
-            </li>
-          </ul>
-          <p className="pb-4">Thank you so much for trying this early version of Textyle :)</p>
-        </div>
-        <span className="w-full text-base font-bold">
-          <Button text="Start Tiling!" onClick={onClose} />
-        </span>
+    <Modal open={open} onClose={onClose} style={{ minHeight: '25rem' }}>
+      <h1 className="text-2xl font-bold mb-4">Welcome to Textyle!</h1>
+      <div className="max-w-md text-base">
+        <p className="pb-4">
+          Textyle is a free and open source tilemap editor that is{" "}
+          <span className="underline">still in development</span>. The goal is to provide the most simple and
+          straightforward way to create 2D tilemaps.
+        </p>
+        <p className="pb-4">If you enjoy this project and want to help in its development, consider:</p>
+        <ul className="list-disc ml-8 pb-4">
+          <li>
+            Talking to us on <Anchor href="https://discord.gg/BtEPJmkacp">Discord</Anchor>
+          </li>
+          <li>
+            Contributing to the code on <Anchor href="https://github.com/stefandevai/textyle">GitHub</Anchor>
+          </li>
+          <li>
+            <Anchor href="https://textyle.app/donate">Donating</Anchor> any amount
+          </li>
+        </ul>
+        <p className="pb-4">Thank you so much for trying this early version of Textyle :)</p>
+      </div>
+      <div className="w-full text-base font-bold pb-2">
+        <Button text="Start Tiling!" onClick={onClose} />
       </div>
     </Modal>
   ) : null;

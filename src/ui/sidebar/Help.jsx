@@ -14,8 +14,7 @@ const Help = () => {
             most simple and straightforward way to create 2D tilemaps.
           </p>
           <p className="pb-2">
-            If you need help using the editor, check the tutorials and documentation{" "}
-            <Anchor href="https://textyle.app/learn">here</Anchor>.
+            If you need help using the editor, check the tutorials and documentation <Anchor href="https://textyle.app/learn">here</Anchor>.
           </p>
           <p className="pb-2">If you enjoy this project and want to help in its development, consider:</p>
           <ul className="list-disc ml-6 pb-2">
@@ -26,7 +25,7 @@ const Help = () => {
               Contributing to the code on <Anchor href="https://github.com/stefandevai/textyle">GitHub</Anchor>
             </li>
             <li>
-              <Anchor href="https://textyle.app/contribute">Donating</Anchor> any amount
+              <Anchor href="https://textyle.app/donate">Donating</Anchor> any amount
             </li>
           </ul>
         </div>
@@ -40,7 +39,7 @@ const Help = () => {
           <Anchor href="https://textyle.app/learn">
             <Icon path={mdiTextBoxMultiple} size={1.0} />
           </Anchor>
-          <Anchor href="https://textyle.app/contribute">
+          <Anchor href="https://textyle.app/donate">
             <Icon path={mdiGiftOutline} size={1.0} />
           </Anchor>
         </div>

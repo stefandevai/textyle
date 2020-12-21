@@ -151,9 +151,15 @@ const EditorCanvas = () => {
       }
 
       case tools.PLACEMENT_TOOL: {
-        if (selectedTile !== null && selectedTile !== undefined && selectedTile !== -1) {
-          TilemapInstance.set(...position, selectedTile, layerId);
+        if (e.button === 2) {
+          TilemapInstance.set(...position, -1, layerId);
         }
+        else if (e.button === 0) {
+          if (selectedTile !== null && selectedTile !== undefined && selectedTile !== -1) {
+            TilemapInstance.set(...position, selectedTile, layerId);
+          }
+        }
+
         break;
       }
 
@@ -219,6 +225,7 @@ const EditorCanvas = () => {
       onMouseDown={handleMouseDown}
       onDragOver={handleDrag}
       onDragStart={handleDragStart}
+      onContextMenu={(e) => e.preventDefault()}
       className="col-span-full row-span-full z-10 w-full h-full"
       draggable="true"
     />

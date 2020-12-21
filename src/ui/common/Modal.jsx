@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ReactModal from "react-modal";
 
-const Modal = ({ children, open, title, onClose }) => {
+const Modal = ({ children, open, title, onClose, style }) => {
   return (
     <ReactModal
       isOpen={open}
@@ -25,15 +25,18 @@ const Modal = ({ children, open, title, onClose }) => {
           transform: "translate(-50%, -50%)",
           zIndex: "30",
           padding: "1rem",
-          height: "max-content",
+          height: 'max-content',
           width: "max-content",
+          ...style,
         },
       }}
     >
-      <h1>
-        <strong>{title}</strong>
-      </h1>
-      <div className="text-xs">{children}</div>
+      <div>
+        <h1>
+          <strong>{title}</strong>
+        </h1>
+        <div className="text-xs">{children}</div>
+      </div>
     </ReactModal>
   );
 };

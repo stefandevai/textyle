@@ -27,6 +27,11 @@ class TileManager {
    * @returns {number} - The index in this.tiles of the first tile of the provided texture. This allows getting the remaining indices for a specific texture.
    */
   addTiles = async (textureKey, tileSize) => {
+    if (!tileSize) {
+      console.log(textureKey)
+      return;
+    }
+
     const bitmap = await getImageBitmap(textureKey);
     const hFrames = Math.floor(bitmap.width / tileSize[0]);
     const vFrames = Math.floor(bitmap.height / tileSize[1]);
