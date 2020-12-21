@@ -12,6 +12,10 @@ Textyle aims to simplify and speed up the process of making tilemaps for your ga
 
 The project is in its initial stages of development, expect great improvements to come!
 
+# Donate
+
+Please, consider [donating](https://textyle.app/donate) to the project and supporting its development.
+
 # Getting started
 
 Check the wiki for a simple [provisional tutorial](https://github.com/stefandevai/textyle/wiki/Tutorial). A complete documentation will come soon!
