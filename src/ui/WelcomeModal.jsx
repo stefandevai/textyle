@@ -54,7 +54,7 @@ const WelcomeModal = () => {
               Contributing to the code on <Anchor href="https://github.com/stefandevai/textyle">GitHub</Anchor>
             </li>
             <li>
-              <Anchor href="https://textyle.app/contribute">Donating</Anchor> any amount
+              <Anchor href="https://textyle.app/donate">Donating</Anchor> any amount
             </li>
           </ul>
           <p className="pb-4">Thank you so much for trying this early version of Textyle :)</p>
