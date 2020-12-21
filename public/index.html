@@ -12,11 +12,11 @@
 
     <title>
         
-          Textyle 0.1.0 is out! - Textyle: Online Tilemap Editor
+          Textyle: Online Tilemap Editor
         
     </title>
 
-    <link rel="canonical" href="https://textyle.app/2020/12/21/launch/">
+    <link rel="canonical" href="https://textyle.app/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -140,89 +140,68 @@
 
 
     <!-- Main Content -->
-    
-<!-- Image to hack wechat -->
-<!-- <img src="https://textyle.app/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
-
-<!-- Post Header -->
-<style type="text/css">
-    header.intro-header{
-        background-image: url('/img/banner.jpg')
-    }
-</style>
-<header class="intro-header" >
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/banner.jpg')">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <h1>Textyle 0.1.0 is out!</h1>
-                    <h2 class="subheading"></h2>
-                    <span class="meta">
-                        Posted on
-                        21-12-2020
-                    </span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>Tiling made easy.</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading" style="font-size:3rem;">Online Tilemap Editor</span>
+                    <a style="color: white;" href="/edit/"><button type="button" class="hero-button">Try Textyle!</button></a>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
 
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        
+<!-- NO SIDEBAR -->
     <!-- Post Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 post-container">
+                <!-- Main Content -->
 
-                <p>This is the first version of Textyle and it’s more like a Minimal Viable Product. I wanted to have a minimal set of working features instead of implementing tons of buggy systems.</p>
-<p>The main goal of this launch was to stablish a overall architecture for the project while placing React, Rust and WebGL in their respective modules. I think this objective was achieved, each layer of the stack now clearly has one main purpose:</p>
-<ul>
-<li><strong>React JS</strong>: UI</li>
-<li><strong>Rust (WASM)</strong>: Tilemap maths, logic and algorithms</li>
-<li><strong>WebGL</strong>: Tilemap rendering</li>
+
+<div class="post-preview">
+
+    <a href="/2020/12/21/launch/">
+        <h2 class="post-title">
+            Textyle 0.1.0 is out!
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            This is the first version of Textyle and it’s more like a Minimal Viable Product. I wanted to have a minimal set of working features instead of implementing tons of buggy systems.
+The main goal of ......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted on
+        21-12-2020
+    </p>
+
+</div>
+<hr>
+
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    
 </ul>
-<p>There’s still some small adjustments I need to work on the export format to make it better for using in games and importing back into the editor. But in a general view, I worked hard to eliminate all the bugs I could find until now and to maintain the UI simple at the same time.</p>
-<p>Here’s a list of the main features available in this version:</p>
-<ul>
-<li>2D batch rendering</li>
-<li>Pencil tool (single tile placement)</li>
-<li>Fill tool</li>
-<li>Eraser tool</li>
-<li>Zoom in / zoom out</li>
-<li>Pan tool</li>
-<li>Multiple layers</li>
-<li>Multiple tilesets per layer</li>
-<li>Variable tile size (even within the same project)</li>
-<li>Export to JSON</li>
-<li>Show / hide grid in each layer</li>
-</ul>
-<p>Now I want to have some days of code refactor. I won’t go too far, I just want to make sure the code remains clear. Also, one of next urgent goals is to port the code to TypeScript. I was somewhat tired of C++ types when I started the project, so I decided to make the initial development iterations easier with dynamic typing. However, I’m beginning to spend an uncomfortably amount of time on problems that would be easily avoided with types.</p>
 
-
-                <hr>
-
-                
-
-                <ul class="pager">
-                    
-                    
-                </ul>
-
-                
-
-                
 
             </div>
-    <!-- Side Catalog Container -->
-        
-
     <!-- Sidebar Container -->
-
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
@@ -231,17 +210,86 @@
                 <!-- Featured Tags -->
                 
 
+
                 <!-- Friends Blog -->
                 
             </div>
+        
+    </div>
+</div>
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
 
+                <li>
+                    <a target="_blank" href="https://discord.gg/BtEPJmkacp">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-1x discord-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 240"><path d="M104.4 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1.1-6.1-4.5-11.1-10.2-11.1zM140.9 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1s-4.5-11.1-10.2-11.1z"/><path d="M189.5 20h-134C44.2 20 35 29.2 35 40.6v135.2c0 11.4 9.2 20.6 20.5 20.6h113.4l-5.3-18.5 12.8 11.9 12.1 11.2 21.5 19V40.6c0-11.4-9.2-20.6-20.5-20.6zm-38.6 130.6s-3.6-4.3-6.6-8.1c13.1-3.7 18.1-11.9 18.1-11.9-4.1 2.7-8 4.6-11.5 5.9-5 2.1-9.8 3.5-14.5 4.3-9.6 1.8-18.4 1.3-25.9-.1-5.7-1.1-10.6-2.7-14.7-4.3-2.3-.9-4.8-2-7.3-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.3-1.8-1-2.8-1.7-2.8-1.7s4.8 8 17.5 11.8c-3 3.8-6.7 8.3-6.7 8.3-22.1-.7-30.5-15.2-30.5-15.2 0-32.2 14.4-58.3 14.4-58.3 14.4-10.8 28.1-10.5 28.1-10.5l1 1.2c-18 5.2-26.3 13.1-26.3 13.1s2.2-1.2 5.9-2.9c10.7-4.7 19.2-6 22.7-6.3.6-.1 1.1-.2 1.7-.2 6.1-.8 13-1 20.2-.2 9.5 1.1 19.7 3.9 30.1 9.6 0 0-7.9-7.5-24.9-12.7l1.4-1.6s13.7-.3 28.1 10.5c0 0 14.4 26.1 14.4 58.3 0 0-8.5 14.5-30.6 15.2z"/></svg>
+                            </i>
+                        </span>
+                    </a>
+                </li>
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/stefandevai/textyle">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+
+                <li>
+                    <a target="_blank" href="https://www.reddit.com/r/textyle/">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-reddit fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/textyleapp">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Textyle - 2020 
+                    <br>
+                </p>
+            </div>
         </div>
     </div>
-</article>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
 
 
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
 
 
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
 
 
 
@@ -256,28 +304,60 @@
       s.parentNode.insertBefore(o, s);
     }
 </script>
-<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
 <script>
-    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
-        anchors.options = {
-          visible: 'always',
-          placement: 'right',
-          icon: '#'
-        };
-        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://textyle.app/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
     })
 </script>
-<style>
-    /* place left on bigger screen */
-    @media all and (min-width: 800px) {
-        .anchorjs-link{
-            position: absolute;
-            left: -0.75em;
-            font-size: 1.1em;
-            margin-top : -0.1em;
-        }
-    }
-</style>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
 
 
 

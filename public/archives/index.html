@@ -12,11 +12,11 @@
 
     <title>
         
-          Textyle 0.1.0 is out! - Textyle: Online Tilemap Editor
+          Textyle: Online Tilemap Editor
         
     </title>
 
-    <link rel="canonical" href="https://textyle.app/2020/12/21/launch/">
+    <link rel="canonical" href="https://textyle.app/archives/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -140,146 +140,7 @@
 
 
     <!-- Main Content -->
-    
-<!-- Image to hack wechat -->
-<!-- <img src="https://textyle.app/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
-
-<!-- Post Header -->
-<style type="text/css">
-    header.intro-header{
-        background-image: url('/img/banner.jpg')
-    }
-</style>
-<header class="intro-header" >
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <h1>Textyle 0.1.0 is out!</h1>
-                    <h2 class="subheading"></h2>
-                    <span class="meta">
-                        Posted on
-                        21-12-2020
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-
-    <!-- Post Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-                <p>This is the first version of Textyle and it’s more like a Minimal Viable Product. I wanted to have a minimal set of working features instead of implementing tons of buggy systems.</p>
-<p>The main goal of this launch was to stablish a overall architecture for the project while placing React, Rust and WebGL in their respective modules. I think this objective was achieved, each layer of the stack now clearly has one main purpose:</p>
-<ul>
-<li><strong>React JS</strong>: UI</li>
-<li><strong>Rust (WASM)</strong>: Tilemap maths, logic and algorithms</li>
-<li><strong>WebGL</strong>: Tilemap rendering</li>
-</ul>
-<p>There’s still some small adjustments I need to work on the export format to make it better for using in games and importing back into the editor. But in a general view, I worked hard to eliminate all the bugs I could find until now and to maintain the UI simple at the same time.</p>
-<p>Here’s a list of the main features available in this version:</p>
-<ul>
-<li>2D batch rendering</li>
-<li>Pencil tool (single tile placement)</li>
-<li>Fill tool</li>
-<li>Eraser tool</li>
-<li>Zoom in / zoom out</li>
-<li>Pan tool</li>
-<li>Multiple layers</li>
-<li>Multiple tilesets per layer</li>
-<li>Variable tile size (even within the same project)</li>
-<li>Export to JSON</li>
-<li>Show / hide grid in each layer</li>
-</ul>
-<p>Now I want to have some days of code refactor. I won’t go too far, I just want to make sure the code remains clear. Also, one of next urgent goals is to port the code to TypeScript. I was somewhat tired of C++ types when I started the project, so I decided to make the initial development iterations easier with dynamic typing. However, I’m beginning to spend an uncomfortably amount of time on problems that would be easily avoided with types.</p>
-
-
-                <hr>
-
-                
-
-                <ul class="pager">
-                    
-                    
-                </ul>
-
-                
-
-                
-
-            </div>
-    <!-- Side Catalog Container -->
-        
-
-    <!-- Sidebar Container -->
-
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                <!-- Featured Tags -->
-                
-
-                <!-- Friends Blog -->
-                
-            </div>
-
-        </div>
-    </div>
-</article>
-
-
-
-
-
-
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
-<script>
-    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
-        anchors.options = {
-          visible: 'always',
-          placement: 'right',
-          icon: '#'
-        };
-        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
-    })
-</script>
-<style>
-    /* place left on bigger screen */
-    @media all and (min-width: 800px) {
-        .anchorjs-link{
-            position: absolute;
-            left: -0.75em;
-            font-size: 1.1em;
-            margin-top : -0.1em;
-        }
-    }
-</style>
-
-
+    <!-- Default Archive layout, we use archives instead. -->
 
 
 </body>
