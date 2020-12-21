@@ -14,7 +14,7 @@ The project is in its initial stages of development, expect great improvements t
 
 # Getting started
 
-Textyle UI is simple. Check the [wiki](https://github.com/stefandevai/textyle/wiki) for tutorials on how to start making your maps. However, you are encouraged to explore the application and leave the mouse on any term or box as almost everything has a [tooltip](https://en.wikipedia.org/wiki/Tooltip) indicating its use.
+Check the wiki for a simple [provisional tutorial](https://github.com/stefandevai/textyle/wiki/Tutorial). A complete documentation will come soon!
 
 # Integrating a Textyle map to your project
 

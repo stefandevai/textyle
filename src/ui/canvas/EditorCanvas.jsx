@@ -151,8 +151,6 @@ const EditorCanvas = () => {
       }
 
       case tools.PLACEMENT_TOOL: {
-        e.preventDefault();
-
         if (e.button === 2) {
           TilemapInstance.set(...position, -1, layerId);
         }
