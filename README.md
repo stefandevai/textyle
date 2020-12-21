@@ -62,6 +62,12 @@ Textyle is built using React JS for the UI, WebGL for rendering graphics and Rus
 
 Textyle has been tested on Firefox and Chrome. Currently it doesn't run on Safari because it needs WebGL2 support, which Safari lacks. There are plans, however, to port the code to WebGL1.
 
+# Alternatives
+
+- [Tiled](https://github.com/mapeditor/tiled)
+- [tileEditor](https://github.com/victorqribeiro/tileEditor)
+
 # Contributing
 
 Are you learning Rust, JavaScript or React? Are you an expert already? Found a way to improve the code? You are more than welcome to contribute to this project! But before that, please check our [code of conduct](./CODE_OF_CONDUCT.md) and take a look on the guidelines for [contributing](./CONTRIBUTING.md).
+
